@@ -25,7 +25,7 @@ class ReadyListener extends FlameListener {
 
     client.user.setActivity('https://github.com/TheFerryn/Flame', { type: 3 });
     return console.log(
-      `[Bot] Logges in as ${client.user.tag} (${client.user.id})`
+      `[Bot] Logged in as ${client.user.tag} (${client.user.id})`
     );
   }
 }

@@ -1,6 +1,24 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
   getHelp(message, command) {
-    return message.client.commands.get('help').run(message, [command]);
+    var command = message.client.commands.get(command);
+    var categories = { general: 'Основное', moderation: 'Модерация', music: 'Музыка', economy: 'Экономика' };
+
+    if (!command || command.name == 'eval') return null;
+
+    return message.channel.send(
+      new MessageEmbed()
+        .setTitle('Информация о команде')
+        .setThumbnail(message.client.user. avatarURL())
+        .setColor('ffa500')
+        .setFooter(message.guild.name, message.guild.iconURL())
+        .setTimestamp()
+        .addField('📜 Описание', command.description)
+        .addField('📁 Категория', categories[command.category], true)
+        .addField('📎 Псевдонимы', command.aliases.length ? command.aliases.map((a) => `\`${a}\``) : 'Отсутствуют', true)
+        .setDescription(`\`\`\`${command.usage}\`\`\``)
+    )
   },
   formatNumber(number) {
     return new Intl.NumberFormat('en-US').format(number);
