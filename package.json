@@ -1,0 +1,26 @@
+{
+  "name": "flame",
+  "version": "5.0.0",
+  "main": "src/shard.js",
+  "scripts": {
+    "lint": "eslint ./src --fix"
+  },
+  "repository": "https://github.com/TheFerryn/Flame",
+  "author": "TheFerryn",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "discord.js": "discordjs/discord.js",
+    "fastify": "^3.14.2",
+    "fastify-rate-limit": "^5.5.0",
+    "mongodb": "^3.6.6",
+    "node-fetch": "^2.6.1",
+    "querystring": "^0.2.1",
+    "redis": "^3.1.1",
+    "shoukaku": "1.5.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}

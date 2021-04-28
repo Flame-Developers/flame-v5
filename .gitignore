@@ -1,0 +1,15 @@
+node_modules/
+.DS_Store
+
+# Configuration files
+config.json
+.env
+# Lock files
+yarn.lock
+package-lock.json
+
+# Logs
+logs/
+npm-debug.log
+yarn-debug.log
+
