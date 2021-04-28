@@ -1,5 +1,4 @@
 site_name: Flame
-site_url: https://canary.flamebot.ru/
 theme:
   name: material
   language: ru
@@ -13,4 +12,4 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/TheFerryn/Flame/
+      link: https://github.com/Flame-Developers/Flame/
