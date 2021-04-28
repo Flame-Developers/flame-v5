@@ -2,8 +2,8 @@
   <h1>Flame</h1>
   <p>A multi-purpose Discord-bot with a lot of functionality and abilities written on <a href="https://github.com/discordjs/discord.js">discord.js</a></p>
   
-  ![Stars](https://img.shields.io/github/stars/TheFerryn/Flame?color=333&logo=github&style=for-the-badge)
-  ![License](https://img.shields.io/github/license/TheFerryn/Flame?color=333&logo=github&style=for-the-badge)
+  ![Stars](https://img.shields.io/github/stars/Flame-Developers/Flame?color=333&logo=github&style=for-the-badge)
+  ![License](https://img.shields.io/github/license/Flame-Developers/Flame?color=333&logo=github&style=for-the-badge)
   ![Discord](https://img.shields.io/discord/785088147721027585?color=7289DA&label=Discord&logo=discord&style=for-the-badge)
 </div>
 
