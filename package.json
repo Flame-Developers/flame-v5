@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint ./src --fix"
   },
-  "repository": "https://github.com/TheFerryn/Flame",
+  "repository": "https://github.com/Flame-Developers/Flame",
   "author": "TheFerryn",
   "license": "Apache 2.0",
   "dependencies": {
