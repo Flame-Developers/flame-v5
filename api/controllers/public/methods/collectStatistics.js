@@ -22,12 +22,14 @@
 
 const cache = {};
 
-async function collectStatistics() {
+async function collectBotStatistics() {
   let cachingRequired = false;
   const arr = [];
-  const script = '[this.ws.ping, this.ws.destroyed, this.guilds.cache.size, this.users.cache.size]';
+  const script =
+    '[this.ws.ping, this.ws.destroyed, this.guilds.cache.size, this.users.cache.size]';
 
-  if (cache.expires > Date.now()) return { shards: cache.stats.shards, ...cache.stats.stats };
+  if (cache.expires > Date.now())
+    return { shards: cache.stats.shards, ...cache.stats.stats };
   cachingRequired = true;
 
   const stats = {
@@ -62,4 +64,27 @@ async function collectStatistics() {
   return { shards: arr, ...stats };
 }
 
-module.exports = collectStatistics;
+async function collectNodesStatistics() {
+  let data = await ApiWorker.manager.shards
+    .first()
+    .eval('this.shoukaku.nodes.size');
+
+  if (!data) return { message: 'No nodes are available at this moment.' };
+  else {
+    data = await ApiWorker.manager.shards
+      .first()
+      .eval('this.shoukaku.getNode()');
+
+    return {
+      name: data.name ?? null,
+      connected: data?.state == 'CONNECTED',
+      stats: {
+        activePlayers: data.stats?.playingPlayers ?? 0,
+        launchedAt: new Date(Date.now() - data.stats.uptime).toISOString().replace('T', ' ').substr(0, 19) ?? null,
+        memoryUsage: (data.stats.memory.used / 1024 ** 2).toFixed() + ' MB' ?? 0,
+      },
+    };
+  }
+}
+
+module.exports = { collectBotStatistics, collectNodesStatistics };

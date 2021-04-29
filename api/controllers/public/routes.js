@@ -2,7 +2,12 @@ module.exports = [
   {
     method: 'GET',
     url: '/public/stats',
-    handler: require('./methods/collectStatistics'),
+    handler: require('./methods/collectStatistics').collectBotStatistics,
+  },
+  {
+    method: 'GET',
+    url: '/public/stats/nodes',
+    handler: require('./methods/collectStatistics').collectNodesStatistics,
   },
   {
     method: 'GET',
