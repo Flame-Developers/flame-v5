@@ -5,7 +5,7 @@ const config = require('../config.json');
 const FlameApiWorker = require('../api/structures/FlameApiWorker');
 
 console.clear();
-console.log(`* Starting application (${process.pid}) on ${process.platform} with Node.js ${process.version} installed...\n`);
+console.log(`[INFO] Starting application (${process.pid}) on ${process.platform} with Node.js ${process.version} installed...`);
 
 const Manager = new ShardingManager(join(__dirname, 'index.js'), {
   token: config.token,

@@ -18,6 +18,7 @@ class FlameDispatcher {
           .setTitle(this.current.info.title)
           .setURL(this.current.info.uri)
           .setDescription('Текущий трек в очереди сервера.')
+          .setThumbnail(this.guild.iconURL({ dynamic: true, size: 2048 }))
           .setColor('ffa500')
           .addField('Прямая трансляция?', this.current.info.isStram ? 'Да' : 'Нет', true)
           .addField('Длинна трека', msToTime(this.current.info.length), true)
@@ -26,7 +27,7 @@ class FlameDispatcher {
       );
     });
 
-    this.player.on('end', (data) => {
+    this.player.on('end', () => {
       if (this.loop !== 1) {
         if (this.loop == 2) this.queue.push(this.queue[0]);
         this.queue.shift();

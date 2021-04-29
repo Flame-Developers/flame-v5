@@ -1,4 +1,5 @@
 const FlameListener = require('../../structures/FlameListener');
+const InteractionData = require('../../utils/InteractionData');
 
 class InteractionCreateListener extends FlameListener {
   constructor() {
@@ -13,7 +14,7 @@ class InteractionCreateListener extends FlameListener {
         if (client.interactions.has(interaction.data.name))
           return client.interactions
             .get(interaction.data.name)
-            .run(client, interaction);
+            .run(client, new InteractionData(client, interaction));
         break;
     }
   }

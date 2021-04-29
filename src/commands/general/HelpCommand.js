@@ -47,7 +47,7 @@ class HelpCommand extends FlameCommand {
         .setTimestamp();
 
       for (const category of categories) {
-        embed.addField(category.name, category.description);
+        embed.addField(category.name, category.description, true);
       }
 
       return message.channel.send(embed);

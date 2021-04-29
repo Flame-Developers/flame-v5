@@ -6,24 +6,24 @@ class Queue extends Map {
     this.client = client;
   }
 
-  async handle(node, track, message) {
-    const existing = this.get(message.guild.id);
+  async handle(node, track, options = {}) {
+    const existing = this.get(options?.guild.id);
     if (!existing) {
       const player = await node.joinVoiceChannel({
-        guildID: message.guild.id,
-        voiceChannelID: message.member.voice.channelID,
+        guildID: options?.guild.id,
+        voiceChannelID: options?.member.voice.channelID,
       });
       const dispatcher = new FlameDispatcher({
         client: this.client,
-        guild: message.guild,
-        text: message.channel,
+        guild: options?.guild,
+        text: options?.channel,
         player,
       });
 
       dispatcher.queue.push(track);
       dispatcher.player.setVolume(50);
 
-      this.set(message.guild.id, dispatcher);
+      this.set(options?.guild.id, dispatcher);
 
       return dispatcher;
     }
