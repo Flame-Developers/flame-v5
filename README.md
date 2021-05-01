@@ -1,59 +1,36 @@
-<div align="center">
-  <h1>Flame</h1>
-  <p>A multi-purpose Discord-bot with a lot of functionality and abilities written on <a href="https://github.com/discordjs/discord.js">discord.js</a></p>
+# Flame
+A multipurpose Discord-bot with music, economy, utils, and also auto-moderation.
+
+<p>
+  <a href="https://discord.gg/7FUJPRCsw8">
+    <img src="https://img.shields.io/discord/785088147721027585.svg?logo=discord&colorB=7289DA" alt="Discord">
+  </a>
+
+  <a href="https://github.com/discordjs/discord.js">
+    <img src="https://img.shields.io/badge/discord.js-master-blue.svg?logo=npm" alt="discord.js">
+  </a>
   
-  ![Stars](https://img.shields.io/github/stars/Flame-Developers/Flame?color=333&logo=github&style=for-the-badge)
-  ![License](https://img.shields.io/github/license/Flame-Developers/Flame?color=333&logo=github&style=for-the-badge)
-  ![Discord](https://img.shields.io/discord/785088147721027585?color=7289DA&label=Discord&logo=discord&style=for-the-badge)
-</div>
+  <a href="https://boosty.to/flame_official">
+    <img src="https://img.shields.io/badge/boosty-donate-orange.svg" alt="boosty">
+  </a>
+</p>
 
-## Getting Started
-If you have any questions, please ask them at the [support server](https://discord.gg/7FUJPRCsw8). But first of all, try search for an answer in the [documentation](https://docs.flamebot.ru).
-### Prerequisites
-- **Node.js v14** or higher.
-- **MongoDB** database.
-- **Redis** server (optional).
-- **Java 13** installed to your system (or just a lavalink server).
-- **Git command line tools**.
+> **Flame** is a powerfull, multipurpose and fully modular Discord-bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 5,700 guilds and 425,000 real Discord-users.
 
-## Installation
-1. Clone this repository to your server and navigate to it.
-```
-$ git clone https://github.com/TheFerryn/Flame && cd Flame
-```
-2. Install required packages.
-```
-$ npm install
-```
-3. Create the `config.json` configuration file. It should look like this (replace data with yours):
-```json
-{
-  "token": "",
-  "shards": 1,
-  "database": "",
-  "emergency": "https://discord.com/api/webhooks/.../.../",
-  "lavalink": {
-    "name": "Node #1",
-    "host": "localhost",
-    "port": 5000,
-    "auth": "youshallnotpass"
-  },
-  "cachingEnabled": true,
-  "redis": {
-    "host": "localhost",
-    "port": 6379
-  }
-}
-```
-4. Startup the bot! (you can use pm2, screen or other utilities to keep it running in the background):
-```
-$ node .
-```
+Feel free to contribute or give this repo a star ⭐, so that our community grows much faster!
 
-**Do not forget, that we are not responsible for your bot. We can only help you with code errors — nothing else.**
+## Feautures
+- A friendly dashboard (currently in development).
+- 98% of all functions are free.
+- Rich settings (you're able to configure everything as you want).
+- A large amount of updates and fixes.
+
+## Abilities
+You can find more information about the project on [our website](https://flamebot.ru) or at official [documentation](https://docs.flamebot.ru).
 
 ## Contributing
-**All contributions are welcome.** But please, do not open duplicate Pull-requests and use [Conventional Commits](https://www.conventionalcommits.org).
+All contributions and Pull-requests **are welcome!** That means, that every single person can send us a PR, and we'll be glad to review it.
+But before you start, please notice, that you should use [Conventional Commits](https://conventionalcommits.org), and do not open duplicate Pull-requests.
 
 ## License
-Please notice, that this project is licensed under the [Apache License 2.0](https://github.com/TheFerryn/Flame/blob/main/LICENSE.md). You are able to use code from here for your own purposes, but **you must** provide original author of the code and a link to this repository.
+Please also remember, that this project is licensed under the [Apache License 2.0](https://github.com/Flame-Developers/Flame/blob/main/LICENSE.md). You **may** use code from here for your own purposes, but you **must** provide original author of the code and a link to this repository.
