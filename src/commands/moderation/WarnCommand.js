@@ -19,7 +19,7 @@ class WarnCommand extends FlameCommand {
     if (!user) return getHelp(message, this.name);
     if (user.permissions.has('MANAGE_MESSAGES') || user.roles.highest.position >= message.member.roles.highest.position) return message.reply('Вы не можете выдать предупреждение данному пользователю :no_entry:');
 
-    const id = (guild.warnings?.length ?? 0) + 1;
+    const id = Math.random().toString(36).slice(2, 9)
 
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $push: {
@@ -33,7 +33,7 @@ class WarnCommand extends FlameCommand {
       },
     });
 
-    return message.channel.send(`✅ Пользователю **${user.user.tag}** (${user.id}) было успешно выдано предупеждение (случай #**${id}**)`);
+    return message.channel.send(`✅ Пользователю **${user.user.tag}** (${user.id}) было успешно выдано предупеждение (ID: \`${id}\`)`);
   }
 }
 

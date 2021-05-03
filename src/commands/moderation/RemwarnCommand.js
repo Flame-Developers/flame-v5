@@ -16,15 +16,14 @@ class RemwarnCommand extends FlameCommand {
     const id = args[0];
 
     if (!id) return getHelp(message, this.name);
-    if (isNaN(id) || !parseInt(id) || parseInt(id) <= 0) return message.reply('Укажите пожалуйста **верный** случай :no_entry:');
 
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
-    const warn = data?.warnings.find((r) => r.id == parseInt(id));
+    const warn = data?.warnings.find((r) => r.id == id);
 
-    if (!warn) return message.reply('Указанный вами случай не был найден в базе данного сервера :no_entry:');
+    if (!warn) return message.reply('Указанное вами предупреждение не было найдено в базе данного сервера :no_entry:');
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $pull: {
-        warnings: { id: parseInt(id) },
+        warnings: { id },
       },
     });
 
