@@ -26,7 +26,7 @@ class WarnsCommand extends FlameCommand {
     else {
       embed.setThumbnail(message.guild.iconURL());
       for (const warn of warns.slice(-10)) {
-        embed.addField(`\`Предупреждение #${warn.id}\`: ${new Date(warn.time).toISOString().replace('T', ' ').substr(0, 19)} (${warn.moderator})`, `**Причина:** ${warn.reason.slice(0, 999) || 'Причина не указана.'}`);
+        embed.addField(`\`Случай #${warn.id}\`: ${new Date(warn.time).toISOString().replace('T', ' ').substr(0, 19)} (${warn.moderator})`, `**Причина:** ${warn.reason.slice(0, 999) || 'Причина не указана.'}`);
       }
     }
 
