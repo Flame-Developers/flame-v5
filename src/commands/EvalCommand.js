@@ -11,6 +11,7 @@ class EvalCommand extends FlameCommand {
   }
 
   async run(message, args) {
+    // eslint-disable-next-line global-require
     const util = require('util');
     let code = args.join(' '); let
       isAsync = false;
@@ -24,6 +25,7 @@ class EvalCommand extends FlameCommand {
         if (isAsync) code = `(async () => {${code}})()`;
 
         const before = process.hrtime.bigint();
+        // eslint-disable-next-line
         let executed = eval(code);
 
         if (util.types.isPromise(executed)) executed = await executed;
@@ -37,7 +39,8 @@ class EvalCommand extends FlameCommand {
           return message.member.send(executed, { split: '\n', code: 'js' });
         }
 
-        executed = `Выполнено за ${(parseInt(after - before) / 1000000).toFixed(3)} милисекунд.\n${executed}`;
+        executed = `Выполнено за ${(parseInt(after - before) / 1000000).toFixed(3)} миллисекунд.\n${executed}`;
+        // eslint-disable-next-line no-use-before-define
         message.reply(`\`\`\`js\n${clean(executed)}\`\`\``);
       } catch (error) {
         message.reply(`\`\`\`js\n${error}\`\`\``);

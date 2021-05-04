@@ -28,8 +28,7 @@ async function collectBotStatistics() {
   const script =
     '[this.ws.ping, this.ws.destroyed, this.guilds.cache.size, this.users.cache.size]';
 
-  if (cache.expires > Date.now())
-    return { shards: cache.stats.shards, ...cache.stats.stats };
+  if (cache.expires > Date.now()) return { shards: cache.stats.shards, ...cache.stats.stats };
   cachingRequired = true;
 
   const stats = {
@@ -37,6 +36,7 @@ async function collectBotStatistics() {
     totalUsers: 0,
     totalShards: 0,
   };
+  // eslint-disable-next-line no-undef,no-restricted-syntax
   for await (const shard of Array.from(ApiWorker.manager?.shards.values())) {
     const data = await shard.eval(script);
 
@@ -77,7 +77,7 @@ async function collectNodesStatistics() {
 
     return {
       name: data.name ?? null,
-      connected: data?.state == 'CONNECTED',
+      connected: data?.state === 'CONNECTED',
       stats: {
         activePlayers: data.stats?.playingPlayers ?? 0,
         launchedAt: new Date(Date.now() - data.stats.uptime).toISOString().replace('T', ' ').substr(0, 19) ?? null,

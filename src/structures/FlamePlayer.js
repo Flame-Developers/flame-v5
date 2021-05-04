@@ -20,7 +20,6 @@ const options = {
 class FlamePlayer extends Shoukaku {
   constructor(client) {
     super(client, nodes, options);
-
     this.on('ready', (name, resumed) => console.log(`[Lavalink => ${name}] ${resumed ? 'Reconnected' : 'Connected'}.`));
     this.on('error', (error) => console.error(error));
     this.on('close', (name, code) => console.log(`[Lavalink => ${name}] Connection closed with code ${code}.`));

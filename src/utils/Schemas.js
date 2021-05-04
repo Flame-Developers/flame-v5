@@ -57,7 +57,7 @@ module.exports = {
       titanium: false,
     },
     transport: {
-      boad: false,
+      boat: false,
       carriage: false,
     },
     payments: {

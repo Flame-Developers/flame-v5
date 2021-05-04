@@ -2,23 +2,30 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
   getHelp(message, command) {
-    var command = message.client.commands.get(command);
-    var categories = { general: 'Основное', moderation: 'Модерация', music: 'Музыка', economy: 'Экономика' };
+    const cmd = message.client.commands.get(command);
+    const categories = {
+      general: 'Основное',
+      moderation: 'Модерация',
+      music: 'Музыка',
+      economy: 'Экономика',
+      settings: 'Настройки',
+      leveling: 'Уровни',
+    };
 
-    if (!command || command.name == 'eval') return null;
+    if (!cmd || cmd.name === 'eval') return null;
 
     return message.channel.send(
       new MessageEmbed()
         .setTitle('Информация о команде')
-        .setThumbnail(message.client.user. avatarURL())
+        .setThumbnail(message.client.user.avatarURL())
         .setColor('ffa500')
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp()
-        .addField('📜 Описание', command.description)
-        .addField('📁 Категория', categories[command.category], true)
-        .addField('📎 Псевдонимы', command.aliases.length ? command.aliases.map((a) => `\`${a}\``) : 'Отсутствуют', true)
-        .setDescription(`\`\`\`${command.usage}\`\`\``)
-    )
+        .addField('📜 Описание', cmd.description)
+        .addField('📁 Категория', categories[cmd.category], true)
+        .addField('📎 Псевдонимы', cmd.aliases.length ? cmd.aliases.map((a) => `\`${a}\``) : 'Отсутствуют', true)
+        .setDescription(`\`\`\`${cmd.usage}\`\`\``),
+    );
   },
   formatNumber(number) {
     return new Intl.NumberFormat('en-US').format(number);
@@ -31,9 +38,11 @@ module.exports = {
         time = +new Date(time);
         break;
       case 'object':
+        // eslint-disable-next-line no-param-reassign
         if (time.constructor === Date) time = time.getTime();
         break;
       default:
+        // eslint-disable-next-line no-param-reassign
         time = +new Date();
     }
     const formats = [
@@ -50,15 +59,17 @@ module.exports = {
     let seconds = (+new Date() - time) / 1000;
     let token = 'назад';
     let choice = 1;
-    if (seconds == 0) return 'Только что';
+    if (seconds === 0) return 'Только что';
     if (seconds < 0) {
       seconds = Math.abs(seconds);
-      token = 'спустя',
+      // eslint-disable-next-line no-unused-expressions
+      token = 'спустя';
       choice = 2;
     }
     let i = 0;
     let format;
 
+    // eslint-disable-next-line no-cond-assign
     while (format = formats[i++]) {
       if (seconds < format[0]) {
         if (typeof format[2] === 'string') return format[choice];
@@ -82,6 +93,7 @@ module.exports = {
       const w = d * 7;
       const y = d * 365.25;
 
+      // eslint-disable-next-line no-param-reassign
       str = String(str);
       if (str.length > 50) return null;
 

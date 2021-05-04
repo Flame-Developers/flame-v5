@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 module.exports = [
   {
     method: 'GET',
