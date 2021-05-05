@@ -17,19 +17,22 @@ class HelpCommand extends FlameCommand {
       {
         name: 'Основное',
         key: 'general',
-        description:
-          'Основные возможности бота для обыкновенных пользователей.',
+        description: 'Основные возможности бота для обыкновенных пользователей.',
       },
       {
         name: 'Модерация',
         key: 'moderation',
-        description:
-          'Команды и утилиты для модераторов/администраторов сообществ.',
+        description: 'Утилиты для модераторов Discord-сообществ.',
       },
       {
         name: 'Музыка',
         key: 'music',
-        description: 'Команды для прослушивания музыки в голосовых каналах 🎵',
+        description: 'Управление музыкальным плеером на сервере 🎵',
+      },
+      {
+        name: 'Настройки',
+        key: 'settings',
+        description: 'Команды для конфигурирования и настройки бота.',
       },
     ];
     const data = await message.client.database
@@ -52,11 +55,8 @@ class HelpCommand extends FlameCommand {
 
       return message.channel.send(embed);
     } else if (args[0]) {
-      const category = categories.find((c) => c.name == args[0] || c.key == args[0]);
-      if (!category)
-        return message.reply(
-          'Указанная вами категория не была найдена в списке доступных :no_entry:'
-        );
+      const category = categories.find((c) => c.name === args[0] || c.key === args[0]);
+      if (!category) return message.reply('Указанная вами категория не была найдена в списке доступных :no_entry:');
 
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)
@@ -68,7 +68,7 @@ class HelpCommand extends FlameCommand {
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp();
 
-      message.client.commands.filter(cmd => cmd.category == category.key).map((command) => {
+      message.client.commands.filter(cmd => cmd.category === category.key).map((command) => {
         embed.addField(`${data.prefix + command.name}`, command.description);
       });
 
