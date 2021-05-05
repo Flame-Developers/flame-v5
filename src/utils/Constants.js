@@ -17,7 +17,7 @@ module.exports = {
     EMBED_LINKS: 'Встраивать ссылки',
     ATTACH_FILES: 'Прикреплять файлы',
     READ_MESSAGE_HISTORY: 'Просматривать историю сообщений',
-    MENTION_EVERYONE: 'Упопоминать всех',
+    MENTION_EVERYONE: 'Упоминать всех',
     USE_EXTERNAL_EMOJIS: 'Использовать сторонние эмодзи',
     VIEW_GUILD_INSIGHTS: 'Просматривать аналитику сервера',
     CONNECT: 'Подключатся',
@@ -42,7 +42,7 @@ module.exports = {
     brazil: '🇧🇷 Бразилия',
     singapore: '🇸🇬 Сингапур',
     japan: '🇯🇵 Япония',
-    sothafrica: '🇿🇦 Южная Африка',
+    southafrica: '🇿🇦 Южная Африка',
     sydney: '🇦🇺 Сидней',
     india: '🇮🇳 Индия',
     'eu-west': '🇪🇺 Западная Европа',
@@ -55,5 +55,9 @@ module.exports = {
     MEDIUM: 'Средний',
     HIGH: 'Высокий',
     VERY_HIGH: 'Очень высокий',
+  },
+  static: {
+    // TODO: загрузить изображения ниже на собственный cdn-сервер и заменить на них ссылки.
+    MODULE_GRAY: 'https://media.discordapp.net/attachments/686585233339842572/708784426468769793/module_gray.png',
   },
 };
