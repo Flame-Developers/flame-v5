@@ -7,7 +7,7 @@ class NotificationSenderService {
 
   // eslint-disable-next-line class-methods-use-this
   static handleNewJoin(member, data) {
-    if (data.welcome.enabled && data.welcome.channel && data.welcome.text) {
+    if (data.welcome?.enabled && data.welcome?.channel && data.welcome?.text) {
       member.guild.channels.cache.get(data.welcome.channel).send(
         StringParserUtil.parse(data.welcome.text, {
           guild: member.guild.name,
@@ -27,7 +27,7 @@ class NotificationSenderService {
 
   // eslint-disable-next-line class-methods-use-this
   static handleMemberLeave(member, data) {
-    if (data.leave.enabled && data.leave.channel && data.leave.text) {
+    if (data.leave?.enabled && data.leave?.channel && data?.leave.text) {
       member.guild.channels.cache.get(data.leave.channel).send(
         StringParserUtil.parse(data.leave.text, {
           guild: member.guild.name,
