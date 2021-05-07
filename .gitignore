@@ -1,5 +1,7 @@
 node_modules/
 dist/
+.vscode/
+.idea/
 .DS_Store
 
 # Configuration files
