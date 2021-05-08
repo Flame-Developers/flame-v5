@@ -15,6 +15,7 @@ class CmuteCommand extends FlameCommand {
 
   run(message, args) {
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+    // eslint-disable-next-line max-len
     const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[1]) || message.channel;
 
     if (!user || !message.guild.channels.cache.has(channel.id)) return getHelp(message, this.name);

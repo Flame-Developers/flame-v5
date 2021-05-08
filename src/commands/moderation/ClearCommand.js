@@ -1,7 +1,7 @@
 const FlameCommand = require('../../structures/FlameCommand');
 const { getHelp } = require('../../utils/Functions');
 
-class ClearCommamd extends FlameCommand {
+class ClearCommand extends FlameCommand {
   constructor() {
     super('clear', {
       description: 'Очищает определенное кол-во сообщений в канале.',
@@ -23,6 +23,7 @@ class ClearCommamd extends FlameCommand {
 
       do {
         let messages = await message.channel.messages.fetch({ limit: 100 });
+        // eslint-disable-next-line max-len
         messages = messages.map((m) => m.id).filter((m) => m !== message.id).slice(0, parseInt(args[0]) - deleted);
 
         await message.channel.bulkDelete(messages).catch(null);
@@ -38,4 +39,4 @@ class ClearCommamd extends FlameCommand {
   }
 }
 
-module.exports = ClearCommamd;
+module.exports = ClearCommand;

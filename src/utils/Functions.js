@@ -78,80 +78,6 @@ module.exports = {
     }
     return time;
   },
-  ms(val) {
-    /** @see https://github.com/vercel/ms */
-
-    if (typeof val === 'string' && val.length > 0) {
-      return parse(val);
-    }
-
-    function parse(str) {
-      const s = 1000;
-      const m = s * 60;
-      const h = m * 60;
-      const d = h * 24;
-      const w = d * 7;
-      const y = d * 365.25;
-
-      // eslint-disable-next-line no-param-reassign
-      str = String(str);
-      if (str.length > 50) return null;
-
-      const match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|миллисекунд?|мс?|ms|seconds?|с?|secs?|s|minutes?|м?|mins?|m|hours?|ч?|hrs?|h|days?|д?|d|weeks?|w|years?|yrs?|y)?$/i.exec(str);
-      if (!match) return null;
-
-      const n = parseFloat(match[1]);
-      const type = (match[2] || 'ms').toLowerCase();
-
-      switch (type) {
-        case 'years':
-        case 'year':
-        case 'yrs':
-        case 'yr':
-        case 'y':
-          return n * y;
-        case 'weeks':
-        case 'week':
-        case 'w':
-          return n * w;
-        case 'days':
-        case 'дней':
-        case 'day':
-        case 'd':
-          return n * d;
-        case 'hours':
-        case 'hour':
-        case 'часов':
-        case 'hrs':
-        case 'hr':
-        case 'h':
-          return n * h;
-        case 'minutes':
-        case 'minute':
-        case 'м':
-        case 'mins':
-        case 'min':
-        case 'm':
-          return n * m;
-        case 'seconds':
-        case 'second':
-        case 'с':
-        case 'secs':
-        case 'sec':
-        case 's':
-          return n * s;
-        case 'milliseconds':
-        case 'мс':
-        case 'millisecond':
-        case 'msecs':
-        case 'msec':
-        case 'ms':
-          return n;
-        default:
-          return undefined;
-      }
-    }
-  },
   msToTime(duration) {
     let seconds = parseInt((duration / 1000) % 60);
     let minutes = parseInt((duration / (100060)) % 60);
@@ -162,5 +88,10 @@ module.exports = {
     seconds = (seconds < 10) ? `0${seconds}` : seconds;
 
     return `${hours}:${minutes}:${seconds}` || 'Неизвестно';
+  },
+  locale(n, text, isMs = false) {
+    if (isMs) n = ~~(n / 1000);
+    // eslint-disable-next-line
+    return `${n} ${text[ n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2 ]}`;
   },
 };

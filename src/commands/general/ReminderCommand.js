@@ -1,7 +1,7 @@
+const { MessageEmbed } = require('discord.js');
+const ms = require('ms');
 const FlameCommand = require('../../structures/FlameCommand');
 const ReminderManager = require('../../managers/ReninderManager');
-const { ms } = require('../../utils/Functions');
-const { MessageEmbed } = require('discord.js');
 
 class ReminderCommand extends FlameCommand {
   constructor() {
@@ -41,7 +41,7 @@ class ReminderCommand extends FlameCommand {
         Reminders.create(reminder);
 
         message.react('✅');
-        message.channel.send('✅ Напоминание было успешно создано.');
+        message.channel.send(`✅ Напоминание с ID \`${reminder.id}\` было успешно создано.`);
 
         Reminders.handle(reminder);
         break;
@@ -52,7 +52,7 @@ class ReminderCommand extends FlameCommand {
           );
         if (!(await Reminders.find({ userID: message.author.id, id: args[1] })))
           return message.reply(
-            'Указанного вами напоминания не существует :no_entry:'
+            'Указанного вами напоминания не существует :no_entry:',
           );
 
         Reminders.delete({ userID: message.author.id, id: args[1] });

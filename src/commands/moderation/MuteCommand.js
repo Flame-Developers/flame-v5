@@ -1,5 +1,6 @@
+const ms = require('ms');
 const FlameCommand = require('../../structures/FlameCommand');
-const { getHelp, ms } = require('../../utils/Functions');
+const { getHelp } = require('../../utils/Functions');
 const MuteManager = require('../../managers/MuteManager');
 
 class MuteCommand extends FlameCommand {
