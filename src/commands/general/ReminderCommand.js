@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const ms = require('ms');
 const FlameCommand = require('../../structures/FlameCommand');
-const ReminderManager = require('../../managers/ReninderManager');
+const ReminderManager = require('../../managers/ReminderManager');
 
 class ReminderCommand extends FlameCommand {
   constructor() {
