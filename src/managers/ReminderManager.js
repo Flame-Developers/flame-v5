@@ -1,4 +1,4 @@
-class MuteManager {
+class ReminderManager {
   constructor(client) {
     this.client = client;
   }
@@ -35,4 +35,4 @@ class MuteManager {
   }
 }
 
-module.exports = MuteManager;
+module.exports = ReminderManager;
