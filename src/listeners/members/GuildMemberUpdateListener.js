@@ -22,7 +22,7 @@ class GuildMemberUpdateListener extends FlameListener {
         subscriptionDate: Date.now(),
         ends: null,
         premiumGuilds: [],
-        premiumGuildsMaxLength: 2,
+        premiumGuildsMaxLength: newMember.roles.cache.has('840967269155733525') ? 5 : 2,
       };
 
       newMember.roles.add(['785451649429930025', '840901839239249951']);
@@ -36,7 +36,8 @@ class GuildMemberUpdateListener extends FlameListener {
 
       await newMember.roles.remove('840901839239249951');
       PremiumNotificationDeliverService.premiumEndNotification(client, data);
-      return manager.delete(data);
+
+      return manager.cancelPremiumStatus(data);
     }
   }
 }
