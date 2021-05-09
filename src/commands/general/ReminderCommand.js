@@ -48,7 +48,7 @@ class ReminderCommand extends FlameCommand {
       case 'remove':
         if (!args[1])
           return message.reply(
-            'Укажите пожалуйста ID напоминания которое вы хотите удалить :no_entry:'
+            'Укажите пожалуйста ID напоминания, которое вы хотите удалить :no_entry:'
           );
         if (!(await Reminders.find({ userID: message.author.id, id: args[1] })))
           return message.reply(

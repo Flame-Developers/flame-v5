@@ -5,7 +5,7 @@ const FlameCommand = require('../../structures/FlameCommand');
 class ToggleCommand extends FlameCommand {
   constructor() {
     super('toggle', {
-      description: 'Отключить/включить определенную команду на сервере.',
+      description: 'Включить/отключить определённую команду на сервере.',
       category: 'settings',
       aliases: [],
       usage: 'toggle <Команда>',

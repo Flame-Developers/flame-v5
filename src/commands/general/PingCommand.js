@@ -3,7 +3,7 @@ const FlameCommand = require('../../structures/FlameCommand');
 class PingCommand extends FlameCommand {
   constructor() {
     super('ping', {
-      description: 'Возвразщает задержку бота.',
+      description: 'Сообщает задержку бота.',
       usage: 'ping',
       cooldown: 3,
       aliases: [],

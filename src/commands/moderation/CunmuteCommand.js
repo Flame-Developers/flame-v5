@@ -4,7 +4,7 @@ const { getHelp } = require('../../utils/Functions');
 class CunmuteCommand extends FlameCommand {
   constructor() {
     super('cunmute', {
-      description: 'Снять с пользователя мьют в определенном канале.',
+      description: 'Снять с пользователя мьют в определённом канале.',
       category: 'moderation',
       usage: 'cunmute <Пользователь> [Канал]',
       aliases: ['channelunmute'],

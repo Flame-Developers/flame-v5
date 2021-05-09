@@ -42,8 +42,8 @@ class ModroleCommand extends FlameCommand {
         break;
       default:
         return message.channel.send(data.moderator
-          ? `Роль модератора на данном сервере установлена на <@&${data.moderator}> (${data.moderator})\nСбросить ее можно командой \`${data.prefix}modole reset\`.`
-          : `На данном сервере еще не установлена роль модератора.\nВы всегда можете установить ее командой \`${data.prefix}modrole set\`.`,
+          ? `Роль модератора на данном сервере установлена на <@&${data.moderator}> (${data.moderator})\nСбросить её можно командой \`${data.prefix}modrole reset\`.`
+          : `На данном сервере ещё не установлена роль модератора.\nВы всегда можете установить её командой \`${data.prefix}modrole set\`.`,
         );
     }
   }

@@ -4,7 +4,7 @@ const FlameCommand = require('../../structures/FlameCommand');
 class UserCommand extends FlameCommand {
   constructor() {
     super('user', {
-      description: 'Возвращает информацию о пользователе.',
+      description: 'Показывает информацию о пользователе.',
       category: 'general',
       usage: 'user [@Пользователь/ID]',
       cooldown: 3,
@@ -51,7 +51,7 @@ class UserCommand extends FlameCommand {
       .setDescription(
         `Значки пользователя: ${user.user.flags?.toArray().map((r) => flags[r]).join('  ') || '**Отсутствуют**'}\nСтатус: **${statuses[user.user.presence.status]}**\nУстройство: **${stat || 'Неизвестно'}**`,
       )
-      .addField('Зарегестрирован', new Date(user.user.createdAt).toISOString().replace('T', ' ').substr(0, 19))
+      .addField('Зарегистрирован', new Date(user.user.createdAt).toISOString().replace('T', ' ').substr(0, 19))
       .addField('Присоединился', new Date(user.joinedAt).toISOString().replace('T', ' ').substr(0, 19))
       .setFooter(`ID: ${user.id}`, message.guild.iconURL())
       .setTimestamp();
