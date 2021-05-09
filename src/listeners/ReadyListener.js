@@ -1,6 +1,6 @@
 const FlameListener = require('../structures/FlameListener');
 const MuteManager = require('../managers/MuteManager');
-const ReminderManager = require('../managers/ReninderManager');
+const ReminderManager = require('../managers/ReminderManager');
 
 class ReadyListener extends FlameListener {
   constructor() {

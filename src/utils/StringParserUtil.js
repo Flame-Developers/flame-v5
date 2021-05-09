@@ -20,6 +20,10 @@ class StringParserUtil {
 
     return string;
   }
+
+  static parseFlags(string) {
+    return string.match(/--[a-z]+/g);
+  }
 }
 
 module.exports = StringParserUtil;

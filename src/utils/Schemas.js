@@ -1,6 +1,7 @@
 module.exports = {
   GuildSchema: {
     prefix: 'f.',
+    premium: false,
     ideaChannel: null,
     warnings: [],
     ideas: [],
@@ -28,11 +29,6 @@ module.exports = {
     moderator: null,
     muteRole: null,
     disabledCommands: [],
-    modules: {
-      moderation: true,
-      economy: true,
-      music: true,
-    },
     antiInvite: {
       enabled: false,
       message: null,

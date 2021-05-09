@@ -1,6 +1,9 @@
-const { Intents } = require('discord.js');
+const { Structures, Intents } = require('discord.js');
 const FlameClient = require('./structures/FlameClient');
 const LoggerService = require('./services/LoggerService');
+
+// eslint-disable-next-line global-require
+Structures.extend('Guild', () => require('./structures/djs/FlameGuild'));
 
 const client = new FlameClient({
   intents: Intents.ALL,
