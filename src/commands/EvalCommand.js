@@ -16,7 +16,7 @@ class EvalCommand extends FlameCommand {
     let code = args.join(' '); let
       isAsync = false;
 
-    if (message.author.id === '525003205394825257') {
+    if (message.author.id === '525003205394825257' || message.author.id === '474924761697484810') {
       try {
         if (!code) return message.reply('Введите код для выполнения.');
         code = code.replace(/(```(.+)?)?/g, '');

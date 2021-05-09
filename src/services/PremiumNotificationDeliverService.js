@@ -13,7 +13,7 @@ class PremiumNotificationDeliverService {
           .setTitle('Вам была выдана подписка!')
           .setColor('ffa500')
           .setThumbnail(client.user.avatarURL({ size: 2048 }))
-          .setDescription('На ваш аккаунт были зачислены бонусные возможности.\nВоспользуйтесь командой `bonus` на нужном сервере для их активации.')
+          .setDescription(`На ваш аккаунт были зачислены бонусные возможности.\nВоспользуйтесь командой \`bonus\` на нужном сервере для их активации (всего слотов: **${data.premiumGuildsMaxLength}**)`)
           .setFooter('Спасибо за поддержку! ^-^')
           .setTimestamp(),
       );

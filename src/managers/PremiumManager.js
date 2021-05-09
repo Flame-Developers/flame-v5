@@ -22,6 +22,19 @@ class PremiumManager {
     return this.client.database.collection('subscriptions').insertOne(schema);
   }
 
+  async cancelPremiumStatus(data) {
+    if (!data || !await this.find(data)) return null;
+    // eslint-disable-next-line no-restricted-syntax
+    for (const id of data?.premiumGuilds) {
+      this.client.database.collection('guilds').updateOne({ guildID: id }, {
+        $set: {
+          premium: false,
+        },
+      });
+    }
+    return this.delete(data);
+  }
+
   handle(data) {
     // eslint-disable-next-line consistent-return
     return new Timer(data.ends, async () => {
