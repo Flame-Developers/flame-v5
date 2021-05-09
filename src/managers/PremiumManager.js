@@ -29,14 +29,6 @@ class PremiumManager {
       const subscription = await this.find(data);
 
       if (user && subscription) {
-        user.send(
-          new MessageEmbed()
-            .setTitle('Ваша подписка закончилась.')
-            .setThumbnail(this.client.user.avatarURL({ size: 2048 }))
-            .setColor('ff3333')
-            .setDescription(`Подписка, приобретенная вами **${new Date(data.subscriptionDate).toISOString().replace('T', ' ').substr(0, 19)}** закончилась. Все сервера, на которых вы активировали бонусы **потеряли их**.`)
-            .setFooter('Для повторной активации бонусов вы должны будете заново оформить подписку.'),
-        );
         return this.delete(data);
       }
     });
