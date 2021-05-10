@@ -9,7 +9,7 @@ class FlameGuild extends Guild {
 
   async hasPremium() {
     const data = await this.client.database.collection('guilds').findOne({ guildID: this.id });
-    return !!data.premium;
+    return !!data?.premium;
   }
 }
 
