@@ -28,7 +28,7 @@ class CommandsExecutorService {
     const command = await this.findCommand(cmd);
 
     if (cooldown.has(this.message.author.id) && cooldown.get(this.message.author.id) === command?.name) return this.message.react('⏱️').catch();
-    if (command && !data.disabledCommands.includes(command.name)) {
+    if (command && !data.disabledCommands?.includes(command.name)) {
       if (!this.message.guild.me.permissionsIn(this.message.channel).has('EMBED_LINKS')) return this.message.reply(`Упс, кажется, что у меня нет прав на встраивание ссылок в данном канале. Выдайте мне пожалуйста данную возможность, иначе я не смогу корректно работать и выполнять команды :no_entry:`);
       if (command.premium && !await this.message.guild.hasPremium()) return premiumRequired(this.message);
 
@@ -41,8 +41,10 @@ class CommandsExecutorService {
         this.client.emit('commandError', error, this.message);
       }
 
-      cooldown.set(this.message.author.id, command.name);
-      setTimeout(() => cooldown.delete(this.message.author.id), command.cooldown * 1000);
+      if (!await this.message.guild.hasPremium()) {
+        cooldown.set(this.message.author.id, command.name);
+        setTimeout(() => cooldown.delete(this.message.author.id), command.cooldown * 1000);
+      }
     }
   }
 }
