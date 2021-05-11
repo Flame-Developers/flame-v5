@@ -1,6 +1,8 @@
 const FlameListener = require('../../structures/FlameListener');
 const CommandsExecutorService = require('../../services/CommandExecutorService');
 const DatabaseHelper = require('../../helpers/DatabaseHelper');
+const InviteDetectorService = require('../../services/InviteDetectorService');
+const AntiInviteService = require('../../services/AntiInviteService');
 const { UserSchema } = require('../../utils/Schemas');
 
 class MessageListener extends FlameListener {
@@ -11,6 +13,9 @@ class MessageListener extends FlameListener {
   async run(client, message) {
     if (!message.guild) return;
 
+    if (await InviteDetectorService.hasInvites(message)) {
+      await new AntiInviteService(message.client, message).applyActions();
+    }
     const user = await client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
     if (!user && !message.author.bot) {
       // eslint-disable-next-line consistent-return

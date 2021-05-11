@@ -21,6 +21,16 @@ class StringParserUtil {
     return string;
   }
 
+  static parseInvites(string) {
+    const InviteRegex = /(?:https?:\/\/)?(?:www\.)?discord(?:\.(?:gg|io|me|li)|(?:app)?\.com\/invite)\/(?<invite_code>\w{3,})\/?/gm;
+    const match = string.match(InviteRegex);
+
+    if (match) {
+      return { inviteLinks: match, inviteCode: InviteRegex.exec(string).groups?.invite_code };
+    }
+    return null;
+  }
+
   static parseFlags(string) {
     return string.match(/--[a-z]+/g);
   }
