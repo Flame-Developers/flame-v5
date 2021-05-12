@@ -1,6 +1,9 @@
 const { Structures, Intents } = require('discord.js');
+const moment = require('moment');
 const FlameClient = require('./structures/FlameClient');
 const LoggerService = require('./services/LoggerService');
+
+moment.locale('ru');
 
 // eslint-disable-next-line global-require
 Structures.extend('Guild', () => require('./structures/djs/FlameGuild'));

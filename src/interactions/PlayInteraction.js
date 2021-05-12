@@ -17,7 +17,7 @@ class PlayInteraction extends FlameInteraction {
 
     const callback = new InteractionResponse(client);
     const node = client?.shoukaku?.getNode();
-    const query = interaction.options.track;
+    const query = interaction.options.query;
 
     if (!interaction.member.voice.channelID)
       return callback.send(

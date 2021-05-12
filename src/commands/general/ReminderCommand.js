@@ -28,22 +28,19 @@ class ReminderCommand extends FlameCommand {
             'Длительность напоминания должна быть от одной минуты до 14-ти дней :no_entry:'
           );
 
-        const reminder = {
-          userID: message.author.id,
-          id: Math.random().toString(36).slice(2, 8),
-          timeout: Date.now() + ms(time),
-          details: {
-            message:
-              args.slice(2).join(' ').slice(0, 1799) ||
-              'Вы создали напоминание, но забыли указать сообщение. Потрясающий ход!',
-          },
-        };
-        Reminders.create(reminder);
-
         message.react('✅');
-        message.channel.send(`✅ Напоминание с ID \`${reminder.id}\` было успешно создано.`);
-
-        Reminders.handle(reminder);
+        await Reminders.handle(
+          {
+            userID: message.author.id,
+            id: Math.random().toString(36).slice(2, 8),
+            timeout: Date.now() + ms(time),
+            details: {
+              message:
+                args.slice(2).join(' ').slice(0, 1799)
+                || 'Вы создали напоминание, но забыли указать сообщение. Потрясающий ход!',
+            },
+          },
+        );
         break;
       case 'remove':
         if (!args[1])
