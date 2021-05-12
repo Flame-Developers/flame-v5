@@ -61,15 +61,16 @@ class HelpCommand extends FlameCommand {
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)
         .setDescription(
-          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).'
+          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n'
         )
         .setColor('ffa500')
         .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp();
 
-      message.client.commands.filter(cmd => cmd.category === category.key).map((command) => {
-        embed.addField(`${data.prefix + command.name}`, command.description);
+      // eslint-disable-next-line array-callback-return
+      message.client.commands.filter((cmd) => cmd.category === category.key).map((command) => {
+        embed.description += `\`${data.prefix}${command.name}\` — ${command.description}\n`;
       });
 
       return message.channel.send(embed);
