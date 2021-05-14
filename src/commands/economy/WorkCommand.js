@@ -19,11 +19,27 @@ class WorkCommand extends FlameCommand {
   async run(message, args) {
     const manager = new CooldownManager(message.client);
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
-    const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
     const option = args[0];
 
     switch (option) {
+      case 'income':
+        if (!message.member.permissions.has('MANAGE_GUILD')) return message.reply('У вас недостаточно прав для выполнения данного действия :no_entry:');
+        const numbers = args.slice(1, 3);
+
+        if (numbers.some((a) => !parseInt(a)) || numbers.length !== 2)
+          return message.reply('Укажите пожалуйста новую сумму заработка :no_entry:');
+        if (numbers.some((a) => +a > 100000 || +a <= 0))
+          return message.reply('Сумма максимального/минимального заработка не должна превышать **100000**/быть меньше **1** :no_entry:');
+
+        message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
+          $set: {
+            'work.min': parseInt(args[1]),
+            'work.max': parseInt(args[2]),
+          },
+        });
+        message.react('✅');
+        break;
       default:
         const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
         if (cooldown) {
