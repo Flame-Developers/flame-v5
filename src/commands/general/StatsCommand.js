@@ -1,6 +1,7 @@
-const fetch = require('node-fetch');
+const Discord = require('discord.js');
 const FlameCommand = require('../../structures/FlameCommand');
-const { timeFromNow, formatNumber } = require('../../utils/Functions');
+const { formatNumber } = require('../../utils/Functions');
+const { dependencies } = require('../../../package.json');
 
 class StatsCommand extends FlameCommand {
   constructor() {
@@ -14,31 +15,35 @@ class StatsCommand extends FlameCommand {
   }
 
   async run(message, args) {
-    const { version } = require('../../../package.json');
-
     Promise.all(
       [
         await message.client.shard.fetchClientValues('guilds.cache.size'),
         await message.client.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)'),
+        await message.client.shard.fetchClientValues('channels.cache.size'),
       ],
-    ).then(async (res) => {
-      let data = await fetch('http://localhost:3000/');
-      data = await data.json();
-
+    ).then((res) => {
       return message.channel.send(
-        `🔁 Последний перезапуск был примерно **${timeFromNow(Date.now() - message.client.uptime)}**. Текущая версия бота: **${version}**\n\`\`\`\n`
-                + `- Задержка:                      ${message.client.ws.ping}ms\n`
-                + `- Ответы на команды:             ${Date.now() - message.createdAt}ms\n`
-                + `- Шардов:                        ${message.client.shard.count}\n`
-                + '\n\n'
-                + `- Серверов:                      ${formatNumber(res[0].reduce((a, b) => a + b), 0)}\n`
-                + `- Серверов на этом шарде:        ${formatNumber(message.client.guilds.cache.size)}\n`
-                + `- Пользователей:                 ${formatNumber(res[1].reduce((a, b) => a + b), 0)}\n`
-                + '\n\n'
-                + `- Состояние API:                 ${data.statusCode ?? 502}\n`
-                + `- Версия Node.js:                ${process.version}\n`
-                + `- Версия Discord.js:             v${require('discord.js').version}`
-                + '```',
+        new Discord.MessageEmbed()
+          .setAuthor(message.client.user.tag, message.client.user.avatarURL({ size: 2048 }))
+          .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
+          .setDescription(`На текущий момент, бот запущен с **${message.client?.shard?.count ?? 0}** шардами(-ом). Данный сервер расположен на **${message.guild.shardID}** шарде.`)
+          .addField(
+            'Статистика бота',
+            `**Серверов:** ${formatNumber(res[0].reduce((a, b) => a + b, 0))}\n`
+                + `**Пользователей:** ${formatNumber(res[1].reduce((a, b) => a + b, 0))}\n`
+                + `**Каналов:** ${formatNumber(res[2].reduce((a, b) => a + b, 0))}`,
+            true,
+          )
+          .addField(
+            'Зависимости',
+            `**Discord.js:** v${Discord.version}\n`
+                + `**MongoDB:** v${dependencies.mongodb}\n`
+                + `**Node.js:** ${process.version}`,
+            true,
+          )
+          .setColor('ffa500')
+          .setFooter('Последний перезапуск')
+          .setTimestamp(new Date(message.client.readyAt).getTime()),
       );
     });
   }
