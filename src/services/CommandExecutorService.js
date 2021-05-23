@@ -28,7 +28,12 @@ class CommandsExecutorService {
     const command = await this.findCommand(cmd);
 
     if (cooldown.has(this.message.author.id) && cooldown.get(this.message.author.id) === command?.name) return this.message.react('⏱️').catch();
-    if (command && !data.disabledCommands?.includes(command.name)) {
+    if (command) {
+      if (data.disabledCommands?.includes(command.name)) {
+        return data?.settings?.answerOnDisabledCommands
+          ? this.message.reply('Данная команда была отключена администратором на данном сервере :no_entry:')
+          : null;
+      }
       if (!this.message.guild.me.permissionsIn(this.message.channel).has('EMBED_LINKS')) return this.message.reply(`Упс, кажется, что у меня нет прав на встраивание ссылок в данном канале. Выдайте мне пожалуйста данную возможность, иначе я не смогу корректно работать и выполнять команды :no_entry:`);
       if (command.premium && !await this.message.guild.hasPremium()) return premiumRequired(this.message);
 
@@ -37,6 +42,7 @@ class CommandsExecutorService {
 
       try {
         command.run(this.message, args);
+        if (data?.settings?.clearCommandCalls) await this.message.delete().catch();
       } catch (error) {
         this.client.emit('commandError', error, this.message);
       }
