@@ -69,7 +69,7 @@ class LeaverCommand extends FlameCommand {
             .setColor(data.leave.enabled ? '#a5ff2a' : '#ff3333')
             .setDescription(`На данном сервере **${data.leave.enabled ? 'включен' : 'отключен'}** модуль уведомлений об ушедших участников.`)
             .addField('Сообщение уведомлений', data.leave.text ? `\`\`\`${data.leave.text}\`\`\`` : 'Сообщение уведомлений не установлено.')
-            .addField('Настройка модуля', 'Подробную справку по настройке данной системы вы сможете получить на [этой странице](https://docs.flamebot.ru/abilities/leaver).')
+            .addField('Настройка модуля', 'Подробную справку по настройке данной системы вы сможете получить на [этой странице](https://docs.flamebot.ru/settings/leaver).')
             .setFooter(message.guild.name, message.guild.iconURL())
             .setTimestamp(),
         );

@@ -84,7 +84,7 @@ class WelcomerCommand extends FlameCommand {
             .setDescription(`На данном сервере **${data.welcome.enabled ? 'включен' : 'отключен'}** модуль приветствий новых участников.`)
             .addField('Сообщение приветствий', data.welcome.text ? `\`\`\`${data.welcome.text}\`\`\`` : 'Сообщение приветствия не установлено.')
             .addField('Роль для новых пользователей', data.welcomeRole ? `<@%${data.welcomeRole}> (${data.welcomeRole})` : 'Роль для новых участников не установлена.')
-            .addField('Настройка модуля', 'Подробную справку по настройке данной системы вы сможете получить на [этой странице](https://docs.flamebot.ru/abilities/welcomer).')
+            .addField('Настройка модуля', 'Подробную справку по настройке данной системы вы сможете получить на [этой странице](https://docs.flamebot.ru/settings/welcomer).')
             .setFooter(message.guild.name, message.guild.iconURL())
             .setTimestamp(),
         );
