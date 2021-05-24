@@ -12,6 +12,7 @@ class ReminderCommand extends FlameCommand {
       aliases: [],
     });
   }
+
   async run(message, args) {
     const option = args[0];
     const Reminders = new ReminderManager(message.client);
@@ -19,14 +20,16 @@ class ReminderCommand extends FlameCommand {
     switch (option) {
       case 'create':
         const time = args[1];
-        if (!time)
+        if (!time) {
           return message.reply(
-            'Укажите пожалуйста длительность напоминания :no_entry:'
+            'Укажите пожалуйста длительность напоминания :no_entry:',
           );
-        if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m'))
+        }
+        if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m')) {
           return message.reply(
-            'Длительность напоминания должна быть от одной минуты до 14-ти дней :no_entry:'
+            'Длительность напоминания должна быть от одной минуты до 14-ти дней :no_entry:',
           );
+        }
 
         message.react('✅');
         await Reminders.handle(
@@ -43,14 +46,16 @@ class ReminderCommand extends FlameCommand {
         );
         break;
       case 'remove':
-        if (!args[1])
+        if (!args[1]) {
           return message.reply(
-            'Укажите пожалуйста ID напоминания которое вы хотите удалить :no_entry:'
+            'Укажите пожалуйста ID напоминания которое вы хотите удалить :no_entry:',
           );
-        if (!(await Reminders.find({ userID: message.author.id, id: args[1] })))
+        }
+        if (!(await Reminders.find({ userID: message.author.id, id: args[1] }))) {
           return message.reply(
             'Указанного вами напоминания не существует :no_entry:',
           );
+        }
 
         Reminders.delete({ userID: message.author.id, id: args[1] });
         message.reply('✅ Напоминание с указанным ID было успешно удалено.');
@@ -66,19 +71,19 @@ class ReminderCommand extends FlameCommand {
           .setFooter(message.guild.name, message.guild.iconURL())
           .setTimestamp();
 
-        if (!data.length)
+        if (!data.length) {
           embed.setDescription(
-            'На данный момент вы не имеете активных напоминаний. Создайте себе парочку!'
+            'На данный момент вы не имеете активных напоминаний. Создайте себе парочку!',
           );
-        else {
+        } else {
           embed.setThumbnail(message.guild.iconURL());
-          for (let i of data.slice(-10)) {
+          for (const i of data.slice(-10)) {
             embed.addField(
               `Напоминание \`${i.id}\`: ${new Date(i.timeout)
                 .toISOString()
                 .replace('T', ' ')
                 .substr(0, 19)}:`,
-              `**Сообщение:** ${i.details.message}`
+              `**Сообщение:** ${i.details.message}`,
             );
           }
         }

@@ -13,7 +13,7 @@ class InteractionResponse {
           type: options.type ?? 4,
           data: {
             flags: options.flags ?? 0,
-            content: content,
+            content,
           },
         },
       });

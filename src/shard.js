@@ -17,7 +17,5 @@ const api = new FlameApiWorker(Manager);
 
 Manager.spawn(Manager.totalShards, 5500, 400000);
 
-Manager.on('shardCreate', (shard) =>
-  console.log(`[Shard => #${shard.id}] Spawning shard...`)
-);
+Manager.on('shardCreate', (shard) => console.log(`[Shard => #${shard.id}] Spawning shard...`));
 api.start();

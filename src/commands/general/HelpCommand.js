@@ -43,7 +43,7 @@ class HelpCommand extends FlameCommand {
       const embed = new MessageEmbed()
         .setTitle('Меню помощи')
         .setDescription(
-          `Узнать набор команд той или иной категории можно воспользовавшись командой \`${data.prefix}help <Модуль>\`.`
+          `Узнать набор команд той или иной категории можно воспользовавшись командой \`${data.prefix}help <Модуль>\`.`,
         )
         .setColor('ffa500')
         .setFooter(message.guild.name, message.guild.iconURL())
@@ -54,14 +54,14 @@ class HelpCommand extends FlameCommand {
       }
 
       return message.channel.send(embed);
-    } else if (args[0]) {
+    } if (args[0]) {
       const category = categories.find((c) => c.name === args[0] || c.key === args[0]);
       if (!category) return message.reply('Указанная вами категория не была найдена в списке доступных :no_entry:');
 
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)
         .setDescription(
-          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n'
+          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n',
         )
         .setColor('ffa500')
         .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
