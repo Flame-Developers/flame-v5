@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { MessageEmbed } = require('discord.js');
 const FlameCommand = require('../../structures/FlameCommand');
 
@@ -67,7 +68,7 @@ class BonusCommand extends FlameCommand {
             .setTitle('Премиум-подписка')
             .setColor('ffa500')
             // eslint-disable-next-line max-len
-            .setDescription(`На текущий момент у вас активна подписка, приобретённая вами \`${new Date(data.subscriptionDate).toISOString().replace('T', ' ').substr(0, 19)}\`.\nВы имеете **${data.premiumGuildsMaxLength}** бонусных слотов, **${data.premiumGuilds.length ?? 0}** из которых уже активированы.`)
+            .setDescription(`На текущий момент вы имеете активную подписку, которую приобрели **${moment(data.subscriptionDate).fromNow()}**.\n\nИспользовано бонусных слотов: **${data.premiumGuilds?.length ?? 0}/${data.premiumGuildsMaxLength}**.\nПродлить/отменить подписку можно на сайте [Boosty.to](https://boosty.to).`)
             .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
             .setFooter(message.guild.name, message.guild.iconURL())
             .setTimestamp(),

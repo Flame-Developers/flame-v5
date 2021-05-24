@@ -10,7 +10,7 @@ class SlotsCommand extends FlameCommand {
       category: 'economy',
       usage: 'slots <Ставка>',
       aliases: [],
-      cooldown: 10,
+      cooldown: 50,
     });
   }
 
@@ -25,7 +25,7 @@ class SlotsCommand extends FlameCommand {
     if (data.money < parseInt(bet)) return message.reply('Сумма данной ставки превышает сумму ваших денег на руках :no_entry:');
 
     let win = true;
-    const slots = ['🍇', '🍓', '🍉', '🍎', '🍏', '🍊', '🍍', '🍋', '🍒'];
+    const slots = ['🍇', '🍓', '💸', '🍎', '💰', '🍊', '🍍', '🍋', '🍒'];
     // eslint-disable-next-line max-len
     const fillSlots = (length) => Array(length).fill().map(() => slots[Math.floor(Math.random() * slots.length)]);
     const buildDescription = (values) => [
@@ -40,7 +40,7 @@ class SlotsCommand extends FlameCommand {
         .setTitle('Слоты')
         .setColor('ffa500')
         .setDescription(buildDescription(values))
-        .setThumbnail(message.guild.iconURL({ dynamic: true, size: 2048 }))
+        // .setThumbnail(message.guild.iconURL({ dynamic: true, size: 2048 }))
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp(),
     );
