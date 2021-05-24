@@ -8,6 +8,7 @@ module.exports = {
       clearCommandCalls: false,
       deleteUserAfterLeave: false,
       answerOnDisabledCommands: false,
+      hideDisabledCommands: false,
     },
     ideas: [],
     welcome: {

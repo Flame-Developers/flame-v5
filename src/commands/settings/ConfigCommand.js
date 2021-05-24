@@ -14,7 +14,7 @@ class ConfigCommand extends FlameCommand {
 
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
-    const params = ['clearCommandCalls', 'deleteUserAfterLeave', 'answerOnDisabledCommands'];
+    const params = ['clearCommandCalls', 'deleteUserAfterLeave', 'answerOnDisabledCommands', 'hideDisabledCommands'];
 
     const value = args[0];
     if (!value) {

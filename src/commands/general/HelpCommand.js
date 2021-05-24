@@ -70,6 +70,8 @@ class HelpCommand extends FlameCommand {
 
       // eslint-disable-next-line array-callback-return
       message.client.commands.filter((cmd) => cmd.category === category.key).map((command) => {
+        // eslint-disable-next-line max-len
+        if (data.settings.hideDisabledCommands && data.disabledCommands.includes(command.name)) return;
         embed.description += `\`${data.prefix}${command.name}\` — ${command.description}\n`;
       });
 
