@@ -26,31 +26,12 @@ class SlotsCommand extends FlameCommand {
 
     let win = true;
     const slots = ['🍇', '🍓', '💸', '🍎', '💰', '🍊', '🍍', '🍋', '🍒'];
-    // eslint-disable-next-line max-len
-    const fillSlots = (length) => Array(length).fill().map(() => slots[Math.floor(Math.random() * slots.length)]);
-    const buildDescription = (values) => [
-      'Если вам выпало двое одинаковых эмодзи - ставка удваивается.',
-      'Если же все слоты одинаковые, ставка умножается на три.',
-      `\n\`\`\`\n${values.join(' | ')}\n\`\`\``,
-    ].join(' ');
-    let values = fillSlots(3);
+    const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-    const msg = await message.channel.send(
-      new MessageEmbed()
-        .setTitle('Слоты')
-        .setColor('ffa500')
-        .setDescription(buildDescription(values))
-        // .setThumbnail(message.guild.iconURL({ dynamic: true, size: 2048 }))
-        .setFooter(message.guild.name, message.guild.iconURL())
-        .setTimestamp(),
-    );
-    // eslint-disable-next-line
-    for (let i = 0; i < 3; i++) {
-      values = fillSlots(3);
-      // eslint-disable-next-line
-      await msg.edit(msg?.embeds?.[0].setDescription(buildDescription(values)));
-    }
+    const values = Array(3).fill().map(() => slots[Math.floor(Math.random() * slots.length)]);
+    const msg = await message.channel.send(new MessageEmbed().setColor('ffa500').setTitle('Прокручиваем слоты...'));
 
+    await sleep(1000);
     if (!values.find((a) => a !== values[0])) bet *= 4;
     // eslint-disable-next-line eqeqeq,max-len
     else if (values.findIndex((a, i) => values.findIndex((b, o) => b === a && i !== o) !== -1) !== -1) bet *= 2;
@@ -61,7 +42,18 @@ class SlotsCommand extends FlameCommand {
         money: win ? bet : -bet,
       },
     });
-    message.reply(win ? `:tada: Поздравляем, вы выиграли **${bet}**${guild.currency}.` : `К сожалению, в этот раз вы проиграли. У вас было отнято **${bet}**${guild.currency}.`);
+    msg.edit(win ? `:tada: Поздравляем, вы выиграли **${bet}**${guild.currency}.` : `К сожалению, в этот раз вы проиграли. У вас было отнято **${bet}**${guild.currency}.`,
+      new MessageEmbed()
+        .setTitle('Слоты')
+        .setColor('ffa500')
+        .setDescription([
+          'Если вам выпало двое одинаковых эмодзи - ставка удваивается.',
+          'Если же все слоты одинаковые, ставка умножается на три.',
+          `\n\`\`\`\n${values.join(' | ')}\n\`\`\``,
+        ].join(' '))
+        .setFooter(message.guild.name, message.guild.iconURL())
+        .setTimestamp(),
+    );
   }
 }
 
