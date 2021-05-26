@@ -9,6 +9,7 @@ class QueueInteraction extends FlameInteraction {
   run(client, interaction) {
     const callback = new InteractionResponse(client);
     const dispatcher = client.queue.get(interaction.guild.id);
+
     if (!dispatcher) {
       return callback.send(
         interaction,
@@ -23,10 +24,13 @@ class QueueInteraction extends FlameInteraction {
     for (const track of dispatcher.queue) {
       array.push(track.info.title);
     }
+
     return callback.send(
       interaction,
       `\`\`\`fix\n${
-        !array.length ? 'Очередь данного сервера пуста.' : array.join('\n')
+        !array.length
+          ? 'Очередь данного сервера пуста.'
+          : array.join('\n').slice(0, 1999)
       }\`\`\``,
     );
   }
