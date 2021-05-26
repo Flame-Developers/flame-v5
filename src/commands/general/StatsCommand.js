@@ -6,7 +6,7 @@ const { dependencies } = require('../../../package.json');
 class StatsCommand extends FlameCommand {
   constructor() {
     super('stats', {
-      description: 'Возвращает статистику бота.',
+      description: 'Показывает статистику бота.',
       category: 'general',
       cooldown: 3,
       usage: 'stats',

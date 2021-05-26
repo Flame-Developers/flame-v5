@@ -4,7 +4,7 @@ const { getHelp } = require('../../utils/Functions');
 class UnbanCommand extends FlameCommand {
   constructor() {
     super('unban', {
-      description: 'Разбанить определенного пользователя.',
+      description: 'Разбанить определённого пользователя.',
       category: 'moderation',
       usage: 'unban <ID>',
       aliases: [],

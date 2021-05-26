@@ -42,8 +42,8 @@ class MuteroleCommand extends FlameCommand {
         break;
       default:
         return message.channel.send(data.muteRole
-          ? `Роль мьюта на данном сервере установлена на <@&${data.muteRole}> (${data.muteRole})\nСбросить ее можно командой \`${data.prefix}muterole reset\`.`
-          : `На данном сервере еще не установлена роль мьюта.\nВы всегда можете установить ее командой \`${data.prefix}muterole set\`.`,
+          ? `Роль мьюта на данном сервере установлена на <@&${data.muteRole}> (${data.muteRole})\nСбросить её можно командой \`${data.prefix}muterole reset\`.`
+          : `На данном сервере ещё не установлена роль мьюта.\nВы всегда можете установить её командой \`${data.prefix}muterole set\`.`,
         );
     }
   }

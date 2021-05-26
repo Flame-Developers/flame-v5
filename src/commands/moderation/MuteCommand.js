@@ -26,11 +26,11 @@ class MuteCommand extends FlameCommand {
 
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
 
-    if (!guild.muteRole || !message.guild.roles.cache.has(guild?.muteRole)) return message.reply('Похоже, на этом сервере не установлена роль мьюта. Установите ее прежде чем использовать данную команду :no_entry:');
+    if (!guild.muteRole || !message.guild.roles.cache.has(guild?.muteRole)) return message.reply(`Похоже, на этом сервере не установлена роль мьюта. Установите её при помощи команды \`${guild.prefix}muterole set\`, прежде чем использовать данную команду :no_entry:`);
     if (await Mutes.find({ guildID: message.guild.id, userID: user?.id }) && user.roles.cache.has(guild.muteRole)) return message.reply('Указанный вами пользователь уже замьючен на данном сервере :no_entry:');
 
     if (!time) return getHelp(message, this.name);
-    if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m')) return message.reply('Укажите пожалуйста **корректное** время (от одной минуты до 14 дней) :no_entry:');
+    if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m')) return message.reply('Укажите пожалуйста **корректное** время мьюта (от одной минуты до 14 дней) :no_entry:');
 
     user.roles.add(guild.muteRole).catch(console.error);
     message.reply(`✅ Пользователь **${user.user.tag}** (${user.id}) был успешно замьючен модератором **${message.author.tag}**.`);

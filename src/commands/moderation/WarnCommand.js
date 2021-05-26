@@ -4,7 +4,7 @@ const { getHelp } = require('../../utils/Functions');
 class WarnCommand extends FlameCommand {
   constructor() {
     super('warn', {
-      description: 'Выдать пользователю предупреждение.',
+      description: 'Выдать определённому пользователю предупреждение.',
       category: 'moderation',
       usage: 'warn <Пользователь> [Причина]',
       aliases: [],

@@ -15,7 +15,7 @@ class PrefixCommand extends FlameCommand {
   // eslint-disable-next-line consistent-return
   run(message, args) {
     if (!args[0]) return getHelp(message, this.name);
-    if (args[0].length > 3) return message.reply('Длина префикс не должна превышать лимит в 3 символа :no_entry:');
+    if (args[0].length > 3) return message.reply('Длина префикса не должна превышать лимит в 3 символа :no_entry:');
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $set: {
         prefix: args[0],

@@ -5,7 +5,7 @@ const { regions, verifyLevels } = require('../../utils/Constants');
 class ServerCommand extends FlameCommand {
   constructor() {
     super('server', {
-      description: 'Возвращает информацию о сервере.',
+      description: 'Показывает информацию о сервере.',
       category: 'general',
       usage: 'server',
       aliases: ['serverinfo', 'server-info'],
@@ -38,7 +38,7 @@ class ServerCommand extends FlameCommand {
       .addField('Регион', regions[message.guild.region], true)
       .addField('Владелец', `${message.guild.owner.user.tag} (${message.guild.owner.id})`, true)
       .addField('Уровень проверки', verifyLevels[message.guild.verificationLevel], true)
-      .addField('Создан', new Date(message.guild.createdAt).toISOString().replace('T', ' ').substr(0, 19), true)
+      .addField('Дата создания', new Date(message.guild.createdAt).toISOString().replace('T', ' ').substr(0, 19), true)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.guild.name, message.guild.iconURL())
       .setTimestamp();

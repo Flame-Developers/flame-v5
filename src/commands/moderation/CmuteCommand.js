@@ -4,7 +4,7 @@ const { getHelp } = require('../../utils/Functions');
 class CmuteCommand extends FlameCommand {
   constructor() {
     super('cmute', {
-      description: 'Замьютить пользователя в определенном канале.',
+      description: 'Замьютить пользователя в определённом канале.',
       category: 'moderation',
       usage: 'cmute <Пользователь> [Канал]',
       aliases: ['channelmute'],

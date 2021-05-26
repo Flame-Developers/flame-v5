@@ -5,7 +5,7 @@ const { getHelp } = require('../../utils/Functions');
 class UnmuteCommand extends FlameCommand {
   constructor() {
     super('unmute', {
-      description: 'Снять с пользователя мьют.',
+      description: 'Снять с определённого пользователя мьют.',
       category: 'moderation',
       usage: 'unmute <Пользователь>',
       aliases: [],

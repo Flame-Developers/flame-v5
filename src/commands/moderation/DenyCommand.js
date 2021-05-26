@@ -5,7 +5,7 @@ const { getHelp } = require('../../utils/Functions');
 class DenyCommand extends FlameCommand {
   constructor() {
     super('deny', {
-      description: 'Отклонить определенное предложение.',
+      description: 'Отклонить определённое предложение.',
       category: 'moderation',
       usage: 'deny <ID> [Комментарий]',
       aliases: [],
@@ -16,7 +16,7 @@ class DenyCommand extends FlameCommand {
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     if (!data.ideaChannel || !message.guild.channels.cache.has(data?.ideaChannel)) return message.reply('На данном сервере не установлен канал для предложений :no_entry:');
-    if (data.ideas.length <= 0) return message.reply('На данном сервере еще не подавались предложения :no_entry:');
+    if (data.ideas.length <= 0) return message.reply('На данном сервере ещё не подавались предложения :no_entry:');
 
     const id = args[0];
     if (!id) return getHelp(message, this.name);
@@ -43,7 +43,7 @@ class DenyCommand extends FlameCommand {
       );
       message.reply(`✅ Предложению **#${id}** был успешно вынесен вердикт.`);
     } catch {
-      message.reply('Сообщения с указанным вами предложением было удалено :no_enry:');
+      message.reply('Сообщение с указанным вами предложением было удалено :no_enry:');
     }
   }
 }

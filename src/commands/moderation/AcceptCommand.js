@@ -5,9 +5,9 @@ const { getHelp } = require('../../utils/Functions');
 class AcceptCommand extends FlameCommand {
   constructor() {
     super('accept', {
-      description: 'Принять определенное предложение.',
+      description: 'Принять определённое предложение.',
       category: 'moderation',
-      usage: 'accept <ID> [Комментарий]',
+      usage: 'accept <ID предложения> [Комментарий]',
       aliases: [],
       userPermissions: ['MANAGE_GUILD'],
     });
@@ -16,7 +16,7 @@ class AcceptCommand extends FlameCommand {
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     if (!data.ideaChannel || !message.guild.channels.cache.has(data?.ideaChannel)) return message.reply('На данном сервере не установлен канал для предложений :no_entry:');
-    if (data.ideas.length <= 0) return message.reply('На данном сервере еще не подавались предложения :no_entry:');
+    if (data.ideas.length <= 0) return message.reply('На данном сервере ещё не подавались предложения :no_entry:');
 
     const id = args[0];
     if (!id) return getHelp(message, this.name);
@@ -43,7 +43,7 @@ class AcceptCommand extends FlameCommand {
       );
       message.reply(`✅ Предложению **#${id}** был успешно вынесен вердикт.`);
     } catch {
-      message.reply('Сообщения с указанным вами предложением было удалено :no_entry:');
+      message.reply('Сообщение с указанным вами предложением было удалено :no_entry:');
     }
   }
 }

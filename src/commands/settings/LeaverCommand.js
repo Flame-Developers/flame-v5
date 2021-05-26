@@ -27,7 +27,7 @@ class LeaverCommand extends FlameCommand {
         message.channel.send(`✅ Система уведомлений об ушедших участников была успешно **${data.leave.enabled ? 'отключена' : 'включена'}** на данном сервере.`);
         break;
       case 'channel':
-        if (!data.leave.enabled) return message.reply('На данном сервере еще не включена система уведомлений об ушедших участниках. Включите её прежде чем настраивать другие параметры :no_entry:');
+        if (!data.leave.enabled) return message.reply('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры :no_entry:');
         // eslint-disable-next-line no-case-declarations
         const channel = message.mentions.channels.first()
           || message.guild.channels.cache.get(args[1])
@@ -42,7 +42,7 @@ class LeaverCommand extends FlameCommand {
         message.channel.send(`✅ Канал для уведомлений был успешно установлен на ${channel} (${channel.id})`);
         break;
       case 'message':
-        if (!data.leave.enabled) return message.reply('На данном сервере еще не включена система уведомлений об ушедших участниках. Включите её прежде чем настраивать другие параметры :no_entry:');
+        if (!data.leave.enabled) return message.reply('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры :no_entry:');
         // eslint-disable-next-line no-case-declarations
         const msg = args.slice(1).join(' ');
         if (!msg) return message.reply('Укажите пожалуйста новое сообщение уведомлений :no_entry:');
@@ -67,9 +67,9 @@ class LeaverCommand extends FlameCommand {
           new MessageEmbed()
             .setAuthor('Система уведомлений об ушедших участниках', Constants.static.MODULE_GRAY)
             .setColor(data.leave.enabled ? '#a5ff2a' : '#ff3333')
-            .setDescription(`На данном сервере **${data.leave.enabled ? 'включен' : 'отключен'}** модуль уведомлений об ушедших участников.`)
+            .setDescription(`На данном сервере **${data.leave.enabled ? 'включен' : 'отключён'}** модуль уведомлений об ушедших участников.`)
             .addField('Сообщение уведомлений', data.leave.text ? `\`\`\`${data.leave.text}\`\`\`` : 'Сообщение уведомлений не установлено.')
-            .addField('Настройка модуля', 'Подробную справку по настройке данной системы вы сможете получить на [этой странице](https://docs.flamebot.ru/settings/leaver).')
+            .addField('Настройка модуля', 'Подробную справку по настройке данного модуля вы можете получить на [этой странице](https://docs.flamebot.ru/abilities/leaver).')
             .setFooter(message.guild.name, message.guild.iconURL())
             .setTimestamp(),
         );

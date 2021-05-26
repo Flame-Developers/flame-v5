@@ -6,7 +6,7 @@ const { getHelp } = require('../../utils/Functions');
 class WhoisCommand extends FlameCommand {
   constructor() {
     super('whois', {
-      description: 'Возвращает информацию о домене/IP-адресе.',
+      description: 'Сообщает информацию о домене/IP-адресе.',
       category: 'general',
       usage: 'whois <Домен/IP-адрес>',
       aliases: ['ip', 'ipinfo'],
