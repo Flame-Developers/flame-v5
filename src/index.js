@@ -1,7 +1,6 @@
 const { Structures, Intents } = require('discord.js');
 const moment = require('moment');
 const FlameClient = require('./structures/FlameClient');
-const LoggerService = require('./services/LoggerService');
 
 moment.locale('ru');
 
@@ -19,6 +18,3 @@ const client = new FlameClient({
 
 // eslint-disable-next-line no-console,no-underscore-dangle
 client._launch().catch(console.error);
-client.on('shardDisconnect', (data, id) => LoggerService.sendLog(
-  `<@&834032944120856607> Shard \`#${id}\` was disconnected with ${data?.reason?.length <= 0 ? '**no reason**' : `reason **${data.reason}**`} (code **${data.code ?? 'was not provided'}**)`,
-));
