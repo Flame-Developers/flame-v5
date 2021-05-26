@@ -19,7 +19,9 @@ class MuteManager {
     return this.client.database.collection('mutes').insertOne(schema);
   }
 
-  handle(data) {
+  async handle(data) {
+    if (!await this.find(data)) await this.create(data);
+
     return setTimeout(async () => {
       if (data.ends > Date.now()) return this.handle(data);
       const guild = this.client.guilds.cache.get(data.guildID);

@@ -19,7 +19,9 @@ class ReminderManager {
     return this.client.database.collection('reminders').insertOne(schema);
   }
 
-  handle(data) {
+  async handle(data) {
+    if (!await this.find(data)) await this.create(data);
+
     return setTimeout(async () => {
       if (data.timeout > Date.now()) return this.handle(data);
       const user = this.client.users.cache.get(data.userID);

@@ -25,14 +25,14 @@ class HelpCommand extends FlameCommand {
         description: 'Утилиты для модераторов Discord-сообществ.',
       },
       {
-        name: 'Музыка',
-        key: 'music',
-        description: 'Управление музыкальным плеером на сервере 🎵',
-      },
-      {
         name: 'Настройки',
         key: 'settings',
-        description: 'Команды для конфигурирования и настройки бота.',
+        description: 'Конфигурация и настройка бота.',
+      },
+      {
+        name: 'Экономика',
+        key: 'economy',
+        description: 'Различные команды связанные с экономикой.',
       },
     ];
     const data = await message.client.database
@@ -43,7 +43,7 @@ class HelpCommand extends FlameCommand {
       const embed = new MessageEmbed()
         .setTitle('Меню помощи')
         .setDescription(
-          `Узнать набор команд той или иной категории можно воспользовавшись командой \`${data.prefix}help <Модуль>\`.`
+          `Узнать набор команд той или иной категории можно воспользовавшись командой \`${data.prefix}help <Модуль>\`.`,
         )
         .setColor('ffa500')
         .setFooter(message.guild.name, message.guild.iconURL())
@@ -54,22 +54,25 @@ class HelpCommand extends FlameCommand {
       }
 
       return message.channel.send(embed);
-    } else if (args[0]) {
+    } if (args[0]) {
       const category = categories.find((c) => c.name === args[0] || c.key === args[0]);
       if (!category) return message.reply('Указанная вами категория не была найдена в списке доступных :no_entry:');
 
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)
         .setDescription(
-          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).'
+          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n',
         )
         .setColor('ffa500')
         .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp();
 
-      message.client.commands.filter(cmd => cmd.category === category.key).map((command) => {
-        embed.addField(`${data.prefix + command.name}`, command.description);
+      // eslint-disable-next-line array-callback-return
+      message.client.commands.filter((cmd) => cmd.category === category.key).map((command) => {
+        // eslint-disable-next-line max-len
+        if (data.settings.hideDisabledCommands && data.disabledCommands.includes(command.name)) return;
+        embed.description += `\`${data.prefix}${command.name}\` — ${command.description}\n`;
       });
 
       return message.channel.send(embed);

@@ -5,32 +5,36 @@ class BassInteraction extends FlameInteraction {
   constructor() {
     super('bass');
   }
+
   run(client, interaction) {
     const callback = new InteractionResponse(client);
 
-    if (!interaction.member.voice.channelID)
+    if (!interaction.member.voice.channelID) {
       return callback.send(
         interaction,
         'Вы должны находится в голосовом канале, для того чтобы использовать данную команду.',
-        { flags: 64 }
+        { flags: 64 },
       );
+    }
     const dispatcher = client.queue.get(interaction.guild?.id);
 
-    if (!dispatcher)
+    if (!dispatcher) {
       return callback.send(
         interaction,
         'На данном сервере не запущен музыкальный плеер.',
-        { flags: 64 }
+        { flags: 64 },
       );
+    }
     if (
-      dispatcher?.player.voiceConnection.voiceChannelID !==
-      interaction.member.voice.channelID
-    )
+      dispatcher?.player.voiceConnection.voiceChannelID
+      !== interaction.member.voice.channelID
+    ) {
       return callback.send(
         interaction,
         'Вы должны находится в одном канале со мной, для того чтобы управлять плеером.',
-        { flags: 64 }
+        { flags: 64 },
       );
+    }
 
     const level = interaction.options.value;
     let band;
@@ -63,12 +67,12 @@ class BassInteraction extends FlameInteraction {
         break;
     }
 
-    dispatcher.player.setEqualizer(band);
+    dispatcher.player.setEqualizer(band).catch();
     return callback.send(
       interaction,
-      level == 'off'
+      level === 'off'
         ? '🎚️ Эффект басса был успешно отключен.'
-        : '🎚️ Эффект басса был успешно установлен. Через несколько секунд изменения применятся к текущему треку.'
+        : '🎚️ Эффект басса был успешно установлен. Через несколько секунд изменения применятся к текущему треку.',
     );
   }
 }

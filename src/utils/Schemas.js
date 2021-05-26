@@ -4,6 +4,12 @@ module.exports = {
     premium: false,
     ideaChannel: null,
     warnings: [],
+    settings: {
+      clearCommandCalls: false,
+      deleteUserAfterLeave: false,
+      answerOnDisabledCommands: false,
+      hideDisabledCommands: false,
+    },
     ideas: [],
     welcome: {
       enabled: false,

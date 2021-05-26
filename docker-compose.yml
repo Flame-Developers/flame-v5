@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  bot:
+    build: .
+    ports:
+      - "3000:3000"
+  redis:
+    image: "redis:alpine"
+  lavalink:
+    restart: always
+    image: fredboat/lavalink:dev
+    volumes:
+      - type: bind
+        source: /home/admin/lavalink/application.yml
+        target: /opt/Lavalink/application.yml

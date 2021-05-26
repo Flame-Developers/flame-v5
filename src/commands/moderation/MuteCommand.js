@@ -32,23 +32,22 @@ class MuteCommand extends FlameCommand {
     if (!time) return getHelp(message, this.name);
     if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m')) return message.reply('Укажите пожалуйста **корректное** время мьюта (от одной минуты до 14 дней) :no_entry:');
 
-    const mute = {
-      guildID: message.guild.id,
-      userID: user.id,
-      muteRole: guild.muteRole,
-      ends: Date.now() + ms(time),
-      details: {
-        tag: user.user.tag,
-        moderator: message.author.id,
-        reason: args.slice(2).join(' ') || 'Причина не установлена.',
-      },
-    };
-    Mutes.create(mute);
-
     user.roles.add(guild.muteRole).catch(console.error);
     message.reply(`✅ Пользователь **${user.user.tag}** (${user.id}) был успешно замьючен модератором **${message.author.tag}**.`);
 
-    return Mutes.handle(mute);
+    return Mutes.handle(
+      {
+        guildID: message.guild.id,
+        userID: user.id,
+        muteRole: guild.muteRole,
+        ends: Date.now() + ms(time),
+        details: {
+          tag: user.user.tag,
+          moderator: message.author.id,
+          reason: args.slice(2).join(' ') || 'Причина не установлена.',
+        },
+      },
+    );
   }
 }
 
