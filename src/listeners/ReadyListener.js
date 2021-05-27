@@ -2,6 +2,7 @@ const FlameListener = require('../structures/FlameListener');
 const MuteManager = require('../managers/MuteManager');
 const CooldownManager = require('../managers/CooldownManager');
 const ReminderManager = require('../managers/ReminderManager');
+const Logger = require('../utils/Logger');
 
 class ReadyListener extends FlameListener {
   constructor() {
@@ -25,8 +26,8 @@ class ReadyListener extends FlameListener {
     reminders.forEach((reminder) => new ReminderManager(client).handle(reminder));
 
     client.user.setActivity('https://github.com/TheFerryn/Flame', { type: 3 });
-    return console.log(
-      `[Bot] Logged in as ${client.user.tag} (${client.user.id})`,
+    return Logger.info(
+      `Logged in as ${client.user.tag} (${client.user.id})`,
     );
   }
 }

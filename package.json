@@ -10,6 +10,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "canvas": "^2.7.0",
+    "chalk": "^4.1.1",
     "discord.js": "^12.5.3",
     "fastify": "^3.14.2",
     "fastify-rate-limit": "^5.5.0",

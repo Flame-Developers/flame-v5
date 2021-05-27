@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const ReportService = require('../../services/ReportService');
 const FlameListener = require('../../structures/FlameListener');
+const Logger = require('../../utils/Logger');
 
 class ShardReadyListener extends FlameListener {
   constructor() {
@@ -8,10 +9,11 @@ class ShardReadyListener extends FlameListener {
   }
 
   async run(client, id) {
+    Logger.info(`Shard #${id} successfully connected.`);
     await ReportService.sendReport(
       new MessageEmbed()
         .setTitle(`Shard #${id ?? '-'} => Connected`)
-        .setDescription(`**PID:** ${process.pid}\n**Date:** ${new Date().toLocaleString('ru')}`)
+        .setDescription(`**Process ID:** ${process.pid}\n**Date:** ${new Date().toLocaleString('ru')}\n**Timestamp:** ${Date.now()}`)
         .setColor('ffa500')
         .setFooter(client.user.username, client.user.avatarURL())
         .setTimestamp(),

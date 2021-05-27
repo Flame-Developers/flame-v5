@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const ReportService = require('../../services/ReportService');
 const FlameListener = require('../../structures/FlameListener');
+const Logger = require('../../utils/Logger');
 
 class ShardDisconnectListener extends FlameListener {
   constructor() {
@@ -8,6 +9,7 @@ class ShardDisconnectListener extends FlameListener {
   }
 
   async run(client, data, id) {
+    Logger.warn(`Shard #${id} disconnected.`);
     await ReportService.sendReport(
       new MessageEmbed()
         .setTitle(`Shard #${id ?? '-'} => Disconnected`)
