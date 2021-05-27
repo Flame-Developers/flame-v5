@@ -21,7 +21,7 @@ const options = {
 class FlamePlayer extends Shoukaku {
   constructor(client) {
     super(client, nodes, options);
-    this.on('ready', (name, resumed) => Logger.info(`${name} ${resumed ? 'reconnected' : 'reconnected'}.`));
+    this.on('ready', (name, resumed) => Logger.info(`${name} ${resumed ? 'reconnected' : 'connected'}.`));
     this.on('error', (name) => Logger.error(`${name} returned an error while trying to interact with it.`));
     this.on('close', (name, code) => Logger.warn(`${name} closed connection with code ${code}.`));
     this.on('disconnected', (name) => Logger.warn(`${name} disconnected.`));
