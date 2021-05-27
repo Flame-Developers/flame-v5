@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const ReportService = require('../../services/ReportService');
 const FlameListener = require('../../structures/FlameListener');
-const Logger = require('../../utils/Logger');
+const Logger = require('../../utils/misc/Logger');
 
 class ShardDisconnectListener extends FlameListener {
   constructor() {

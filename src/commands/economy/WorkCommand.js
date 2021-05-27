@@ -1,7 +1,7 @@
 /* eslint-disable */
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
-const StringParserUtil = require('../../utils/StringParserUtil');
+const StringParserUtil = require('../../utils/misc/StringParserUtil');
 const { randomize } = require('../../utils/Functions');
 const CooldownManager = require('../../managers/CooldownManager');
 const FlameCommand = require('../../structures/FlameCommand');

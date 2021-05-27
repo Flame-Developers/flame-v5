@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const Timer = require('../utils/Timer');
+const Timer = require('../utils/misc/Timer');
 
 class PremiumManager {
   constructor(client) {

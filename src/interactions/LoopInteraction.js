@@ -1,5 +1,5 @@
 const FlameInteraction = require('../structures/FlameInteraction');
-const InteractionResponse = require('../utils/InteractionResponse');
+const InteractionResponse = require('../utils/interactions/InteractionResponse');
 
 class LoopInteraction extends FlameInteraction {
   constructor() {

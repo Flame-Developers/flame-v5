@@ -1,5 +1,5 @@
 const FlameListener = require('../../structures/FlameListener');
-const InteractionData = require('../../utils/InteractionData');
+const InteractionData = require('../../utils/interactions/InteractionData');
 
 class InteractionCreateListener extends FlameListener {
   constructor() {

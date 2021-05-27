@@ -1,5 +1,5 @@
 /* eslint-disable */
-const StringParserUtil = require('../utils/StringParserUtil');
+const StringParserUtil = require('../utils/misc/StringParserUtil');
 
 class AntiInviteService {
   constructor(client, message) {

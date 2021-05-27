@@ -2,7 +2,7 @@ const FlameListener = require('../structures/FlameListener');
 const MuteManager = require('../managers/MuteManager');
 const CooldownManager = require('../managers/CooldownManager');
 const ReminderManager = require('../managers/ReminderManager');
-const Logger = require('../utils/Logger');
+const Logger = require('../utils/misc/Logger');
 
 class ReadyListener extends FlameListener {
   constructor() {

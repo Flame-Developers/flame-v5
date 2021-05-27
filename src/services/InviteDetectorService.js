@@ -1,5 +1,5 @@
 const { Message } = require('discord.js');
-const StringParserUtil = require('../utils/StringParserUtil');
+const StringParserUtil = require('../utils/misc/StringParserUtil');
 
 class InviteDetectorService {
   constructor() {

@@ -1,6 +1,6 @@
 const { Shoukaku } = require('shoukaku');
 const config = require('../../config.json');
-const Logger = require('../utils/Logger')
+const Logger = require('../utils/misc/Logger');
 
 const nodes = [
   {

@@ -1,4 +1,4 @@
-const StringParserUtil = require('../utils/StringParserUtil');
+const StringParserUtil = require('../utils/misc/StringParserUtil');
 
 class NotificationSenderService {
   constructor() {

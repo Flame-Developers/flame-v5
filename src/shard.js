@@ -1,7 +1,7 @@
 const { ShardingManager } = require('discord.js');
 const { join } = require('path');
 const config = require('../config.json');
-const Logger = require('./utils/Logger');
+const Logger = require('./utils/misc/Logger');
 
 const FlameApiWorker = require('../api/structures/FlameApiWorker');
 
