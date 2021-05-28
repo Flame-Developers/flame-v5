@@ -24,13 +24,13 @@ class WorkCommand extends FlameCommand {
 
     switch (option) {
       case 'income':
-        if (!message.member.permissions.has('MANAGE_GUILD')) return message.reply('У вас недостаточно прав для выполнения данного действия :no_entry:');
+        if (!message.member.permissions.has('MANAGE_GUILD')) return message.fail('У вас недостаточно прав для выполнения данного действия.');
         const numbers = args.slice(1, 3);
 
         if (numbers.some((a) => !parseInt(a)) || numbers.length !== 2)
-          return message.reply('Укажите пожалуйста новую сумму заработка :no_entry:');
+          return message.fail('Укажите пожалуйста новую сумму заработка.');
         if (numbers.some((a) => +a > 100000 || +a <= 0))
-          return message.reply('Сумма максимального/минимального заработка не должна превышать **100000**/быть меньше **1** :no_entry:');
+          return message.fail('Сумма максимального/минимального заработка не должна превышать **100000**/быть меньше **1**.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
@@ -43,7 +43,7 @@ class WorkCommand extends FlameCommand {
       default:
         const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
         if (cooldown) {
-          return message.channel.send(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}** :stopwatch:`);
+          return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
         }
         const defaultPhrases = [
           'Вы пошли на завод и заработали {{amount}}{{currency}}.',

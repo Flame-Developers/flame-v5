@@ -26,7 +26,7 @@ class ConfigCommand extends FlameCommand {
         .setTimestamp();
 
       for (const param of params) {
-        embed.addField(param, `**Состояние:** ${data?.settings?.[param] ? '✅' : '❌'}`, true);
+        embed.addField(param, `**Состояние:** ${data?.settings?.[param] ? message.client.constants.emojis.TOGGLE_ON : message.client.constants.emojis.TOGGLE_OFF}`, true);
       }
       return message.channel.send(embed);
     }

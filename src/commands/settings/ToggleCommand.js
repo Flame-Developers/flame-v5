@@ -16,10 +16,10 @@ class ToggleCommand extends FlameCommand {
   // eslint-disable-next-line consistent-return
   async run(message, args) {
     if (!args[0]) return getHelp(message, this.name);
-    if (!message.client.commands.get(args[0].toLowerCase())) return message.reply('Указанной вами команды не существует :no_entry:');
+    if (!message.client.commands.get(args[0].toLowerCase())) return message.fail('Указанной вами команды не существует.');
 
     const command = message.client.commands.get(args[0].toLowerCase()).name;
-    if (['help', 'toggle', 'eval', 'info'].includes(command)) return message.reply('Вы не можете отключить системную команду :no_entry:');
+    if (['help', 'toggle', 'eval', 'info', 'bonus'].includes(command)) return message.fail('Вы не можете отключить системную команду.');
 
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     if (data.disabledCommands.includes(command)) {
@@ -28,14 +28,14 @@ class ToggleCommand extends FlameCommand {
           disabledCommands: command,
         },
       });
-      message.reply(`✅ Команда \`${command}\` была успешно включена на данном сервере.`);
+      message.reply(`${message.client.constants.emojis.DONE} Команда \`${command}\` была успешно включена на данном сервере.`);
     } else {
       message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
         $push: {
           disabledCommands: command,
         },
       });
-      message.reply(`✅ Команда \`${command}\` была успешно отключена на данном сервере.`);
+      message.reply(`${message.client.constants.emojis.DONE} Команда \`${command}\` была успешно отключена на данном сервере.`);
     }
   }
 }

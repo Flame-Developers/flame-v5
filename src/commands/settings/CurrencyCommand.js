@@ -18,14 +18,14 @@ class CurrencyCommand extends FlameCommand {
 
     if (args[0] === 'set') {
       if (!args[1]) return getHelp(message, this.name);
-      if (args[1].length > 30) return message.reply('Длина символа валюты не должна превышать лимит в **30** символов :no_entry:');
+      if (args[1].length > 30) return message.fail('Длина символа валюты не должна превышать лимит в **30** символов.');
 
       message.client.database.collection('guilds').updateOne({guildID: message.guild.id}, {
         $set: {
           currency: args[1],
         },
       });
-      return message.channel.send(`✅ Символ валюты был успешно установлен на **${args[1]}**.`);
+      return message.channel.send(`${message.client.constants.emojis.DONE} Символ валюты был успешно установлен на **${args[1]}**.`);
     }
     message.channel.send(`Символ валюты на данном сервере установлен на **${data.currency}**.\nВы в любой момент можете изменить его, воспользовавшись командой \`${data.prefix}currency set\`.`);
   }

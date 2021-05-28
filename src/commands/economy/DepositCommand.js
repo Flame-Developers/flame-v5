@@ -31,9 +31,9 @@ class DepositCommand extends FlameCommand {
         },
       });
     } else {
-      if (isNaN(value) || !parseInt(value)) return message.reply('Укажите пожалуйста **верную** сумму депозита :no_entry:');
-      if (parseInt(value) <= 0) return message.reply('Сумма депозита не может быть меньше **1** :no_entry:');
-      if (data.money < parseInt(value)) return message.reply('Вы не можете совершить данный депозит, так как не имеете столь крупной суммы на руках :no_entry:');
+      if (isNaN(value) || !parseInt(value)) return message.fail('Укажите пожалуйста **верную** сумму депозита.');
+      if (parseInt(value) <= 0) return message.fail('Сумма депозита не может быть меньше **1**.');
+      if (data.money < parseInt(value)) return message.fail('Вы не можете совершить данный депозит, так как не имеете столь крупной суммы на руках.');
 
       message.client.database.collection('guildusers').updateOne({
         guildID: message.guild.id,
@@ -46,7 +46,7 @@ class DepositCommand extends FlameCommand {
       });
     }
 
-    message.channel.send(`✅ Депозит размером в **${value}**${guild.currency} прошел успешно. Отныне деньги находятся в вашем банке.`);
+    message.channel.send(`${message.client.constants.emojis.DONE} Депозит размером в **${value}**${guild.currency} прошел успешно. Отныне деньги находятся в вашем банке.`);
   }
 }
 

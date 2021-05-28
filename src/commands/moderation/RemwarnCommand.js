@@ -18,16 +18,16 @@ class RemwarnCommand extends FlameCommand {
     if (!id) return getHelp(message, this.name);
 
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
-    const warn = data?.warnings.find((r) => r.id == id);
+    const warn = data?.warnings.find((r) => r.id === id);
 
-    if (!warn) return message.reply('Указанное вами предупреждение не было найдено в списке предупреждений данного сервера :no_entry:');
+    if (!warn) return message.fail('Указанное вами предупреждение не было найдено в списке предупреждений данного сервера.');
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $pull: {
         warnings: { id },
       },
     });
 
-    return message.channel.send(`✅ Предупреждение \`#${id}\` было успешно удалено.`);
+    return message.channel.send(`${message.client.constants.emojis.DONE} Предупреждение \`#${id}\` было успешно удалено.`);
   }
 }
 

@@ -21,7 +21,7 @@ class MuteroleCommand extends FlameCommand {
         // eslint-disable-next-line no-case-declarations
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]);
         if (!role) return getHelp(message, this.name);
-        if (!message.guild.roles.cache.has(role.id)) return message.reply('Указанной вами роли не существует на данном сервере :no_entry:');
+        if (!message.guild.roles.cache.has(role.id)) return message.fail('Указанной вами роли не существует на данном сервере.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
@@ -31,14 +31,14 @@ class MuteroleCommand extends FlameCommand {
         message.channel.send(`✅ Роль мьюта была успешно установлена на ${role} (${role.id})`);
         break;
       case 'reset':
-        if (!data.muteRole) return message.reply('На данном сервере не установлена роль мьюта.');
+        if (!data.muteRole) return message.fail('На данном сервере не установлена роль мьюта.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             muteRole: null,
           },
         });
-        message.channel.send('✅ Роль мьюта была успешно сброшена.');
+        message.channel.send(`${message.client.constants.emojis.DONE} Роль мьюта была успешно сброшена.`);
         break;
       default:
         return message.channel.send(data.muteRole

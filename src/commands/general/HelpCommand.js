@@ -56,7 +56,7 @@ class HelpCommand extends FlameCommand {
       return message.channel.send(embed);
     } if (args[0]) {
       const category = categories.find((c) => c.name === args[0] || c.key === args[0]);
-      if (!category) return message.reply('Указанная вами категория не была найдена в списке доступных :no_entry:');
+      if (!category) return message.fail('Указанная вами категория не была найдена в списке доступных.');
 
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)

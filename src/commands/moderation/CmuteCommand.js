@@ -19,11 +19,11 @@ class CmuteCommand extends FlameCommand {
     const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[1]) || message.channel;
 
     if (!user || !message.guild.channels.cache.has(channel.id)) return getHelp(message, this.name);
-    if (user.permissions.has('MANAGE_CHANNELS') || user.roles.highest.position > message.member.roles.highest.position) return message.reply('Вы не можете замьютить данного пользователя :no_entry:');
-    if (!user.permissionsIn(channel).has('SEND_MESSAGES')) return message.reply('Указанный вами пользователь уже замьючен в данном канале :no_entry:');
+    if (user.permissions.has('MANAGE_CHANNELS') || user.roles.highest.position > message.member.roles.highest.position) return message.fail('Вы не можете замьютить данного пользователя.');
+    if (!user.permissionsIn(channel).has('SEND_MESSAGES')) return message.fail('Указанный вами пользователь уже замьючен в данном канале.');
 
     channel.updateOverwrite(user, { SEND_MESSAGES: false });
-    return message.reply(`✅ Пользователь **${user.user.tag}** (${user.id}) был успешно замьючен в ${channel}.`);
+    return message.reply(`${message.client.constants.emojis.DONE} Пользователь **${user.user.tag}** (${user.id}) был успешно замьючен в ${channel}.`);
   }
 }
 

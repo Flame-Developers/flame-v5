@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const ms = require('ms');
+const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');
 const ReminderManager = require('../../managers/ReminderManager');
 
@@ -21,13 +22,13 @@ class ReminderCommand extends FlameCommand {
       case 'create':
         const time = args[1];
         if (!time) {
-          return message.reply(
-            'Укажите пожалуйста длительность напоминания :no_entry:',
+          return message.fail(
+            'Укажите пожалуйста длительность напоминания.',
           );
         }
         if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m')) {
-          return message.reply(
-            'Длительность напоминания должна быть от одной минуты до 14-ти дней :no_entry:',
+          return message.fail(
+            'Длительность напоминания должна быть от одной минуты до 14-ти дней.',
           );
         }
 
@@ -47,18 +48,18 @@ class ReminderCommand extends FlameCommand {
         break;
       case 'remove':
         if (!args[1]) {
-          return message.reply(
-            'Укажите пожалуйста ID напоминания которое вы хотите удалить :no_entry:',
+          return message.fail(
+            'Укажите пожалуйста ID напоминания которое вы хотите удалить.',
           );
         }
         if (!(await Reminders.find({ userID: message.author.id, id: args[1] }))) {
-          return message.reply(
-            'Указанного вами напоминания не существует :no_entry:',
+          return message.fail(
+            'Указанного вами напоминания не существует.',
           );
         }
 
         Reminders.delete({ userID: message.author.id, id: args[1] });
-        message.reply('✅ Напоминание с указанным ID было успешно удалено.');
+        message.reply(`${message.client.constants.emojis.DONE} Напоминание было успешно удалено.`);
         break;
       case 'list':
         const data = await message.client.database
@@ -89,6 +90,8 @@ class ReminderCommand extends FlameCommand {
         }
         message.channel.send(embed);
         break;
+      default:
+        return getHelp(message, this.name);
     }
   }
 }

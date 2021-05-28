@@ -15,16 +15,16 @@ class SuggestCommand extends FlameCommand {
 
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
-    if (!data.ideaChannel) return message.reply('На данном сервере не установлен канал для предложений. Обратитесь к администратору для решения данной проблемы :no_entry:');
+    if (!data.ideaChannel) return message.fail('На данном сервере не установлен канал для предложений. Обратитесь к администратору для решения данной проблемы.');
 
     const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
-    if (user.idesBlacklist) return message.reply('Вы не можете использовать данную команду, так как находитесь в черном списке предложений данного сервера :no_entry:');
+    if (user.idesBlacklist) return message.fail('Вы не можете использовать данную команду, так как находитесь в черном списке предложений данного сервера.');
 
     const suggestion = args.join(' ');
 
     if (!suggestion) return getHelp(message, this.name);
-    if (suggestion.length > 1850) return message.reply('Длина предложения не должна превышать лимит в **1850** символов :no_entry:');
-    if (!message.guild.me.permissionsIn(data.ideaChannel).has('SEND_MESSAGES')) return message.reply('У меня нет прав на отправку сообщений в текущий канал предложений на сервере :no_entry:');
+    if (suggestion.length > 1850) return message.fail('Длина предложения не должна превышать лимит в **1850** символов.');
+    if (!message.guild.me.permissionsIn(data.ideaChannel).has('SEND_MESSAGES')) return message.fail('У меня нет прав на отправку сообщений в текущий канал предложений на сервере.');
 
     message.reply('Вы уверены, что хотите отправить свою идею? Данное действие нельзя будет отменить.').then((m) => {
       const collector = m.createReactionCollector((reaction, user) => user.id === message.author.id, { max: 1 });

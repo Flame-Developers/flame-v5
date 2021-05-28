@@ -18,10 +18,10 @@ class CunmuteCommand extends FlameCommand {
     const channel = message.mentions.channels.first() || message.guild.channels.cache.get(args[1]) || message.channel;
 
     if (!user || !message.guild.channels.cache.has(channel.id)) return getHelp(message, this.name);
-    if (user.permissionsIn(channel).has('SEND_MESSAGES')) return message.reply('Указанный вами пользователь не замьючен в данном канале :no_entry:');
+    if (user.permissionsIn(channel).has('SEND_MESSAGES')) return message.fail('Указанный вами пользователь не замьючен в данном канале.');
 
     channel.updateOverwrite(user, { SEND_MESSAGES: null });
-    return message.reply(`✅ С пользователя **${user.user.tag}** (${user.id}) был успешно снят мьют в ${channel}.`);
+    return message.reply(`${message.client.constants.emojis.DONE} С пользователя **${user.user.tag}** (${user.id}) был успешно снят мьют в ${channel}.`);
   }
 }
 

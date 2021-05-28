@@ -1,3 +1,4 @@
+/* eslint-disable global-require,no-console */
 const { Client, Collection } = require('discord.js');
 const { MongoClient } = require('mongodb');
 
@@ -16,6 +17,7 @@ class FlameClient extends Client {
       useUnifiedTopology: true,
     });
     this.cache = this.config.cachingEnabled ? new CachingService() : null;
+    this.constants = require('../utils/Constants');
 
     this.shoukaku = new FlamePlayer(this);
     this.queue = new FlameQueue(this);

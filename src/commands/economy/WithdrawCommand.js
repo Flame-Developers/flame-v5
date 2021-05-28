@@ -31,9 +31,9 @@ class WithdrawCommand extends FlameCommand {
         },
       });
     } else {
-      if (isNaN(value) || !parseInt(value)) return message.reply('Укажите пожалуйста **верную** сумму вывода :no_entry:');
-      if (parseInt(value) <= 0) return message.reply('Сумма вывода не может быть меньше **1** :no_entry:');
-      if (data.bank < parseInt(value)) return message.reply('Вы не можете совершить данный вывод, так как не имеете столь крупной суммы на банковском счету :no_entry:');
+      if (isNaN(value) || !parseInt(value)) return message.fail('Укажите пожалуйста **верную** сумму вывода.');
+      if (parseInt(value) <= 0) return message.fail('Сумма вывода не может быть меньше **1**.');
+      if (data.bank < parseInt(value)) return message.fail('Вы не можете совершить данный вывод, так как не имеете столь крупной суммы на банковском счету.');
 
       message.client.database.collection('guildusers').updateOne({
         guildID: message.guild.id,
@@ -46,7 +46,7 @@ class WithdrawCommand extends FlameCommand {
       });
     }
 
-    message.channel.send(`✅ Вывод размером в **${value}**${guild.currency} прошел успешно. Отныне деньги у вас на руках.`);
+    message.channel.send(`${message.client.constants.emojis.DONE} Вывод размером в **${value}**${guild.currency} прошел успешно. Отныне деньги у вас на руках.`);
   }
 }
 

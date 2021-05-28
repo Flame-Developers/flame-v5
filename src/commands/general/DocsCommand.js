@@ -20,7 +20,7 @@ class DocsCommand extends FlameCommand {
 
     if (!args[0] || !VERSIONS.includes(version)) return getHelp(message, this.name);
     if (!args.slice(1).join(' ')) return getHelp(message, this.name);
-    if (!args.slice(1).join(' ').length > 500) return message.reply('Запрос не должен превышать лимит в **500** символов :no_entry:');
+    if (!args.slice(1).join(' ').length > 500) return message.reply(`${message.client.constants.emojis.FAIL} Запрос не должен превышать лимит в **500** символов.`);
 
     version = `https://raw.githubusercontent.com/discordjs/discord.js/docs/${args[0].toLowerCase()}.json`;
     args.shift();
@@ -28,7 +28,7 @@ class DocsCommand extends FlameCommand {
     const PARAMS = querystring.stringify({ src: version, q: args.join(' ') });
 
     fetch(`${URL}?${PARAMS}`).then((res) => res.json()).then((data) => {
-      if (!data) return message.reply('Ваш запрос не вернул никаких результатов :no_entry:');
+      if (!data) return message.fail('По вашему запросу не было найдено никаких результатов.');
 
       return message.reply({ embed: data });
     });

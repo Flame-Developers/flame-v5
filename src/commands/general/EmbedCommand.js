@@ -22,7 +22,7 @@ class EmbedCommand extends FlameCommand {
 
       return embed.plainText ? message.channel.send(embed.plainText, { embed }) : message.channel.send({ embed });
     } catch {
-      return message.reply('Вы указали неверный объект сообщения. Попробуйте сгенерировать его на сайте :no_entry:');
+      return message.fail('Вы указали неверный объект сообщения. Попробуйте сгенерировать его на сайте.');
     }
   }
 }

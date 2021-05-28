@@ -60,4 +60,10 @@ module.exports = {
     // TODO: загрузить изображения ниже на собственный cdn-сервер и заменить на них ссылки.
     MODULE_GRAY: 'https://media.discordapp.net/attachments/686585233339842572/708784426468769793/module_gray.png',
   },
+  emojis: {
+    DONE: '<:done:847786037597962262>',
+    FAIL: '<:fail:847787601120329769>',
+    TOGGLE_ON: '<:toggle_on:847798757768822826>',
+    TOGGLE_OFF: '<:toggle_off:847798889058140170>',
+  },
 };

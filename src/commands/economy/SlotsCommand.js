@@ -20,9 +20,9 @@ class SlotsCommand extends FlameCommand {
     let bet = args[0];
 
     if (!bet) return getHelp(message, this.name);
-    if (isNaN(bet) || !parseInt(bet)) return message.reply('Укажите пожалуйста **верную** ставку :no_entry:');
-    if (parseInt(bet) < 20 || parseInt(bet) > 100000) return message.reply('Ставка должна быть больше **20** и меньше **100,000** :no_entry:');
-    if (data.money < parseInt(bet)) return message.reply('Сумма данной ставки превышает сумму ваших денег на руках :no_entry:');
+    if (isNaN(bet) || !parseInt(bet)) return message.fail('Укажите пожалуйста **верную** ставку.');
+    if (parseInt(bet) < 20 || parseInt(bet) > 100000) return message.fail('Ставка должна быть больше **20** и меньше **100,000**.');
+    if (data.money < parseInt(bet)) return message.fail('Сумма данной ставки превышает сумму ваших денег на руках.');
 
     let win = true;
     const slots = ['🍇', '🍓', '💸', '🍎', '💰', '🍊', '🍍', '🍋', '🍒'];

@@ -20,12 +20,12 @@ class UnbanCommand extends FlameCommand {
     message.guild.fetchBans().then((bans) => {
       const member = bans.get(id);
 
-      if (!member) return message.reply('Указанный вами пользователь не был найден в списке банов данного сервера :no_entry:');
+      if (!member) return message.fail('Указанный вами пользователь не был найден в списке банов данного сервера.');
       try {
         message.guild.members.unban(member.user.id);
-        return message.channel.send(`✅ Пользователь **${member?.user.tag}** был успешно разбанен модератором **${message.author.tag}**.`);
+        return message.channel.send(`${message.client.constants.emojis.DONE} Пользователь **${member?.user.tag}** был успешно разбанен модератором **${message.author.tag}**.`);
       } catch {
-        return message.channel.send('Мне не удалось разбанить указанного вами пользователя :no_entry:');
+        return message.fail('Мне не удалось разбанить указанного вами пользователя.');
       }
     });
   }

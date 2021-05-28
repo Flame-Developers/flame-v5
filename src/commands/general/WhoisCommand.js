@@ -18,7 +18,7 @@ class WhoisCommand extends FlameCommand {
     try {
       fetch(`http://ip-api.com/json/${encodeURIComponent(args[0])}`).then((r) => r.json())
         .then((res) => {
-          if (res.status !== 'success') return message.reply('Укажите пожалуйста домен/**верный** IP-адрес :no_entry:');
+          if (res.status !== 'success') return message.fail('Укажите пожалуйста домен/**верный** IP-адрес.');
 
           return message.reply(
             new MessageEmbed()

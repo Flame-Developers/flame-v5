@@ -24,20 +24,20 @@ class AntiInviteCommand extends FlameCommand {
             'antiInvite.enabled': !data.antiInvite.enabled,
           },
         });
-        message.channel.send(`✅ Защита от приглашений была успешно **${data.antiInvite.enabled ? 'отключена' : 'включена'}** на данном сервере.`);
+        message.channel.send(`${message.client.constants.emojis.DONE} Защита от приглашений была успешно **${data.antiInvite.enabled ? 'отключена' : 'включена'}** на данном сервере.`);
         break;
       case 'message':
-        if (!data.antiInvite.enabled) return message.reply('На данном сервере ещё не включена защита от приглашений. Включите её прежде чем настраивать другие параметры :no_entry:');
+        if (!data.antiInvite.enabled) return message.fail('На данном сервере ещё не включена защита от приглашений. Включите её прежде чем настраивать другие параметры.');
         // eslint-disable-next-line
         const msg = args.slice(1).join(' ');
-        if (!msg) return message.reply('Укажите пожалуйста новое сообщение :no_entry:');
+        if (!msg) return message.fail('Укажите пожалуйста новое сообщение.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             'antiInvite.message': msg.slice(0, 999),
           },
         });
-        message.channel.send('✅ Сообщение было успешно отредактировано.');
+        message.channel.send(`${message.client.constants.emojis.DONE} Сообщение было успешно отредактировано.`);
         break;
       case 'reset':
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
@@ -46,15 +46,15 @@ class AntiInviteCommand extends FlameCommand {
             'antiInvite.whitelist': [],
           },
         });
-        message.channel.send('✅ Настройки модуля были успешно сброшены.');
+        message.channel.send(`${message.client.constants.emojis.DONE} Настройки модуля были успешно сброшены.`);
         break;
       case 'whitelist':
         // eslint-disable-next-line
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
 
-        if (!role) return message.reply('Укажите пожалуйста роль, которая будет добавлена в белый список :no_entry:');
-        if (!message.guild.roles.cache.has(role.id)) return message.reply('Указанной вами роли не существует на данном сервере :no_entry:');
-        if (role.id === message.guild.id) return message.reply('Вы не можете добавить данную роль в белый список :no_entry:');
+        if (!role) return message.fail('Укажите пожалуйста роль, которая будет добавлена в белый список.');
+        if (!message.guild.roles.cache.has(role.id)) return message.fail('Указанной вами роли не существует на данном сервере.');
+        if (role.id === message.guild.id) return message.fail('Вы не можете добавить данную роль в белый список.');
 
         if (data.antiInvite.whitelist.includes(role.id)) {
           message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
@@ -62,14 +62,14 @@ class AntiInviteCommand extends FlameCommand {
               'antiInvite.whitelist': role?.id,
             },
           });
-          message.channel.send(`✅ Роль **${role.name}** была успешно убрана с белого списка.`);
+          message.channel.send(`${message.client.constants.emojis.DONE} Роль **${role.name}** была успешно убрана с белого списка.`);
         } else {
           message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
             $push: {
               'antiInvite.whitelist': role?.id,
             },
           });
-          message.channel.send(`✅ Роль **${role.name}** была успешно добавлена в белый список.`);
+          message.channel.send(`${message.client.constants.emojis.DONE} Роль **${role.name}** была успешно добавлена в белый список.`);
         }
         break;
       default:

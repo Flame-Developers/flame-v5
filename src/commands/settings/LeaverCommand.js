@@ -24,34 +24,34 @@ class LeaverCommand extends FlameCommand {
             'leave.enabled': !data.leave.enabled,
           },
         });
-        message.channel.send(`✅ Система уведомлений об ушедших участников была успешно **${data.leave.enabled ? 'отключена' : 'включена'}** на данном сервере.`);
+        message.channel.send(`${message.client.constants.emojis.DONE} Система уведомлений об ушедших участников была успешно **${data.leave.enabled ? 'отключена' : 'включена'}** на данном сервере.`);
         break;
       case 'channel':
-        if (!data.leave.enabled) return message.reply('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры :no_entry:');
+        if (!data.leave.enabled) return message.fail('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры.');
         // eslint-disable-next-line no-case-declarations
         const channel = message.mentions.channels.first()
           || message.guild.channels.cache.get(args[1])
           || message.channel;
 
-        if (!message.guild.channels.cache.has(channel.id)) return message.reply('Указанного вами канала не существует на данном сервере :no_entry:');
+        if (!message.guild.channels.cache.has(channel.id)) return message.fail('Указанного вами канала не существует на данном сервере.');
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             'leave.channel': channel.id,
           },
         });
-        message.channel.send(`✅ Канал для уведомлений был успешно установлен на ${channel} (${channel.id})`);
+        message.channel.send(`${message.client.constants.emojis.DONE} Канал для уведомлений был успешно установлен на ${channel} (${channel.id})`);
         break;
       case 'message':
-        if (!data.leave.enabled) return message.reply('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры :no_entry:');
+        if (!data.leave.enabled) return message.fail('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры.');
         // eslint-disable-next-line no-case-declarations
         const msg = args.slice(1).join(' ');
-        if (!msg) return message.reply('Укажите пожалуйста новое сообщение уведомлений :no_entry:');
+        if (!msg) return message.fail('Укажите пожалуйста новое сообщение уведомлений.');
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             'leave.text': msg.slice(0, 999),
           },
         });
-        message.channel.send('✅ Сообщение уведомлений было успешно обновлено.');
+        message.channel.send(`${message.client.constants.emojis.DONE} Сообщение уведомлений было успешно обновлено.`);
         break;
       case 'reset':
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
@@ -60,7 +60,7 @@ class LeaverCommand extends FlameCommand {
             'leave.text': null,
           },
         });
-        message.channel.send('✅ Настройки модуля были успешно сброшены.');
+        message.channel.send(`${message.client.constants.emojis.DONE} Настройки модуля были успешно сброшены.`);
         break;
       default:
         return message.channel.send(

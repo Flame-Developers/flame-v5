@@ -19,8 +19,8 @@ class BonusCommand extends FlameCommand {
     if (!data) return message.reply('К сожалению, я не смог найти подписку привязанную к вашему Discord-аккаунту. Обратитесь на сервер поддержки если вы считаете, что так быть не должно :pensive:');
     switch (option) {
       case 'activate':
-        if (await message.guild.hasPremium()) return message.reply('У данного сервера уже имеются бонусные возможности :no_entry:');
-        if (data.premiumGuilds.length >= data.premiumGuildsMaxLength) return message.reply('Похоже, у вас не осталось слотов для активации бонусов на данном сервере. Может вам нужна подписка по-лучше? :no_entry:');
+        if (await message.guild.hasPremium()) return message.fail('Вы не можете активировать бонусные возможности на этом сервере, так как он их уже имеет.');
+        if (data.premiumGuilds.length >= data.premiumGuildsMaxLength) return message.fail('Похоже, у вас не осталось слотов для активации бонусов на данном сервере. Может вам нужна подписка по-лучше?');
 
         message.client.database.collection('subscriptions').updateOne({ userID: message.author.id }, { $push: { premiumGuilds: message.guild.id } });
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, { $set: { premium: true } });
@@ -30,13 +30,13 @@ class BonusCommand extends FlameCommand {
       case 'remove':
         // eslint-disable-next-line no-case-declarations
         const id = args[1];
-        if (!id) return message.reply('Укажите пожалуйста ID сервера, с которого вы хотите снять бонусы :no_entry:');
-        if (!data?.premiumGuilds.includes(id)) return message.reply('У вас нет активированных бонусов на указанном сервере :no_entry:');
+        if (!id) return message.fail('Укажите пожалуйста ID сервера, с которого вы хотите снять бонусы.');
+        if (!data?.premiumGuilds.includes(id)) return message.reply(`${message.client.constants.emojis.FAIL} У вас нет активированных бонусов на указанном сервере.`);
 
         message.client.database.collection('subscriptions').updateOne({ userID: message.author.id }, { $pull: { premiumGuilds: id } });
         message.client.database.collection('guilds').updateOne({ guildID: id }, { $set: { premium: false } });
 
-        message.channel.send(`✅ С сервера **${id}** были успешно сняты бонусные возможности.`);
+        message.channel.send(`${message.client.constants.emojis.DONE} С сервера **${id}** были успешно сняты бонусные возможности.`);
         break;
       case 'list':
         // eslint-disable-next-line no-case-declarations

@@ -21,7 +21,7 @@ class BalanceCommand extends FlameCommand {
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
     const data = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: user.id });
 
-    if (!data) return message.reply('Указанный вами пользователь не был найден в базе данного сервера :no_entry:');
+    if (!data) return message.fail('Указанный вами пользователь не был найден в базе данного сервера.');
 
     const canvas = Canvas.createCanvas(1375, 855);
     const ctx = canvas.getContext('2d');

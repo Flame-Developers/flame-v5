@@ -16,6 +16,9 @@ class FlameMessage extends Message {
 
     return this.channel.send(apiMessage);
   }
+  fail(...args) {
+    return this.reply(this.client.constants.emojis.FAIL + ` ${args}`);
+  }
 }
 
 module.exports = FlameMessage;

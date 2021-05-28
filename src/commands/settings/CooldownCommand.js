@@ -30,19 +30,19 @@ class CooldownCommand extends FlameCommand {
       case 'set':
         // eslint-disable-next-line
         const command = args[1];
-        if (!data.cooldown[command]) return message.reply('Указанной вами команды не существует либо вы не имеете прав на её редактирование :no_entry:');
+        if (!data.cooldown[command]) return message.fail('Указанной вами команды не существует либо вы не имеете прав на её редактирование.');
 
         // eslint-disable-next-line
         const time = ms(args[2]);
         if (!time) return getHelp(message, this.name);
-        if (time < 300000 || time > 7 * 24 * 60 * 60 * 1000) return message.reply('Время задержки должно быть между **5-ти минут** и **одной недели** :no_entry:');
+        if (time < 300000 || time > 7 * 24 * 60 * 60 * 1000) return message.fail('Время задержки должно быть между **5-ти минут** и **одной недели**.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             [`cooldown.${command}`]: Math.floor(time / 1000),
           },
         });
-        message.reply(`✅ Задержка команды \`${command}\` была успешно обновлена. Изменения применятся при следующем использовании команды.`);
+        message.reply(`${message.client.constants.emojis.DONE} Задержка команды \`${command}\` была успешно обновлена. Изменения применятся при следующем использовании команды.`);
         break;
       default:
         return message.channel.send(

@@ -16,7 +16,7 @@ class ClearCommand extends FlameCommand {
 
   async run(message, args) {
     if (!args[0]) return getHelp(message, this.name);
-    if (isNaN(args[0]) || parseInt(args[0]) < 1 || parseInt(args[0]) >= 1000 || !parseInt(args[0])) return message.reply('Укажите пожалуйста **верное** число сообщений (от 1 до 1000) :no_entry:');
+    if (isNaN(args[0]) || parseInt(args[0]) < 1 || parseInt(args[0]) >= 1000 || !parseInt(args[0])) return message.fail('Укажите пожалуйста **верное** число сообщений (от 1 до 1000).');
 
     try {
       let deleted = 0;
@@ -32,9 +32,9 @@ class ClearCommand extends FlameCommand {
         deleted += messages.length;
       } while (deleted !== parseInt(args[0]));
 
-      return message.channel.send(`✅ Успешно удалено **${args[0]}** сообщений!`);
+      return message.channel.send(`${message.client.constants.emojis.DONE} Успешно удалено **${args[0]}** сообщений!`);
     } catch {
-      return message.channel.send('Я не могу удалять сообщения старше **14** дней :no_entry:');
+      return message.fail('Я не могу удалять сообщения старше **14** дней.');
     }
   }
 }

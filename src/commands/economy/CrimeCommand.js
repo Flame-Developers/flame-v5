@@ -20,12 +20,12 @@ class CrimeCommand extends FlameCommand {
     const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
 
     if (cooldown) {
-      return message.channel.send(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}** :stopwatch:`);
+      return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
     }
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
-    if (user?.money < 500) return message.reply(`Для использования данной команды вы должны иметь как минимум **500**${guild.currency} на руках :no_entry:`);
+    if (user?.money < 500) return message.fail(`Для использования данной команды вы должны иметь как минимум **500**${guild.currency} на руках.`);
     let amount;
 
     if (Math.random() < 0.5) {

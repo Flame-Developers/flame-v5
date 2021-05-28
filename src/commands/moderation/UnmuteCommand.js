@@ -21,13 +21,13 @@ class UnmuteCommand extends FlameCommand {
     if (!user) return getHelp(message, this.name);
     const data = await message.client.database.collection('mutes').findOne({ guildID: message.guild.id, userID: user.id });
 
-    if (!data) return message.reply('Указанный вами пользователь не замьючен на данном сервере :no_entry:');
-    if (user.roles.cache.has(data?.muteRole) && user.roles.highest.position > message.guild.me.roles.highest.position) return message.reply('Я не могу управлять ролями данного пользователя, потому что его роль находится выше моей :no_entry:');
+    if (!data) return message.fail('Указанный вами пользователь не замьючен на данном сервере.');
+    if (user.roles.cache.has(data?.muteRole) && user.roles.highest.position > message.guild.me.roles.highest.position) return message.fail('Я не могу управлять ролями данного пользователя, потому что его роль находится выше моей.');
 
     user.roles.remove(data?.muteRole).catch(null);
     mutes.delete({ guildID: message.guild.id, userID: user.id });
 
-    return message.reply(`✅ Пользователь **${user.user.tag}** (${user.id}) был успешно размьючен.`);
+    return message.reply(`${message.client.constants.emojis.DONE} Пользователь **${user.user.tag}** (${user.id}) был успешно размьючен.`);
   }
 }
 
