@@ -3,6 +3,7 @@ module.exports = {
     prefix: 'f.',
     premium: false,
     ideaChannel: null,
+    ideaBlacklist: [],
     warnings: [],
     settings: {
       clearCommandCalls: false,
@@ -66,6 +67,5 @@ module.exports = {
       list: [],
       blocked: false,
     },
-    ideaBlacklist: false,
   },
 };

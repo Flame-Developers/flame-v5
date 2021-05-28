@@ -18,7 +18,7 @@ class SuggestCommand extends FlameCommand {
     if (!data.ideaChannel) return message.fail('На данном сервере не установлен канал для предложений. Обратитесь к администратору для решения данной проблемы.');
 
     const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
-    if (user.idesBlacklist) return message.fail('Вы не можете использовать данную команду, так как находитесь в черном списке предложений данного сервера.');
+    if (data.ideaBlacklist?.includes(message.author.id)) return message.fail('Вы не можете использовать данную команду, так как находитесь в черном списке предложений данного сервера.');
 
     const suggestion = args.join(' ');
 
