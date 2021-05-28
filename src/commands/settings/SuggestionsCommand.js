@@ -1,3 +1,4 @@
+const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');
 
 class SuggestionsCommand extends FlameCommand {
@@ -40,7 +41,7 @@ class SuggestionsCommand extends FlameCommand {
       case 'blacklist':
         const user = message.mentions.members.first() || message.guild.channels.cache.get(args[1]);
         if (!user) return message.fail('Укажите пожалуйста пользователя, которого вы хотите занести в черный список.');
-        if (user.permissions.has('MANAGE_GUILD') || user.roles.highest.position >= message.member.roles.highest.position) return message.fail('Вы не можете внести данного пользователя в черный список, так кк он имеет равные вам права.');
+        if (user.permissions.has('MANAGE_GUILD') || user.roles.highest.position >= message.member.roles.highest.position) return message.fail('Вы не можете внести данного пользователя в черный список, так как он имеет равные вам права.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           [data.ideaBlacklist?.includes(user.id) ? '$pull' : '$push']: {
@@ -49,6 +50,8 @@ class SuggestionsCommand extends FlameCommand {
         });
         message.channel.send(`${message.client.constants.emojis.DONE} Пользователь **${user.id}** был успешно ${!data.ideaBlacklist?.includes(user.id) ? 'внесен в черный список.' : 'вынесен из черного списка.'}`);
         break;
+      default:
+        return getHelp(message, this.name);
     }
   }
 }
