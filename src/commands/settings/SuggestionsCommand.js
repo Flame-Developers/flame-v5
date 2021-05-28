@@ -15,7 +15,7 @@ class SuggestionsCommand extends FlameCommand {
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     const option = args[0];
-    // eslint-disable-next-line default-case
+
     switch (option) {
       case 'channel':
         // eslint-disable-next-line max-len
