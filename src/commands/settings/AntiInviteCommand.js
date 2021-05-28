@@ -56,21 +56,12 @@ class AntiInviteCommand extends FlameCommand {
         if (!message.guild.roles.cache.has(role.id)) return message.fail('Указанной вами роли не существует на данном сервере.');
         if (role.id === message.guild.id) return message.fail('Вы не можете добавить данную роль в белый список.');
 
-        if (data.antiInvite.whitelist.includes(role.id)) {
-          message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
-            $pull: {
-              'antiInvite.whitelist': role?.id,
-            },
-          });
-          message.channel.send(`${message.client.constants.emojis.DONE} Роль **${role.name}** была успешно убрана с белого списка.`);
-        } else {
-          message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
-            $push: {
-              'antiInvite.whitelist': role?.id,
-            },
-          });
-          message.channel.send(`${message.client.constants.emojis.DONE} Роль **${role.name}** была успешно добавлена в белый список.`);
-        }
+        message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
+          [data.antiInvite?.whiteList?.includes(role.id) ? '$pull' : '$push']: {
+            'antiInvite.whiteList': role.id,
+          },
+        });
+        message.channel.send(`${message.client.constants.emojis.DONE} Роль **${role.id}** была успешно ${!data.antiInvite?.whiteList?.includes(role.id) ? 'занесена в белый список.' : 'вынесена из белого списка.'}`);
         break;
       default:
         message.channel.send(
