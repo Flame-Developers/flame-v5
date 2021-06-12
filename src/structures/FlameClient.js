@@ -24,6 +24,8 @@ class FlameClient extends Client {
     this.listeners = new Collection();
     this.commands = new Collection();
     this.interactions = new Collection();
+
+    this.buttonCache = new Map();
   }
 
   get database() {
