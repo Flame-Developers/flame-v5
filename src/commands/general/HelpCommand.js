@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 const { MessageEmbed } = require('discord.js');
+const { PaginatorUtil, PaginatorEntry } = require('../../utils/misc/PaginatorUtil');
 const FlameCommand = require('../../structures/FlameCommand');
 
 class HelpCommand extends FlameCommand {
@@ -35,48 +37,35 @@ class HelpCommand extends FlameCommand {
         description: 'Различные команды связанные с экономикой.',
       },
     ];
-    const data = await message.client.database
-      .collection('guilds')
-      .findOne({ guildID: message.guild.id });
+    const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
+    const entries = [];
 
-    if (!args[0]) {
-      const embed = new MessageEmbed()
-        .setTitle('Меню помощи')
-        .setDescription(
-          `Узнать набор команд той или иной категории можно воспользовавшись командой \`${data.prefix}help <Модуль>\`.`,
-        )
-        .setColor('ffa500')
-        .setFooter(message.guild.name, message.guild.iconURL())
-        .setTimestamp();
-
-      for (const category of categories) {
-        embed.addField(category.name, category.description, true);
-      }
-
-      return message.channel.send(embed);
-    } if (args[0]) {
-      const category = categories.find((c) => c.name === args[0] || c.key === args[0]);
-      if (!category) return message.fail('Указанная вами категория не была найдена в списке доступных.');
-
+    for (const category of categories) {
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)
-        .setDescription(
-          'Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n',
-        )
+        .setDescription('Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n')
         .setColor('ffa500')
-        .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
         .setFooter(message.guild.name, message.guild.iconURL())
+        .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
         .setTimestamp();
 
-      // eslint-disable-next-line array-callback-return
-      message.client.commands.filter((cmd) => cmd.category === category.key).map((command) => {
-        // eslint-disable-next-line max-len
-        if (data.settings.hideDisabledCommands && data.disabledCommands.includes(command.name)) return;
+      message.client.commands.filter((cmd) => cmd.category === category?.key).map((command) => {
+        if (data.settings?.hideDisabledCommands && data.disabledCommands?.includes(command.name)) return;
         embed.description += `\`${data.prefix}${command.name}\` — ${command.description}\n`;
       });
-
-      return message.channel.send(embed);
+      entries.push(
+        new PaginatorEntry(null, embed),
+      );
     }
+    const embed = new MessageEmbed()
+      .setTitle('Меню помощи')
+      .setDescription(`Для того, чтобы перемещаться по страницам, воспользуйтесь кнопками ниже. Если почему-то на вашем устройстве они не отображаются, обновите/переустановите приложение Discord.\n\nВсего доступно категорий: **${categories.length}**.\nОбщее количество команд: **${message.client.commands.size}**.`)
+      .setColor('ffa500')
+      .setFooter(message.guild.name, message.guild.iconURL())
+      .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
+      .setTimestamp();
+
+    return new PaginatorUtil(message.client, message.author, [new PaginatorEntry('❓ По всем вопросам обращайтесь на сервер поддержки: https://discord.gg/7FUJPRCsw8', embed), ...entries]).init(message.channel, 350);
   }
 }
 
