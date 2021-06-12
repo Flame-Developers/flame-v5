@@ -1,7 +1,7 @@
 /* eslint-disable */
 const chalk = require('chalk');
 const messages = {
-  info: chalk.black.bgCyan,
+  info: chalk.black.bgBlue,
   error: chalk.black.bgRed,
   warn: chalk.black.bgYellow,
 };
