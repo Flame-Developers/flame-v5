@@ -69,7 +69,7 @@ class PaginatorUtil {
         ],
       },
     });
-    this._client.buttonCache.set(this.message.id, (res) => {
+    this._client.cache.buttons.set(this.message.id, (res) => {
       if (res.member.user.id !== this.user?.id) return;
 
       switch (res.data.custom_id) {
@@ -84,7 +84,7 @@ class PaginatorUtil {
     });
 
     setTimeout(() => {
-      this._client.buttonCache.delete(this.message.id);
+      this._client.cache.buttons.delete(this.message.id);
     }, seconds * 1000);
   }
 }

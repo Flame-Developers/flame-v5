@@ -16,7 +16,11 @@ class FlameClient extends Client {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    this.cache = this.config.cachingEnabled ? new CachingService() : null;
+    this.redis = this.config.cachingEnabled ? new CachingService() : null;
+    this.cache = {
+      buttons: new Map(),
+      rob: [],
+    };
     this.constants = require('../utils/Constants');
 
     this.shoukaku = new FlamePlayer(this);
@@ -24,8 +28,6 @@ class FlameClient extends Client {
     this.listeners = new Collection();
     this.commands = new Collection();
     this.interactions = new Collection();
-
-    this.buttonCache = new Map();
   }
 
   get database() {
