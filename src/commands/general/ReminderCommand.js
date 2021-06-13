@@ -11,6 +11,10 @@ class ReminderCommand extends FlameCommand {
       category: 'general',
       usage: 'reminder <create/remove/list>',
       aliases: [],
+      examples: [
+        'f.reminder create 25m Пойти покушать!',
+        'f.reminder remove j8vofc',
+      ],
     });
   }
 

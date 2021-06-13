@@ -8,6 +8,9 @@ class KickCommand extends FlameCommand {
       category: 'moderation',
       usage: 'kick <Пользователь> [Причина]',
       aliases: [],
+      examples: [
+        'f.kick 352756445516660747',
+      ],
       clientPermissions: ['KICK_MEMBERS'],
       userPermissions: ['KICK_MEMBERS'],
     });

@@ -8,6 +8,9 @@ class RemwarnCommand extends FlameCommand {
       category: 'moderation',
       usage: 'remwarn <Случай>',
       aliases: ['unwarn', 'removewarn'],
+      examples: [
+        'f.remwarn blxoj0g',
+      ],
       userPermissions: ['MANAGE_MESSAGES'],
     });
   }

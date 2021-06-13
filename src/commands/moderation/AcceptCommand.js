@@ -9,6 +9,9 @@ class AcceptCommand extends FlameCommand {
       category: 'moderation',
       usage: 'accept <ID предложения> [Комментарий]',
       aliases: [],
+      examples: [
+        'f.accept 2 Хорошее предложение!',
+      ],
       userPermissions: ['MANAGE_GUILD'],
     });
   }

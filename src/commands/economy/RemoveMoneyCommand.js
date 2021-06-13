@@ -9,6 +9,9 @@ class RemoveMoneyCommand extends FlameCommand {
       category: 'economy',
       usage: 'remove-money <@Пользователь/ID> <Сумма> [--bank]',
       aliases: [],
+      examples: [
+        'f.remove-money @TheFerryn#0001 100 --bank',
+      ],
       userPermissions: ['MANAGE_GUILD'],
     });
   }

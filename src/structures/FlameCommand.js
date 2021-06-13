@@ -5,6 +5,7 @@ class FlameCommand {
     this.category = options.category;
     this.usage = options.usage || 'Пример использования команды не установлен.';
     this.aliases = options.aliases || [];
+    this.examples = options.examples || [];
     this.cooldown = options.cooldown || 3;
     this.premium = options.premium || false;
     this.userPermissions = options.userPermissions || [];

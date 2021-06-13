@@ -9,6 +9,9 @@ class PayCommand extends FlameCommand {
       category: 'economy',
       usage: 'pay <Пользователь> <Сумма>',
       aliases: [],
+      examples: [
+        'f.pay 422255876624351232 400',
+      ],
     });
   }
 

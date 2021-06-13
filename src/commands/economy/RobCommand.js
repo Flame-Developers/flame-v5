@@ -9,6 +9,9 @@ class RobCommand extends FlameCommand {
       description: 'Попытаться ограбить пользователя.',
       category: 'economy',
       usage: 'rob <Пользователь>',
+      examples: [
+        'f.rob 422255876624351232',
+      ],
       aliases: [],
     });
   }

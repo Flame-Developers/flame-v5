@@ -8,6 +8,9 @@ class WarnCommand extends FlameCommand {
       category: 'moderation',
       usage: 'warn <Пользователь> [Причина]',
       aliases: [],
+      examples: [
+        'f.warn @SomeUser#0000 Массовый флуд символами.',
+      ],
       userPermissions: ['MANAGE_MESSAGES'],
     });
   }

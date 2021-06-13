@@ -11,6 +11,10 @@ class BalanceCommand extends FlameCommand {
       category: 'economy',
       usage: 'balance [@Пользователь/ID]',
       aliases: ['bal', 'money'],
+      examples: [
+        'f.balance',
+        'f.balance @TheFerryn#0001',
+      ],
       clientPermissions: ['ATTACH_FILES'],
     });
   }

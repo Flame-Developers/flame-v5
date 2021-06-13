@@ -9,6 +9,10 @@ class BonusCommand extends FlameCommand {
       category: 'general',
       usage: 'bonus [activate/remove/list/info]',
       aliases: [],
+      examples: [
+        'f.bonus activate',
+        'f.bonus remove 564403545273663489',
+      ],
     });
   }
 

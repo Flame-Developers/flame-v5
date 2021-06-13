@@ -9,6 +9,10 @@ class UserCommand extends FlameCommand {
       usage: 'user [@Пользователь/ID]',
       cooldown: 3,
       aliases: ['userinfo', 'user-info'],
+      examples: [
+        'f.user 553557567591284737',
+        'f.user @TheFerryn#0001',
+      ],
     });
   }
 

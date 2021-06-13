@@ -10,6 +10,10 @@ class WhoisCommand extends FlameCommand {
       category: 'general',
       usage: 'whois <Домен/IP-адрес>',
       aliases: ['ip', 'ipinfo'],
+      examples: [
+        'f.whois 1.1.1.1',
+        'f.whois flamebot.ru',
+      ],
     });
   }
 

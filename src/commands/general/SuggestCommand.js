@@ -9,6 +9,9 @@ class SuggestCommand extends FlameCommand {
       category: 'general',
       usage: 'suggest <Предложение>',
       aliases: [],
+      examples: [
+        'f.suggest Добавить возможность выбора языка при входе на сервер.',
+      ],
       cooldown: 3,
     });
   }

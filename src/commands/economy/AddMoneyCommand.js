@@ -9,6 +9,10 @@ class AddMoneyCommand extends FlameCommand {
       category: 'economy',
       usage: 'add-money <@Пользователь/ID> <Сумма> [--bank]',
       aliases: [],
+      examples: [
+        'f.add-money 525003205394825257 100',
+        'f.add-money 525003205394825257 100 --bank',
+      ],
       userPermissions: ['MANAGE_GUILD'],
     });
   }

@@ -9,6 +9,10 @@ class DepositCommand extends FlameCommand {
       category: 'economy',
       usage: 'deposit <all/Сумма>',
       aliases: ['dep'],
+      examples: [
+        'f.deposit 250',
+        'f.deposit all',
+      ],
     });
   }
 

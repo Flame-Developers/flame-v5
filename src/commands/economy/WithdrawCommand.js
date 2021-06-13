@@ -9,6 +9,10 @@ class WithdrawCommand extends FlameCommand {
       category: 'economy',
       usage: 'withdraw <all/Сумма>',
       aliases: ['with'],
+      examples: [
+        'f.withdraw 300',
+        'f.withdraw',
+      ],
     });
   }
 

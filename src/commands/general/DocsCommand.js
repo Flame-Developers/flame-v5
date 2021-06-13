@@ -10,6 +10,9 @@ class DocsCommand extends FlameCommand {
       category: 'general',
       usage: 'docs <v11/v12/stable> <Запрос>',
       aliases: [],
+      examples: [
+        'f.docs stable Message#reply()',
+      ],
     });
   }
 

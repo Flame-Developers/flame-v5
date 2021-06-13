@@ -8,6 +8,10 @@ class AvatarCommand extends FlameCommand {
       category: 'general',
       usage: 'avatar [@Пользователь/ID]',
       aliases: [],
+      examples: [
+        'f.avatar 553557567591284737',
+        'f.avatar @lapfed255#4189',
+      ],
     });
   }
 

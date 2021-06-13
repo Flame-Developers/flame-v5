@@ -9,6 +9,9 @@ class DenyCommand extends FlameCommand {
       category: 'moderation',
       usage: 'deny <ID> [Комментарий]',
       aliases: [],
+      examples: [
+        'f.deny 123 Дубликат предложения #121.',
+      ],
       userPermissions: ['MANAGE_GUILD'],
     });
   }

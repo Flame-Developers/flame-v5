@@ -8,6 +8,9 @@ class BanCommand extends FlameCommand {
       category: 'moderation',
       usage: 'ban <Пользователь> [Причина]',
       aliases: [],
+      examples: [
+        'f.ban 352756445516660747 Спам-рассылка.',
+      ],
       clientPermissions: ['BAN_MEMBERS'],
       userPermissions: ['BAN_MEMBERS'],
     });

@@ -8,6 +8,9 @@ class ClearCommand extends FlameCommand {
       category: 'moderation',
       usage: 'clear <Кол-во сообщений>',
       aliases: ['purge'],
+      examples: [
+        'f.clear 100',
+      ],
       cooldown: 3,
       clientPermissions: ['MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES'],
