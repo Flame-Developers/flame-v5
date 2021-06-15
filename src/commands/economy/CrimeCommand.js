@@ -25,6 +25,8 @@ class CrimeCommand extends FlameCommand {
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
+    const transport = guild.transport?.find((t) => t.requiredFor === this.name);
+    if (transport && !user.ownedTransport.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
     if (user?.money < 500) return message.fail(`Для использования данной команды вы должны иметь как минимум **500**${guild.currency} на руках.`);
     let amount;
 
@@ -58,15 +60,16 @@ class CrimeCommand extends FlameCommand {
           .setFooter(message.guild.name, message.guild.iconURL())
           .setTimestamp(),
       );
+      // eslint-disable-next-line no-return-await
+      return await manager.handle(
+        {
+          guildID: message.guild.id,
+          userID: message.author.id,
+          command: this.name,
+          ends: Date.now() + guild.cooldown[this.name] * 1000,
+        },
+      );
     }
-    return manager.handle(
-      {
-        guildID: message.guild.id,
-        userID: message.author.id,
-        command: this.name,
-        ends: Date.now() + guild.cooldown[this.name] * 1000,
-      },
-    );
   }
 }
 

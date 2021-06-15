@@ -19,22 +19,22 @@ class HelpCommand extends FlameCommand {
       {
         name: 'Основное',
         key: 'general',
-        description: 'Основные возможности бота для обыкновенных пользователей.',
       },
       {
         name: 'Модерация',
         key: 'moderation',
-        description: 'Утилиты для модераторов Discord-сообществ.',
       },
       {
         name: 'Настройки',
         key: 'settings',
-        description: 'Конфигурация и настройка бота.',
       },
       {
         name: 'Экономика',
         key: 'economy',
-        description: 'Различные команды связанные с экономикой.',
+      },
+      {
+        name: 'Развлекательные',
+        key: 'fun',
       },
     ];
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });

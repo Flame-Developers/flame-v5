@@ -26,6 +26,8 @@ module.exports = {
     currency: '$',
     work: { min: 100, max: 400 },
     items: [],
+    pickaxes: [],
+    rods: [],
     cooldown: {
       work: 3600 * 3,
       crime: 3600 * 5,
@@ -45,24 +47,9 @@ module.exports = {
   UserSchema: {
     money: 0,
     bank: 0,
-    pickaxe: {
-      wood: false,
-      stone: false,
-      iron: false,
-      diamond: false,
-    },
-    rods: {
-      wood: false,
-      stone: false,
-      copper: false,
-      iron: false,
-      steel: false,
-      titanium: false,
-    },
-    transport: {
-      boat: false,
-      carriage: false,
-    },
+    ownedPickaxes: [],
+    ownedRods: [],
+    ownedTransport: [],
     payments: {
       list: [],
       blocked: false,

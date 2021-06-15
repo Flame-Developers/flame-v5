@@ -19,6 +19,7 @@ class WorkCommand extends FlameCommand {
   async run(message, args) {
     const manager = new CooldownManager(message.client);
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
+    const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
     const option = args[0];
 
@@ -45,6 +46,10 @@ class WorkCommand extends FlameCommand {
         if (cooldown) {
           return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
         }
+
+        const transport = guild.transport?.find((t) => t.requiredFor === this.name);
+        if (transport && !user.ownedTransport.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
+
         const defaultPhrases = [
           'Вы пошли на завод и заработали {{amount}}{{currency}}.',
           'Вы устроились работать уборщиком в школе, и в первый день заработали {{amount}}{{currency}}',
@@ -67,7 +72,7 @@ class WorkCommand extends FlameCommand {
             money: income,
           },
         });
-        return manager.handle(
+        return await manager.handle(
           {
             guildID: message.guild.id,
             userID: message.author.id,

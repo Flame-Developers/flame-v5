@@ -56,6 +56,14 @@ class RobCommand extends FlameCommand {
         },
       });
     }
+    await manager.handle(
+      {
+        guildID: message.guild.id,
+        userID: message.author.id,
+        command: this.name,
+        ends: Date.now() + guild.cooldown[this.name] * 1000,
+      },
+    );
     message.client.cache.rob.push(
       { guild: message.guild.id, user: user.id },
     );
@@ -66,15 +74,6 @@ class RobCommand extends FlameCommand {
         1,
       );
     }, 1000 * 60 * 25);
-
-    return manager.handle(
-      {
-        guildID: message.guild.id,
-        userID: message.author.id,
-        command: this.name,
-        ends: Date.now() + guild.cooldown[this.name] * 1000,
-      },
-    );
   }
 }
 
