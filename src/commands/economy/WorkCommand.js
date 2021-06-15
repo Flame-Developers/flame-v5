@@ -47,7 +47,7 @@ class WorkCommand extends FlameCommand {
           return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
         }
 
-        const transport = guild.transport?.find((t) => t.requiredFor === this.name);
+        const transport = data.transport?.find((t) => t.requiredFor === this.name);
         if (transport && !user.ownedTransport.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
 
         const defaultPhrases = [
