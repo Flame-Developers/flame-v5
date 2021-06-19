@@ -11,5 +11,5 @@ services:
     image: fredboat/lavalink:dev
     volumes:
       - type: bind
-        source: /home/admin/lavalink/application.yml
+        source: /var/lavalink/application.yml
         target: /opt/Lavalink/application.yml
