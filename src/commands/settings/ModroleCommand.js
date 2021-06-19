@@ -28,7 +28,7 @@ class ModroleCommand extends FlameCommand {
             moderator: role.id,
           },
         });
-        message.channel.send(`${message.client.constants.emojis.DONE} Роль модератора была успешно установлена на ${role} (${role.id})`);
+        message.channel.send(`${message.client.constants.emojis.DONE} Роль модератора была успешно установлена на **${role.name}** (${role.id})`);
         break;
       case 'reset':
         if (!data.moderator) return message.fail('На данном сервере не установлена роль модератора.');
@@ -42,7 +42,7 @@ class ModroleCommand extends FlameCommand {
         break;
       default:
         return message.channel.send(data.moderator
-          ? `Роль модератора на данном сервере установлена на <@&${data.moderator}> (${data.moderator})\nСбросить её можно командой \`${data.prefix}modrole reset\`.`
+          ? `Роль модератора на данном сервере установлена на **${data.moderator}**\nСбросить её можно командой \`${data.prefix}modrole reset\`.`
           : `На данном сервере ещё не установлена роль модератора.\nВы всегда можете установить её командой \`${data.prefix}modrole set\`.`,
         );
     }
