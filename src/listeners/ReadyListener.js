@@ -2,7 +2,9 @@ const FlameListener = require('../structures/FlameListener');
 const MuteManager = require('../managers/MuteManager');
 const CooldownManager = require('../managers/CooldownManager');
 const ReminderManager = require('../managers/ReminderManager');
+const StatisticsSenderService = require('../services/StatisticsSenderService');
 const Logger = require('../utils/misc/Logger');
+
 
 class ReadyListener extends FlameListener {
   constructor() {
@@ -25,7 +27,9 @@ class ReadyListener extends FlameListener {
     cooldowns.forEach((cooldown) => new CooldownManager(client).handle(cooldown));
     reminders.forEach((reminder) => new ReminderManager(client).handle(reminder));
 
-    client.user.setActivity('https://github.com/TheFerryn/Flame', { type: 3 });
+    // new StatisticsSenderService(client).init();
+
+    await client.user.setActivity('https://flamebot.ru', { type: 3 });
     return Logger.info(
       `Logged in as ${client.user.tag} (${client.user.id})`,
     );
