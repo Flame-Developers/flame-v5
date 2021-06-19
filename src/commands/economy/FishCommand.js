@@ -27,7 +27,7 @@ class FishCommand extends FlameCommand {
     const data = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
     const transport = guild.transport?.find((t) => t.requiredFor === this.name);
-    if (transport && !data.ownedTransport.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
+    if (transport && !data.ownedTransport?.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
     if (!data.ownedRods?.length) return message.fail('Похоже, пока что вы не имеете ни одной доступной удочки.');
 
     let rod = args[0];
