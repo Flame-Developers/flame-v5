@@ -13,7 +13,7 @@ const client = new FlameClient({
   ws: {
     intents: Intents.ALL,
   },
-  disableMentions: 'all',
+  disableMentions: 'everyone',
 });
 
 // eslint-disable-next-line no-console,no-underscore-dangle
