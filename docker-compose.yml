@@ -3,7 +3,7 @@ services:
   bot:
     build: .
     ports:
-      - "3000:3000"
+      - "3099:3099"
   redis:
     image: "redis:alpine"
   lavalink:
