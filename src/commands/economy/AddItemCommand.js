@@ -38,7 +38,8 @@ class AddItemCommand extends FlameCommand {
       $push: {
         items: {
           roleId: role.id,
-          cost: price,
+          // eslint-disable-next-line radix
+          cost: parseInt(price),
           description: args.slice(2).length ? args.slice(2).join(' ').slice(0, 350) : null,
         },
       },
