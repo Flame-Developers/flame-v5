@@ -26,7 +26,7 @@ class CrimeCommand extends FlameCommand {
     const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
     const transport = guild.transport?.find((t) => t.requiredFor === this.name);
-    if (transport && !user.ownedTransport.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
+    if (transport && !user.ownedTransport?.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
     if (user?.money < 500) return message.fail(`Для использования данной команды вы должны иметь как минимум **500**${guild.currency} на руках.`);
     let amount;
 
