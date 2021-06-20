@@ -11,5 +11,9 @@
         "ecmaVersion": 12
     },
     "rules": {
+        "no-restricted-globals": "off",
+        "no-restricted-syntax": "off",
+        "no-trailing-spaces": "off",
+        "no-console": "off"
     }
 }
