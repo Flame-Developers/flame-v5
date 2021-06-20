@@ -10,6 +10,7 @@ class FlameApiWorker {
   }
 
   start() {
+    this.app.register(require('fastify-cors'), { origin: true });
     this.app.register(require('fastify-rate-limit'), {
       max: 100,
       timeWindow: 3 * 60 * 1000,
