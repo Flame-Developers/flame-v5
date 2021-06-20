@@ -57,7 +57,7 @@ async function collectBotStatistics() {
       shards: arr,
       stats,
     };
-    cache.expires = Date.now() + 1000 * 20000;
+    cache.expires = Date.now() + 1000 * 60 * 5;
   }
 
   return { shards: arr, ...stats };
