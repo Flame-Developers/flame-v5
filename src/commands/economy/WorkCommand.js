@@ -48,7 +48,7 @@ class WorkCommand extends FlameCommand {
         }
 
         const transport = data.transport?.find((t) => t.requiredFor === this.name);
-        if (transport && !user.ownedTransport.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
+        if (transport && !user.ownedTransport?.includes(transport.key)) return message.fail(`Для выполнения данного действия вам необходимо иметь транспорт "**${transport.name}**".`);
 
         const defaultPhrases = [
           'Вы пошли на завод и заработали {{amount}}{{currency}}.',
