@@ -10,11 +10,11 @@ class StatisticsSenderService {
     const URL = `https://api.server-discord.com/v2/bots/${this.client.user?.id}/stats`;
     const API_KEY = this.client.config?.['api-keys']?.sdc;
 
-    const servers = await this.client.shard?.fetchClientValues('guilds.cache.size');
-    const shards = this.client?.shard?.count ?? 1;
+    return setInterval(async () => {
+      const servers = await this.client.shard?.fetchClientValues('guilds.cache.size');
+      const shards = this.client?.shard?.count ?? 1;
 
-    return setInterval(() => {
-      fetch(URL, {
+      await fetch(URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
