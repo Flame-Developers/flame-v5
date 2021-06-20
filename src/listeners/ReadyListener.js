@@ -26,7 +26,7 @@ class ReadyListener extends FlameListener {
     cooldowns.forEach((cooldown) => new CooldownManager(client).handle(cooldown));
     reminders.forEach((reminder) => new ReminderManager(client).handle(reminder));
 
-    new StatisticsSenderService(client).init();
+    await new StatisticsSenderService(client).init(60000);
 
     await client.user.setActivity('https://flamebot.ru', { type: 3 });
     return Logger.info(
