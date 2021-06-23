@@ -31,7 +31,7 @@ class EvalCommand extends FlameCommand {
         if (util.types.isPromise(executed)) executed = await executed;
         const after = process.hrtime.bigint();
 
-        if (typeof executed !== 'string') executed = util.inspect(executed);
+        if (typeof executed !== 'string') executed = util.inspect(executed, { depth: 0, maxArrayLength: null });
         if (['undefined', 'null'].includes(executed)) executed = `Empty response: ${executed}`;
 
         if (executed.length >= 1940) {
