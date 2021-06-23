@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 const messages = {
   info: chalk.black.bgBlue,
-  error: chalk.black.bgRed,
+  fail: chalk.black.bgRed,
   warn: chalk.black.bgYellow,
 };
 
@@ -18,11 +18,11 @@ class Logger {
   }
 
   static log(type, ...args) {
-    if (!(type in messages)) throw new TypeError('Unresolved type of message. Please choose something between "info", "error" and "warning".');
+    if (!(type in messages)) throw new TypeError('Unresolved type of message. Please choose something between "info", "fail" and "warning".');
 
     this.#clearLine();
     return process.stdout.write(
-      messages[type](type.toUpperCase()) + ` | ${new Date().toLocaleString('ru')} | ${args.join(' ')}\n`
+      messages[type](type.toUpperCase()) + ` [${new Date().toLocaleString('ru')}]: ${args.join(' ')}\n`
     )
   }
 
@@ -31,7 +31,7 @@ class Logger {
   }
 
   static error(...args) {
-    return this.log('error', ...args);
+    return this.log('fail', ...args);
   }
 
   static warn(...args) {
