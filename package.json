@@ -1,6 +1,6 @@
 {
   "name": "flame",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "main": "src/shard.js",
   "scripts": {
     "lint": "eslint ./src --fix"
@@ -21,7 +21,7 @@
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.1",
     "redis": "^3.1.1",
-    "shoukaku": "^1.6.4"
+    "shoukaku": "1.5.2"
   },
   "devDependencies": {
     "eslint": "^7.24.0",
