@@ -1,22 +1,8 @@
-class CooldownManager {
+const BaseManager = require('../structures/BaseManager');
+
+class CooldownManager extends BaseManager {
   constructor(client) {
-    this.client = client;
-  }
-
-  get cooldowns() {
-    return this.client.database.collection('cooldowns').countDocuments();
-  }
-
-  find(filter) {
-    return this.client.database.collection('cooldowns').findOne(filter);
-  }
-
-  delete(filter) {
-    return this.client.database.collection('cooldowns').deleteOne(filter);
-  }
-
-  create(schema) {
-    return this.client.database.collection('cooldowns').insertOne(schema);
+    super('cooldowns', client);
   }
 
   async handle(data) {

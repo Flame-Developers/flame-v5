@@ -1,22 +1,13 @@
-class ReminderManager {
+const crypto = require('crypto');
+const BaseManager = require('../structures/BaseManager');
+
+class ReminderManager extends BaseManager {
   constructor(client) {
-    this.client = client;
+    super('reminders', client);
   }
 
-  get reminders() {
-    return this.client.database.collection('reminders').countDocuments();
-  }
-
-  find(filter) {
-    return this.client.database.collection('reminders').findOne(filter);
-  }
-
-  delete(filter) {
-    return this.client.database.collection('reminders').deleteOne(filter);
-  }
-
-  create(schema) {
-    return this.client.database.collection('reminders').insertOne(schema);
+  generateID() {
+    return crypto.createHash('md5').update(Math.random().toString(32)).digest('hex');
   }
 
   async handle(data) {

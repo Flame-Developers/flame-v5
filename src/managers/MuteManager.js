@@ -1,22 +1,8 @@
-class MuteManager {
+const BaseManager = require('../structures/BaseManager');
+
+class MuteManager extends BaseManager {
   constructor(client) {
-    this.client = client;
-  }
-
-  get mutes() {
-    return this.client.database.collection('mutes').countDocuments();
-  }
-
-  find(filter) {
-    return this.client.database.collection('mutes').findOne(filter);
-  }
-
-  delete(filter) {
-    return this.client.database.collection('mutes').deleteOne(filter);
-  }
-
-  create(schema) {
-    return this.client.database.collection('mutes').insertOne(schema);
+    super('mutes', client);
   }
 
   async handle(data) {

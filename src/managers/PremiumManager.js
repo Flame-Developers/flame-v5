@@ -1,30 +1,13 @@
-const { MessageEmbed } = require('discord.js');
+const BaseManager = require('../structures/BaseManager');
 const Timer = require('../utils/misc/Timer');
 
-class PremiumManager {
+class PremiumManager extends BaseManager {
   constructor(client) {
-    this.client = client;
-  }
-
-  get subscriptions() {
-    return this.client.database.collection('subscriptions').countDocuments();
-  }
-
-  find(filter) {
-    return this.client.database.collection('subscriptions').findOne(filter);
-  }
-
-  delete(filter) {
-    return this.client.database.collection('subscriptions').deleteOne(filter);
-  }
-
-  create(schema) {
-    return this.client.database.collection('subscriptions').insertOne(schema);
+    super('subscriptions', client);
   }
 
   async cancelPremiumStatus(data) {
     if (!data || !await this.find(data)) return null;
-    // eslint-disable-next-line no-restricted-syntax
     for (const id of data?.premiumGuilds) {
       this.client.database.collection('guilds').updateOne({ guildID: id }, {
         $set: {
