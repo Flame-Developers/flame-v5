@@ -23,9 +23,11 @@ class AcceptCommand extends FlameCommand {
 
     const id = args[0];
     if (!id) return getHelp(message, this.name);
+    // eslint-disable-next-line
     if (isNaN(id) || !parseInt(id) || id <= 0) return message.fail('Укажите пожалуйста **верный** ID предложения.');
 
     const channel = message.guild.channels.cache.get(data.ideaChannel);
+    // eslint-disable-next-line radix
     const suggestion = data.ideas.find((i) => i.id === parseInt(id));
     if (!suggestion) return message.fail('Предложения с указанным вами ID не существует.');
 
@@ -36,17 +38,25 @@ class AcceptCommand extends FlameCommand {
 
       msg.edit(
         new MessageEmbed()
-          .setAuthor(msg.embeds[0].author.name, msg.embeds[0].author.iconURL)
+          .setTitle(`Предложение №${id} (Принято)`)
           .setDescription(msg.embeds[0].description)
           .setColor('#A5FF2A')
-          .setTitle(`Предложение #${suggestion.id} (Принято)`)
-          .addField(`Ответ от ${message.author.tag}:`, args.slice(1).join(' ') ? args.slice(1).join(' ').slice(0, 999) : 'Комментарий не указан.')
-          .setImage(msg.embeds[0].image ? msg.embeds[0].image.url : null)
-          .setFooter(`Предложение рассмотрено: ${new Date().toISOString().replace('T', ' ').substr(0, 19)}`),
+          .addFields(
+            msg.embeds[0].fields[0],
+            {
+              name: `${message.client.constants.emojis.DONE} Ответ от ${message.author.tag} [${new Date().toLocaleString('ru')}]:`,
+              value: args.slice(1).join(' ').length ? args.slice(1).join(' ').slice(0, 999) : 'Модератор не оставил дополнительного комментария.',
+              inline: true,
+            },
+          )
+          .setFooter(msg.embeds[0].footer.text, msg.embeds[0].footer?.iconURL)
+          .setTimestamp(),
       );
-      message.reply(`${message.client.constants.emojis.DONE} Предложению **#${id}** был успешно вынесен вердикт.`);
-    } catch {
-      message.fail('Сообщение с указанным вами предложением было удалено.');
+      message.reply(`${message.client.constants.emojis.DONE} Предложению **#${id}** был успешно вынесен вердикт.`)
+        .then((m) => setTimeout(() => m.delete(), 5000));
+    } catch (error) {
+      message.fail('При выполнении данного действия возникла ошибка. Попробуйте пожалуйста снова, либо обратитесь на сервер поддержки, если вы видите это не в первый раз.');
+      console.error(error);
     }
   }
 }
