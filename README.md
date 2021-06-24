@@ -15,7 +15,7 @@ A multipurpose Discord-bot with music, economy, utils, and also auto-moderation.
   </a>
 </p>
 
-> **Flame** is a powerfull, multipurpose and fully modular Discord-bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 6,150 guilds and 460,000 real Discord-users.
+> **Flame** is a powerfull, multipurpose and fully modular Discord-bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 6,500 guilds and 490,000 real Discord-users.
 
 Feel free to contribute or give this repo a star ⭐, so that our community grows much faster!
 
