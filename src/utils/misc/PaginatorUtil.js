@@ -20,6 +20,7 @@ class PaginatorUtil {
         style: 1,
         custom_id: 'left',
         label: null,
+        disabled: this.page === 0,
         emoji: {
           id: '849669446201114684',
         },
@@ -29,8 +30,18 @@ class PaginatorUtil {
         style: 1,
         custom_id: 'right',
         label: null,
+        disabled: this.page + 1 === this.pages.length,
         emoji: {
           id: '849669541692571699',
+        },
+      },
+      {
+        type: 2,
+        style: 4,
+        custom_id: 'close_menu',
+        label: null,
+        emoji: {
+          id: '857243589653037068'
         },
       },
     ];
@@ -78,6 +89,10 @@ class PaginatorUtil {
           break;
         case 'left':
           this.#refresh(this.page - 1);
+          break;
+        case 'close_menu':
+          this._client.cache.buttons.delete(this.message.id);
+          this._client.api.channels(channel.id).messages(this.message.id).delete();
           break;
         default:
       }
