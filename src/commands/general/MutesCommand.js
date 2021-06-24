@@ -21,13 +21,13 @@ class MutesCommand extends FlameCommand {
       .setFooter(message.guild.name, message.guild.iconURL())
       .setTimestamp();
 
-    if (data.length == 0) embed.setDescription('Список замьюченных пользователей пуст.');
+    if (!data.length) embed.setDescription('Список замьюченных пользователей пуст.');
     else {
       let i = 0;
       for (const mute of data.slice(0, 10)) {
         embed.addField(
           `${++i}. ${mute.details.tag} (${mute.userID}):`,
-          `Дата окончания: **${new Date(mute.ends).toISOString().replace('T', ' ').substr(0, 19)}**\nПричина: \`${mute.details.reason}\``,
+          `Дата окончания: **${new Date(mute.ends).toLocaleString('ru')}**\nПричина: \`${mute.details.reason}\``,
         );
       }
       embed.setThumbnail(message.guild.iconURL({ size: 2048 }));

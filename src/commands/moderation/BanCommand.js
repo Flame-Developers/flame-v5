@@ -1,3 +1,4 @@
+const ActionConfirmationUtil = require('../../utils/misc/ActionConfirmationUtil');
 const FlameCommand = require('../../structures/FlameCommand');
 const { getHelp } = require('../../utils/Functions');
 
@@ -23,12 +24,16 @@ class BanCommand extends FlameCommand {
     if (user.permissions.has('BAN_MEMBERS') || user.roles.highest.position >= message.member.roles.highest.position) return message.fail('Вы не можете забанить данного пользователя, потому что у него имеется роль выше вашей/он имеет равные вам права.');
     if (!user.bannable) return message.fail('К сожалению, я не могу забанить данного пользователя.');
 
-    try {
-      message.guild.members.ban(user.id, { reason: `${message.author.tag}: ${args.slice(1).join(' ') || 'Причина не указана.'}`, days: 1 });
-      return message.reply(`${message.client.constants.emojis.DONE} Пользователь **${user.user.tag}** (${user.id}) был успешно забанен модератором **${message.author.tag}**.`);
-    } catch {
-      return message.fail('Мне не удалось забанить указанного вами пользователя.');
-    }
+    await new ActionConfirmationUtil(message.client, message.author).init(`Вы уверены, что хотите забанить пользователя **${user.user.tag}**? У вас есть **30** секунд на решение.`, message.channel).then(async (response) => {
+      if (response) {
+        try {
+          await message.guild.members.ban(user.id, { reason: args.slice(1).join(' ').length ? args.slice(1).join(' ').slice(0, 499) : null });
+          message.channel.send(`${message.client.constants.emojis.DONE} Пользователь **${user.user.tag}** (${user.id}) был успешно забанен.`);
+        } catch {
+          message.fail('Мне не удалось забанить данного пользователя.');
+        }
+      } else message.fail('Процесс блокировки был отменен.');
+    });
   }
 }
 

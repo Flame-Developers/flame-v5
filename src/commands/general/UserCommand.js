@@ -55,8 +55,8 @@ class UserCommand extends FlameCommand {
       .setDescription(
         `Значки пользователя: ${user.user.flags?.toArray().map((r) => flags[r]).join('  ') || '**Отсутствуют**'}\nСтатус: **${statuses[user.user.presence.status]}**\nУстройство: **${stat || 'Неизвестно'}**`,
       )
-      .addField('Зарегистрирован', new Date(user.user.createdAt).toISOString().replace('T', ' ').substr(0, 19))
-      .addField('Присоединился', new Date(user.joinedAt).toISOString().replace('T', ' ').substr(0, 19))
+      .addField('Зарегистрирован', new Date(user.user.createdAt).toLocaleString('ru'))
+      .addField('Присоединился', new Date(user.joinedAt).toLocaleString('ru'))
       .setFooter(`ID: ${user.id}`, message.guild.iconURL())
       .setTimestamp();
 

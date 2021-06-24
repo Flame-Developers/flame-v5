@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { PaginatorUtil, PaginatorEntry } = require('../../utils/misc/PaginatorUtil');
 const FlameCommand = require('../../structures/FlameCommand');
 
 class WarnsCommand extends FlameCommand {
@@ -12,25 +13,34 @@ class WarnsCommand extends FlameCommand {
   }
 
   async run(message, args) {
+    // eslint-disable-next-line max-len
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     const warns = data?.warnings.filter((r) => r.user === user.id);
 
-    const embed = new MessageEmbed()
-      .setTitle(`Предупреждения пользователя ${user.user.tag}`)
-      .setColor('ffa500')
-      .setFooter(message.guild.name, message.guild.iconURL())
-      .setTimestamp();
+    if (!warns.length) return message.fail('У данного пользователя отсутствуют предупреждения на данном сервере.');
 
-    if (!warns.length) embed.setDescription('У данного пользователя отсутствуют предупреждения :smile:');
-    else {
-      embed.setThumbnail(message.guild.iconURL());
-      for (const warn of warns.slice(-10)) {
-        embed.addField(`\`Предупреждение #${warn.id}\`: ${new Date(warn.time).toISOString().replace('T', ' ').substr(0, 19)} (${warn.moderator})`, `**Причина:** ${warn.reason?.slice(0, 999) ?? 'Причина не указана.'}`);
-      }
+    const entries = [];
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < Math.ceil(warns.length / 10); i++) {
+      const embed = new MessageEmbed()
+        .setTitle(`Предупреждения пользователя ${user.user.tag}`)
+        .setDescription(`Общее количество предупреждений: **${warns.length ?? '-'}**.`)
+        .setColor('ffa500')
+        .setThumbnail(message.guild.iconURL())
+        .setFooter(message.guild.name, message.guild.iconURL())
+        .setTimestamp();
+
+      let count = 0;
+      warns.slice(i * 10, i * 10 + 10)
+        // eslint-disable-next-line array-callback-return
+        .map((warn) => {
+          count++;
+          embed.addField(`${count}. \`#${warn.id}\` [${new Date(warn.time).toLocaleString('ru')}] (${warn.moderator}):`, `Причина: **${warn.reason ?? 'Причина предупреждения отсутствует.'}**`);
+        });
+      entries.push(new PaginatorEntry(null, embed));
     }
-
-    return message.reply(embed);
+    return new PaginatorUtil(message.client, message.author, entries).init(message.channel, 150);
   }
 }
 

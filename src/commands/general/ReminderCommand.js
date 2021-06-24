@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 const { MessageEmbed } = require('discord.js');
 const ms = require('ms');
 const { getHelp } = require('../../utils/Functions');
@@ -36,11 +37,14 @@ class ReminderCommand extends FlameCommand {
           );
         }
 
-        message.react('✅');
+        const date = new Date(Date.now() + ms(time)).toLocaleString('ru');
+        const id = Reminders.generateID();
+
+        await message.react('✅');
         await Reminders.handle(
           {
             userID: message.author.id,
-            id: Math.random().toString(36).slice(2, 8),
+            id,
             timeout: Date.now() + ms(time),
             details: {
               message:
@@ -49,6 +53,7 @@ class ReminderCommand extends FlameCommand {
             },
           },
         );
+        message.channel.send(`${message.client.constants.emojis.DONE} Я напомню вам об этом \`${date}\` (ID напоминания: \`${id}\`)`);
         break;
       case 'remove':
         if (!args[1]) {
@@ -84,10 +89,7 @@ class ReminderCommand extends FlameCommand {
           embed.setThumbnail(message.guild.iconURL());
           for (const i of data.slice(-10)) {
             embed.addField(
-              `Напоминание \`${i.id}\`: ${new Date(i.timeout)
-                .toISOString()
-                .replace('T', ' ')
-                .substr(0, 19)}:`,
+              `Напоминание \`${i.id}\`: ${new Date(i.timeout).toLocaleString('ru')}:`,
               `**Сообщение:** ${i.details.message}`,
             );
           }
