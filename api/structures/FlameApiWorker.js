@@ -1,12 +1,11 @@
 const fastify = require('fastify')();
-const config = require('../api.config');
 const Logger = require('../../src/utils/misc/Logger');
 
 class FlameApiWorker {
   constructor(manager) {
     this.manager = manager;
     this.app = fastify;
-    this.config = config;
+    this.config = require('../../config.json');
   }
 
   start() {
@@ -34,7 +33,7 @@ class FlameApiWorker {
     global.ApiWorker = this;
 
     require('../routes').forEach((route) => this.app.route(route));
-    this.app.listen(this.config.port || 3099, '0.0.0.0');
+    this.app.listen(this.config.port || 3099, '0.0.0.0').catch();
 
     return Logger.info(`HTTP-server was successfully started on port ${this.config.port || 3099}.`);
   }
