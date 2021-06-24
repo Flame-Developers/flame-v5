@@ -63,6 +63,7 @@ module.exports = {
   emojis: {
     DONE: '<:done:853221078457778176>',
     FAIL: '<:crossmark:853223812991549450>',
+    INFO: '<:infosymbol:857583806966005760>',
     TOGGLE_ON: '<:toggle_on:847798757768822826>',
     TOGGLE_OFF: '<:toggle_off:847798889058140170>',
   },
