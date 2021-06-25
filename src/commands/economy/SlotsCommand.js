@@ -10,7 +10,7 @@ class SlotsCommand extends FlameCommand {
       category: 'economy',
       usage: 'slots <Ставка>',
       aliases: [],
-      cooldown: 50,
+      premium: true,
     });
   }
 

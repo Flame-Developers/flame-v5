@@ -12,7 +12,7 @@ class ServerCommand extends FlameCommand {
     });
   }
 
-  run(message, args) {
+  async run(message, args) {
     const embed = new MessageEmbed()
       .setAuthor(`Информация о ${message.guild.name} (${message.guild.id})`, message.guild.iconURL())
       .setColor('ffa500')
@@ -43,7 +43,7 @@ class ServerCommand extends FlameCommand {
       .setFooter(message.guild.name, message.guild.iconURL())
       .setTimestamp();
 
-    if (message.client?.shard) embed.setDescription(`Данный сервер расположен на шарде **#${message.guild?.shardID}**.`);
+    if (await message.guild.hasPremium()) embed.setDescription('На данном сервере активированы бонусные возможности **Flame+**. Огромное спасибо за поддержку! 🔥');
     return message.reply(embed).catch();
   }
 }

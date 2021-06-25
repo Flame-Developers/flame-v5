@@ -20,25 +20,39 @@ class BonusCommand extends FlameCommand {
     const data = await message.client.database.collection('subscriptions').findOne({ userID: message.author.id });
     const option = args[0];
 
-    if (!data) return message.reply('К сожалению, я не смог найти подписку привязанную к вашему Discord-аккаунту. Обратитесь на сервер поддержки если вы считаете, что так быть не должно :pensive:');
+    if (!data) return message.fail('Подписка Flame+, привязанная к вашему аккаунту не была найдена. Обратитесь на сервер поддержки, если считаете, что так быть не должно.');
     switch (option) {
       case 'activate':
         if (await message.guild.hasPremium()) return message.fail('Вы не можете активировать бонусные возможности на этом сервере, так как он их уже имеет.');
-        if (data.premiumGuilds.length >= data.premiumGuildsMaxLength) return message.fail('Похоже, у вас не осталось слотов для активации бонусов на данном сервере. Может вам нужна подписка по-лучше?');
+        if (data.premiumGuilds.length >= data.premiumGuildsMaxLength) return message.fail('У вас не осталось слотов для активации бонусов на данном сервере. Приобретите подписку получше, если хотите повысить данный лимит.');
 
         message.client.database.collection('subscriptions').updateOne({ userID: message.author.id }, { $push: { premiumGuilds: message.guild.id } });
-        message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, { $set: { premium: true } });
+        message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
+          $set: {
+            premium: true,
+          },
+        });
 
-        message.channel.send(':tada: Бонусные возможности были успешно активированы на данном сервере!');
+        message.channel.send(
+          new MessageEmbed()
+            .setTitle('Юху, получилось! 🎉')
+            .setDescription('На данном сервере были успешно активированы бонусные возможности. Отныне, серверу доступны все привилегии подписки **[Flame+](https://docs.flamebot.ru/misc/flame+)**.')
+            .setColor('ffa500')
+            .setFooter('Спасибо за поддержку')
+            .setTimestamp(),
+        );
         break;
       case 'remove':
         // eslint-disable-next-line no-case-declarations
-        const id = args[1];
-        if (!id) return message.fail('Укажите пожалуйста ID сервера, с которого вы хотите снять бонусы.');
-        if (!data?.premiumGuilds.includes(id)) return message.reply(`${message.client.constants.emojis.FAIL} У вас нет активированных бонусов на указанном сервере.`);
+        const id = args[1] || message.guild.id;
+        if (!data?.premiumGuilds.includes(id)) return message.fail('У вас нет активированных бонусов на данном сервере.');
 
         message.client.database.collection('subscriptions').updateOne({ userID: message.author.id }, { $pull: { premiumGuilds: id } });
-        message.client.database.collection('guilds').updateOne({ guildID: id }, { $set: { premium: false } });
+        message.client.database.collection('guilds').updateOne({ guildID: id }, {
+          $set: {
+            premium: false,
+          },
+        });
 
         message.channel.send(`${message.client.constants.emojis.DONE} С сервера **${id}** были успешно сняты бонусные возможности.`);
         break;
@@ -59,9 +73,10 @@ class BonusCommand extends FlameCommand {
           // eslint-disable-next-line no-restricted-syntax
           for (const guildID of data.premiumGuilds) {
             const guild = message.client.guilds.cache.get(guildID);
+            // eslint-disable-next-line no-continue
             if (!guild) continue;
 
-            embed.addField(`${index++}. ${guild?.name ?? 'Неизвестный сервер'}`, `ID сервера: \`${guildID}\``);
+            embed.addField(`${index++}. ${guild?.name ?? 'Неизвестный сервер'}`, `Идентификатор сервера: \`${guildID}\``);
           }
         }
         message.channel.send(embed);
@@ -69,7 +84,7 @@ class BonusCommand extends FlameCommand {
       default:
         return message.channel.send(
           new MessageEmbed()
-            .setTitle('Премиум-подписка')
+            .setTitle('Подписка Flame+')
             .setColor('ffa500')
             // eslint-disable-next-line max-len
             .setDescription(`На текущий момент вы имеете активную подписку, которую приобрели **${moment(data.subscriptionDate).fromNow()}**.\n\nИспользовано бонусных слотов: **${data.premiumGuilds?.length ?? 0}/${data.premiumGuildsMaxLength}**.\nПродлить/отменить подписку можно на сайте [Boosty.to](https://boosty.to).`)

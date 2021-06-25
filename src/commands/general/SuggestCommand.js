@@ -48,7 +48,7 @@ class SuggestCommand extends FlameCommand {
             embed: new MessageEmbed()
               .setTitle(`Предложение №${id}`)
               .setDescription(suggestion)
-              .addField(`${message.client.constants.emojis.INFO} Дополнительные сведения:`, `Автор: **${message.author.tag}** (${message.author.id})\nДата отправки: **${new Date().toLocaleString('ru')}**`)
+              .addField(`Дополнительные сведения:`, `Автор: **${message.author.tag}** (${message.author.id})\nДата отправки: **${new Date().toLocaleString('ru')}**`)
               .setColor('ffa500')
               .setFooter(message.guild.name, message.guild.iconURL())
               .setTimestamp().toJSON(),
