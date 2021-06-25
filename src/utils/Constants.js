@@ -67,4 +67,34 @@ module.exports = {
     TOGGLE_ON: '<:toggle_on:847798757768822826>',
     TOGGLE_OFF: '<:toggle_off:847798889058140170>',
   },
+  balanceCardTypes: [
+    {
+      id: 1,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791620163174420/negative-02.png',
+    },
+    {
+      id: 2,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791614286823445/default-02.png',
+    },
+    {
+      id: 3,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791617306591272/ice-02.png',
+    },
+    {
+      id: 4,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791617599406110/game-hl-02.png',
+    },
+    {
+      id: 5,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791619193897010/game-portal2-02.png',
+    },
+    {
+      id: 6,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791621752291409/megumin-02.png',
+    },
+    {
+      id: 7,
+      image: 'https://media.discordapp.net/attachments/663454103359455273/805791622271991839/snow-02.png',
+    },
+  ],
 };

@@ -6,11 +6,12 @@ class PaginatorEntry {
 }
 
 class PaginatorUtil {
-  constructor(client, user, pages = []) {
+  constructor(client, user, pages = [], options = {}) {
     this._client = client;
     this.user = user ?? null;
     this.pages = pages;
     this.page = 0;
+    this.options = options;
   }
 
   get buttons() {
@@ -40,6 +41,7 @@ class PaginatorUtil {
         style: 4,
         custom_id: 'close_menu',
         label: null,
+        disabled: this.options.disableDestroyButton ?? false,
         emoji: {
           id: '857243589653037068'
         },
@@ -62,6 +64,11 @@ class PaginatorUtil {
         ],
       },
     });
+  }
+
+  destroy() {
+    this._client.cache.buttons.delete(this.message.id);
+    this._client.api.channels(this.message.channel_id).messages(this.message.id).delete();
   }
 
   async init(channel, seconds = 120) {
@@ -91,11 +98,12 @@ class PaginatorUtil {
           this.#refresh(this.page - 1);
           break;
         case 'close_menu':
-          this._client.cache.buttons.delete(this.message.id);
-          this._client.api.channels(channel.id).messages(this.message.id).delete();
+          this.destroy();
           break;
         default:
       }
+
+      return this.message;
     });
 
     setTimeout(() => {

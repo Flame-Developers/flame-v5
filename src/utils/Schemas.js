@@ -50,6 +50,7 @@ module.exports = {
     ownedPickaxes: [],
     ownedRods: [],
     ownedTransport: [],
+    balanceCardType: 1,
     payments: {
       list: [],
       blocked: false,
