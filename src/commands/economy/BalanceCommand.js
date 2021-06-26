@@ -46,7 +46,7 @@ class BalanceCommand extends FlameCommand {
         }
         // eslint-disable-next-line max-len
         const paginator = await new PaginatorUtil(message.client, message.author, entries, {
-          disableDestroyButton: true,
+          disableCloseButton: true,
         });
         paginator.init(message.channel);
 
@@ -81,7 +81,8 @@ class BalanceCommand extends FlameCommand {
         await Canvas.registerFont(path.join(process.cwd(), 'src/static/fonts/Comfortaa-Bold.ttf'), { family: 'Comfortaa' });
 
         const currency = guild?.currency?.length < 3 ? guild.currency : '';
-        const image = await Canvas.loadImage(data.balanceCardType ? message.client.constants.balanceCardTypes.find((card) => card.id === data.balanceCardType)?.image : path.join(process.cwd(), 'src/static/assets/card-black.png'));
+        // eslint-disable-next-line max-len
+        const image = await Canvas.loadImage(data.balanceCardType ? message.client.constants.balanceCardTypes.find((card) => card.id === data.balanceCardType)?.image : message.client.constants.balanceCardTypes[0].image);
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = '#FFFFFF';

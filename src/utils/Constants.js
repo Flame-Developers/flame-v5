@@ -90,10 +90,6 @@ module.exports = {
     },
     {
       id: 6,
-      image: 'https://media.discordapp.net/attachments/663454103359455273/805791621752291409/megumin-02.png',
-    },
-    {
-      id: 7,
       image: 'https://media.discordapp.net/attachments/663454103359455273/805791622271991839/snow-02.png',
     },
   ],

@@ -41,7 +41,7 @@ class PaginatorUtil {
         style: 4,
         custom_id: 'close_menu',
         label: null,
-        disabled: this.options.disableDestroyButton ?? false,
+        disabled: this.options.disableCloseButton ?? false,
         emoji: {
           id: '857243589653037068'
         },

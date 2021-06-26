@@ -1,3 +1,4 @@
+const StatisticsSenderService = require('../../services/StatisticsSenderService');
 const FlameListener = require('../../structures/FlameListener');
 const { GuildSchema } = require('../../utils/Schemas');
 
@@ -7,6 +8,7 @@ class GuildCreateListener extends FlameListener {
   }
 
   async run(client, guild) {
+    await new StatisticsSenderService(client).send();
     const data = await client.database.collection('guilds').findOne({ guildID: guild.id });
 
     if (!data) {
