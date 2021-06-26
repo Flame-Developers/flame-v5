@@ -34,9 +34,9 @@ class BalanceCommand extends FlameCommand {
         for (const card of message.client.constants.balanceCardTypes) {
           entries.push(
             new PaginatorEntry(
-              'ℹ️ [Для того, чтобы начать использовать определенный тип каточки, отправьте ее идентификатор в течении **30** секунд.]',
+              'ℹ️ Для того, чтобы использовать определенный тип каточки, отправьте ее идентификатор в этот канал в течении **30** секунд.',
               new MessageEmbed()
-                .setTitle(`Идентификатор карточки: #${card.id}`)
+                .setAuthor(`Идентификатор карточки: #${card.id}`)
                 .setColor('ffa500')
                 .setImage(card.image)
                 .setFooter(message.guild.name, message.guild.iconURL())
