@@ -39,12 +39,12 @@ class WorkCommand extends FlameCommand {
             'work.max': parseInt(args[2]),
           },
         });
-        message.react('✅');
+        await message.react('✅');
         break;
       default:
         const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
         if (cooldown) {
-          return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
+          return message.fail(`Данная команда использует задержку, возвращайтесь снова \`${new Date(cooldown.ends).toLocaleString('ru')}\`.`);
         }
 
         const transport = data.transport?.find((t) => t.requiredFor === this.name);
@@ -72,13 +72,14 @@ class WorkCommand extends FlameCommand {
             money: income,
           },
         });
-        return await manager.handle(
+
+        return manager.create(
           {
             guildID: message.guild.id,
             userID: message.author.id,
             command: this.name,
             ends: Date.now() + data.cooldown[this.name] * 1000,
-          }
+          },
         );
     }
   }

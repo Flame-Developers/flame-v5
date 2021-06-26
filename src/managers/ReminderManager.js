@@ -10,21 +10,20 @@ class ReminderManager extends BaseManager {
     return crypto.createHash('md5').update(Math.random().toString(32)).digest('hex');
   }
 
-  async handle(data) {
-    if (!await this.find(data)) await this.create(data);
+  async handle(checkInterval = 5000) {
+    return setInterval(async () => {
+      const reminders = await this.client.database.collection(this.colllection).find().toArray();
 
-    return setTimeout(async () => {
-      if (data.timeout > Date.now()) return this.handle(data);
-      const user = this.client.users.cache.get(data.userID);
-      const reminder = await this.find(data);
-
-      if (reminder && user) {
-        this.delete(data);
-        return user
-          .send(`🔔 **Напоминание**\n${reminder.details.message}`)
-          .catch(null);
-      }
-    }, data.tiemout - Date.now());
+      // eslint-disable-next-line consistent-return
+      reminders.forEach((reminder) => {
+        const user = this.client.users.cache.get(reminder.userID);
+        if (user && Date.now() >= reminder.timeout) {
+          this.delete(reminder);
+          return user?.send(`🔔 **Напоминание**\n${reminder.details.message}`)
+            .catch(() => {});
+        }
+      });
+    }, checkInterval);
   }
 }
 

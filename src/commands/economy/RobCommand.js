@@ -24,7 +24,7 @@ class RobCommand extends FlameCommand {
     // eslint-disable-next-line max-len
     const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
     if (cooldown) {
-      return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
+      return message.fail(`Данная команда использует задержку, возвращайтесь снова \`${new Date(cooldown.ends).toLocaleString('ru')}\`.`);
     }
     if (authorData.money < 500) return message.fail(`Вы должны иметь как минимум **500**${guild.currency} для совершения данной операции.`);
 
@@ -56,7 +56,7 @@ class RobCommand extends FlameCommand {
         },
       });
     }
-    await manager.handle(
+    manager.create(
       {
         guildID: message.guild.id,
         userID: message.author.id,

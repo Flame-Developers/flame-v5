@@ -5,17 +5,15 @@ class CooldownManager extends BaseManager {
     super('cooldowns', client);
   }
 
-  async handle(data) {
-    if (!await this.find(data)) await this.create(data);
+  async handle(checkInterval = 5000) {
+    return setInterval(async () => {
+      const cooldowns = await this.client.database.collection(this.colllection).find().toArray();
 
-    return setTimeout(async () => {
-      if (data.ends > Date.now()) return this.handle(data);
-      const cooldown = await this.find(data);
-
-      if (cooldown) {
-        return this.delete(data);
-      }
-    }, data.ends - Date.now());
+      // eslint-disable-next-line consistent-return
+      cooldowns.forEach((cooldown) => {
+        if (Date.now() >= cooldown.ends) return this.delete(cooldown);
+      });
+    }, checkInterval);
   }
 }
 

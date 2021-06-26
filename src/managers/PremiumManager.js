@@ -17,19 +17,6 @@ class PremiumManager extends BaseManager {
     }
     return this.delete(data);
   }
-
-  async handle(data) {
-    if (!await this.find(data)) await this.create(data);
-    // eslint-disable-next-line consistent-return
-    return new Timer(data.ends, async () => {
-      const user = this.client.users.cache.get(data.userID);
-      const subscription = await this.find(data);
-
-      if (user && subscription) {
-        return this.delete(data);
-      }
-    });
-  }
 }
 
 module.exports = PremiumManager;

@@ -5,22 +5,20 @@ class MuteManager extends BaseManager {
     super('mutes', client);
   }
 
-  async handle(data) {
-    if (!await this.find(data)) await this.create(data);
+  handle(checkInterval = 5000) {
+    return setInterval(async () => {
+      const mutes = await this.client.database.collection(this.colllection).find().toArray();
 
-    return setTimeout(async () => {
-      if (data.ends > Date.now()) return this.handle(data);
-      const guild = this.client.guilds.cache.get(data.guildID);
-      const mute = await this.find(data);
-
-      if (guild && mute) {
-        this.delete(data);
-        return guild.members.cache
-          .get(data.userID)
-          ?.roles?.remove(data.muteRole)
-          .catch(null);
-      }
-    }, data.ends - Date.now());
+      // eslint-disable-next-line consistent-return
+      mutes.forEach((mute) => {
+        const guild = this.client.guilds.cache.get(mute.guildID);
+        if (guild && Date.now() >= mute.ends) {
+          this.delete(mute);
+          return guild.members.cache.get(mute.userID)?.roles?.remove(mute.muteRole)
+            .catch(() => {});
+        }
+      });
+    }, checkInterval);
   }
 }
 

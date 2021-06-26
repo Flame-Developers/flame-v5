@@ -21,7 +21,7 @@ class ReminderCommand extends FlameCommand {
 
   async run(message, args) {
     const option = args[0];
-    const Reminders = new ReminderManager(message.client);
+    const manager = new ReminderManager(message.client);
 
     switch (option) {
       case 'create':
@@ -38,10 +38,10 @@ class ReminderCommand extends FlameCommand {
         }
 
         const date = new Date(Date.now() + ms(time)).toLocaleString('ru');
-        const id = Reminders.generateID();
+        const id = manager.generateID();
 
         await message.react('✅');
-        await Reminders.handle(
+        manager.create(
           {
             userID: message.author.id,
             id,
@@ -61,20 +61,17 @@ class ReminderCommand extends FlameCommand {
             'Укажите пожалуйста ID напоминания которое вы хотите удалить.',
           );
         }
-        if (!(await Reminders.find({ userID: message.author.id, id: args[1] }))) {
+        if (!(await manager.find({ userID: message.author.id, id: args[1] }))) {
           return message.fail(
             'Указанного вами напоминания не существует.',
           );
         }
 
-        Reminders.delete({ userID: message.author.id, id: args[1] });
+        manager.delete({ userID: message.author.id, id: args[1] });
         message.reply(`${message.client.constants.emojis.DONE} Напоминание было успешно удалено.`);
         break;
       case 'list':
-        const data = await message.client.database
-          .collection('reminders')
-          .find({ userID: message.author.id })
-          .toArray();
+        const data = await message.client.database.collection('reminders').find({ userID: message.author.id }).toArray();
         const embed = new MessageEmbed()
           .setTitle('Список напоминаний')
           .setColor('ffa500')

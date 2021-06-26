@@ -20,7 +20,7 @@ class FishCommand extends FlameCommand {
     // eslint-disable-next-line max-len
     const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
     if (cooldown) {
-      return message.fail(`Данная команда использует задержку, попробуйте снова через **${moment(cooldown.ends).fromNow()}**`);
+      return message.fail(`Данная команда использует задержку, возвращайтесь снова \`${new Date(cooldown.ends).toLocaleString('ru')}\`.`);
     }
 
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
@@ -52,8 +52,7 @@ class FishCommand extends FlameCommand {
         .addField('Полученные ресурсы:', `Валюта сервера: +**${money}**${guild.currency}`)
         .setColor('ffa500'),
     );
-    // eslint-disable-next-line no-return-await
-    return await manager.handle(
+    manager.create(
       {
         guildID: message.guild.id,
         userID: message.author.id,
