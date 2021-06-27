@@ -20,8 +20,6 @@ class CommandsExecutorService {
     } else return this.client?.commands.find((c) => c?.aliases.includes(commandName));
   }
   async runCommand() {
-    if (this.message.author.bot) return;
-
     const data = await this.client.database.collection('guilds').findOne({ guildID: this.message.guild?.id });
     if (!this.message.content.startsWith(data?.prefix)) return;
 
