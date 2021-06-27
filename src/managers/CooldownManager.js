@@ -9,10 +9,11 @@ class CooldownManager extends BaseManager {
     return setInterval(async () => {
       const cooldowns = await this.client.database.collection(this.colllection).find().toArray();
 
-      // eslint-disable-next-line consistent-return
-      cooldowns.forEach((cooldown) => {
-        if (Date.now() >= cooldown.ends) return this.delete(cooldown);
-      });
+      for (const cooldown of cooldowns) {
+        if (cooldown.ends <= Date.now()) {
+          this.delete(cooldown);
+        }
+      }
     }, checkInterval);
   }
 }
