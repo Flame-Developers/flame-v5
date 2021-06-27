@@ -22,6 +22,7 @@ class FlameClient extends Client {
       rob: [],
     };
     this.constants = require('../utils/Constants');
+    this.utils = require('../utils/Functions');
 
     this.shoukaku = new FlamePlayer(this);
     this.queue = new FlameQueue(this);
