@@ -2,7 +2,7 @@
 
 const { Message, APIMessage } = require('discord.js');
 
-class FlameMessage extends Message {
+class ExtendedMessage extends Message {
   reply(...args) {
     const apiMessage = APIMessage.create(this.channel, ...args).resolveData();
     apiMessage.data.message_reference = {
@@ -21,4 +21,4 @@ class FlameMessage extends Message {
   }
 }
 
-module.exports = FlameMessage;
+module.exports = ExtendedMessage;
