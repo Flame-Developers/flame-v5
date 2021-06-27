@@ -31,12 +31,10 @@ class WarnsCommand extends FlameCommand {
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp();
 
-      let count = 0;
       warns.slice(i * 10, i * 10 + 10)
         // eslint-disable-next-line array-callback-return
         .map((warn) => {
-          count++;
-          embed.addField(`${count}. \`#${warn.id}\` [${new Date(warn.time).toLocaleString('ru')}] (${warn.moderator}):`, `Причина: **${warn.reason ?? 'Причина предупреждения отсутствует.'}**`);
+          embed.addField(`\`#${warn.id}\` [${new Date(warn.time).toLocaleString('ru')}] (${warn.moderator}):`, `Причина: **${warn.reason ?? 'Причина предупреждения отсутствует.'}**`);
         });
       entries.push(new PaginatorEntry(null, embed));
     }
