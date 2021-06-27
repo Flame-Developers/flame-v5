@@ -1,6 +1,7 @@
 /* eslint-disable no-case-declarations */
 const { MessageEmbed } = require('discord.js');
 const ms = require('ms');
+const { PaginatorUtil, PaginatorEntry } = require('../../utils/misc/PaginatorUtil');
 const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');
 const ReminderManager = require('../../managers/ReminderManager');
@@ -72,26 +73,27 @@ class ReminderCommand extends FlameCommand {
         break;
       case 'list':
         const data = await message.client.database.collection('reminders').find({ userID: message.author.id }).toArray();
-        const embed = new MessageEmbed()
-          .setTitle('Список напоминаний')
-          .setColor('ffa500')
-          .setFooter(message.guild.name, message.guild.iconURL())
-          .setTimestamp();
+        if (!data.length) return message.fail('На текущий момент вы не имеете активных напоминаний.');
 
-        if (!data.length) {
-          embed.setDescription(
-            'На данный момент вы не имеете активных напоминаний. Создайте себе парочку!',
-          );
-        } else {
-          embed.setThumbnail(message.guild.iconURL());
-          for (const i of data.slice(-10)) {
-            embed.addField(
-              `Напоминание \`${i.id}\`: ${new Date(i.timeout).toLocaleString('ru')}:`,
-              `**Сообщение:** ${i.details.message}`,
-            );
-          }
+        const entries = [];
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < Math.ceil(data.length / 10); i++) {
+          const embed = new MessageEmbed()
+            .setTitle('Список напоминаний')
+            .setDescription(`Общее количество активных напоминаний: **${data.length ?? '-'}**`)
+            .setColor('ffa500')
+            .setThumbnail(message.guild.iconURL())
+            .setFooter(message.guild.name, message.guild.iconURL())
+            .setTimestamp();
+
+          data.slice(i * 10, i * 10 + 10)
+            // eslint-disable-next-line array-callback-return
+            .map((reminder) => {
+              embed.addField(`\`${reminder.id}\` [${new Date(reminder.timeout).toLocaleString('ru')}]:`, `Сообщение: **${reminder.details.message}**`);
+            });
+          entries.push(new PaginatorEntry(null, embed));
         }
-        message.channel.send(embed);
+        await new PaginatorUtil(message.client, message.author, entries).init(message.channel, 150);
         break;
       default:
         return getHelp(message, this.name);
