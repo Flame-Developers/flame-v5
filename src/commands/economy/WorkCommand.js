@@ -1,6 +1,5 @@
 /* eslint-disable */
 const { MessageEmbed } = require('discord.js');
-const moment = require('moment');
 const StringParserUtil = require('../../utils/misc/StringParserUtil');
 const { randomize } = require('../../utils/Functions');
 const CooldownManager = require('../../managers/CooldownManager');
@@ -44,7 +43,7 @@ class WorkCommand extends FlameCommand {
       default:
         const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
         if (cooldown) {
-          return message.fail(`Данная команда использует задержку, возвращайтесь снова \`${new Date(cooldown.ends).toLocaleString('ru')}\`.`);
+          return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно через **${message.client.utils.timeout(cooldown.ends - Date.now())}**.`);
         }
 
         const transport = data.transport?.find((t) => t.requiredFor === this.name);

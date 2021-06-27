@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-const moment = require('moment');
 const { randomize } = require('../../utils/Functions');
 const CooldownManager = require('../../managers/CooldownManager');
 const FlameCommand = require('../../structures/FlameCommand');
@@ -23,7 +22,7 @@ class MineCommand extends FlameCommand {
     // eslint-disable-next-line max-len
     const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
     if (cooldown) {
-      return message.fail(`Данная команда использует задержку, возвращайтесь снова \`${new Date(cooldown.ends).toLocaleString('ru')}\`.`);
+      return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно через **${message.client.utils.timeout(cooldown.ends - Date.now())}**.`);
     }
 
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });

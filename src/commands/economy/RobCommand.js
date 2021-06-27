@@ -1,4 +1,3 @@
-const moment = require('moment');
 const { getHelp, percentage, randomize } = require('../../utils/Functions');
 const CooldownManager = require('../../managers/CooldownManager');
 const FlameCommand = require('../../structures/FlameCommand');
@@ -24,7 +23,7 @@ class RobCommand extends FlameCommand {
     // eslint-disable-next-line max-len
     const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
     if (cooldown) {
-      return message.fail(`Данная команда использует задержку, возвращайтесь снова \`${new Date(cooldown.ends).toLocaleString('ru')}\`.`);
+      return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно через **${message.client.utils.timeout(cooldown.ends - Date.now())}**.`);
     }
     if (authorData.money < 500) return message.fail(`Вы должны иметь как минимум **500**${guild.currency} для совершения данной операции.`);
 
@@ -56,14 +55,6 @@ class RobCommand extends FlameCommand {
         },
       });
     }
-    manager.create(
-      {
-        guildID: message.guild.id,
-        userID: message.author.id,
-        command: this.name,
-        ends: Date.now() + guild.cooldown[this.name] * 1000,
-      },
-    );
     message.client.cache.rob.push(
       { guild: message.guild.id, user: user.id },
     );
@@ -74,6 +65,15 @@ class RobCommand extends FlameCommand {
         1,
       );
     }, 1000 * 60 * 25);
+
+    return manager.create(
+      {
+        guildID: message.guild.id,
+        userID: message.author.id,
+        command: this.name,
+        ends: Date.now() + guild.cooldown[this.name] * 1000,
+      },
+    );
   }
 }
 
