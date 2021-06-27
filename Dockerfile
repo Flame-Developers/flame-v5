@@ -1,4 +1,5 @@
 FROM node:14
+ENV TZ Europe/Moscow
 
 RUN mkdir -p /usr/flame/
 WORKDIR /usr/flame/
