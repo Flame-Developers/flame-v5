@@ -15,16 +15,9 @@ module.exports = {
   percentage(percent, whole) {
     return parseInt((percent * whole) / 100.0);
   },
-  msToTime(duration) {
-    let seconds = parseInt((duration / 1000) % 60);
-    let minutes = parseInt((duration / (100060)) % 60);
-    let hours = parseInt((duration / (100060 * 60)) % 24);
-
-    hours = (hours < 10) ? `0${hours}` : hours;
-    minutes = (minutes < 10) ? `0${minutes}` : minutes;
-    seconds = (seconds < 10) ? `0${seconds}` : seconds;
-
-    return `${hours}:${minutes}:${seconds}` || 'Неизвестно';
+  timeout(duration = 0) {
+    // eslint-disable-next-line global-require
+    return require('moment').utc(Math.abs(duration)).format('HH:mm:ss');
   },
   locale(n, text, isMs = false) {
     if (isMs) n = ~~(n / 1000);
