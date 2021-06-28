@@ -2,6 +2,7 @@ class GuildDataCache {
   constructor(data = null) {
     this.prefix = data?.prefix ?? 'f.';
     this.premium = data?.premium ?? null;
+    this.moderator = data?.moderator ?? null;
     this.disabledCommands = data?.disabledCommands ?? [];
     this.settings = data?.settings ?? {};
   }

@@ -23,6 +23,7 @@ class ModroleCommand extends FlameCommand {
         if (!role) return getHelp(message, this.name);
         if (!message.guild.roles.cache.has(role.id)) return message.fail('Указанной вами роли не существует на данном сервере.');
 
+        message.guild.cache.set('moderator', role.id);
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             moderator: role.id,
@@ -33,6 +34,7 @@ class ModroleCommand extends FlameCommand {
       case 'reset':
         if (!data.moderator) return message.fail('На данном сервере не установлена роль модератора.');
 
+        message.guild.cache.set('moderator', null);
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
             moderator: null,
