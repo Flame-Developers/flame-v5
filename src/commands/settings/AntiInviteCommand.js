@@ -69,7 +69,7 @@ class AntiInviteCommand extends FlameCommand {
             .setAuthor('Защита от сторонних приглашений', Constants.static.MODULE_GRAY)
             .setColor(data.antiInvite.enabled ? '#a5ff2a' : '#ff3333')
             .setDescription(`На данном сервере **${data.antiInvite.enabled ? 'активирована' : 'не активирована'}** защита от сторонних приглашений.`)
-            .addField('Сообщение', data.antiInvite.message ? `\`\`\`${data.antiInvite.message}\`\`\`` : 'Сообщение не установлено.')
+            .addField('Сообщение', data.antiInvite.message ? `\`\`\`${data.antiInvite.message.slice(0, 999)}\`\`\`` : 'Сообщение не установлено.')
             .addField('Настройка модуля', 'Подробную справку по настройке данной системы вы сможете получить на [этой странице](https://docs.flamebot.ru/settings/auto-moderation).')
             .setFooter(message.guild.name, message.guild.iconURL())
             .setTimestamp(),
