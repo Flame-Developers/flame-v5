@@ -32,6 +32,7 @@ class BonusCommand extends FlameCommand {
             premium: true,
           },
         });
+        message.guild.cache.set('premium', true);
 
         message.channel.send(
           new MessageEmbed()
@@ -53,6 +54,7 @@ class BonusCommand extends FlameCommand {
             premium: false,
           },
         });
+        message.client.guilds.cache.get(id)?.cache?.set('premium', false);
 
         message.channel.send(`${message.client.constants.emojis.DONE} С сервера **${id}** были успешно сняты бонусные возможности.`);
         break;

@@ -22,6 +22,11 @@ class ToggleCommand extends FlameCommand {
     if (['help', 'toggle', 'eval', 'info', 'bonus'].includes(command)) return message.fail('Вы не можете отключить системную команду.');
 
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
+
+    message.guild.cache.disabledCommands.includes(command)
+      ? message.guild.cache.set('disabledCommands', message.guild.cache.disabledCommands.filter((c) => c !== command))
+      : message.guild.cache.push('disabledCommands', command);
+
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       [data.disabledCommands?.includes(command) ? '$pull' : '$push']: {
         disabledCommands: command,

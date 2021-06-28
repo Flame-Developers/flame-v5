@@ -30,14 +30,15 @@ class ConfigCommand extends FlameCommand {
       }
       return message.channel.send(embed);
     }
-    if (!params.includes(value)) return message.reply('Указанного вами параметра не существует :no_entry:');
+    if (!params.includes(value)) return message.fail('Указанного вами параметра не существует.');
 
+    message.guild.cache.set('settings', { [value]: !data.settings?.[value] });
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $set: {
-        [`settings.${value}`]: !data?.settings?.[value],
+        [`settings.${value}`]: !data.settings?.[value],
       },
     });
-    message.channel.send(`✅ Параметр **${value}** был успешно обновлен.`);
+    message.channel.send(`${message.client.constants.emojis.DONE} Параметр **${value}** был успешно обновлен.`);
   }
 }
 

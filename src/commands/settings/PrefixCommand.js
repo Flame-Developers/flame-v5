@@ -16,11 +16,14 @@ class PrefixCommand extends FlameCommand {
   run(message, args) {
     if (!args[0]) return getHelp(message, this.name);
     if (args[0].length > 3) return message.fail('Длина префикса не должна превышать лимит в 3 символа.');
+
+    message.guild.cache.set('prefix', args[0]);
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $set: {
         prefix: args[0],
       },
     });
+
     message.channel.send(`${message.client.constants.emojis.DONE} Префикс бота на данном сервере был установлен на \`${args[0]}\`.`);
   }
 }
