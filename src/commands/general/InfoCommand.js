@@ -6,7 +6,7 @@ class InfoCommand extends FlameCommand {
     super('info', {
       description: 'Краткое описание бота и ссылки на полезные ресурсы.',
       category: 'general',
-      usage: 'invite',
+      usage: 'info',
       aliases: ['about', 'invite'],
     });
   }
