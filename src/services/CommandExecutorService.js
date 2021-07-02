@@ -52,11 +52,13 @@ class CommandsExecutorService {
         await command.run(this.message, args);
         if (guild.settings?.clearCommandCalls) await this.message.delete().catch();
       } catch (error) {
+        await this.message.react(this.client.constants.emojis.FAIL);
         this.message.reply(
           new MessageEmbed()
             .setTitle('Упс, что-то пошло не так…')
             .setDescription(
-              'При выполнении данной команды возникла ошибка. Попробуйте пожалуйста позже, или обратитесь на сервер поддержки.',
+              'При выполнении данной команды возникла ошибка. Попробуйте пожалуйста позже, или обратитесь на сервер поддержки.\n'
+              + `\`\`\`js\n${error}\`\`\``,
             )
             .setColor('#ff3333')
             .setFooter(this.message.guild.name, this.message.guild.iconURL())
