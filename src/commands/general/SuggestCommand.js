@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const ActionConfirmationUtil = require('../../utils/misc/ActionConfirmationUtil');
+const InteractionResponse = require('../../utils/interactions/InteractionResponse');
 const FlameCommand = require('../../structures/FlameCommand');
 const { getHelp } = require('../../utils/Functions');
 
@@ -79,7 +80,7 @@ class SuggestCommand extends FlameCommand {
                   },
                 });
                 await message.client.api.channels(data.ideaChannel).messages(m.id).delete().catch(null);
-              }
+              } else return new InteractionResponse(message.client).send(res, 'Вы не можете удалять предложения других пользователей, поскольку не являетесь модератором данного сервера.', { flags: 64 });
               break;
             default:
           }

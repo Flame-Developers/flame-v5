@@ -5,6 +5,7 @@ class PingCommand extends FlameCommand {
     super('ping', {
       description: 'Сообщает задержку бота.',
       usage: 'ping',
+      category: 'general',
       cooldown: 3,
       aliases: [],
     });
