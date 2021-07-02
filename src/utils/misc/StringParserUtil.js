@@ -22,7 +22,7 @@ class StringParserUtil {
   }
 
   static parseInvites(string) {
-    const InviteRegex = /(?:https?:\/\/)?(?:www\.)?discord(?:\.(?:gg|io|me|li)|(?:app)?\.com\/invite)\/(?<invite_code>\w{3,})\/?/gm;
+    const InviteRegex = /(?:https?:\/\/)?(?:www\.)?discord(?:\.(?:gg|io|me|li)|(?:app)?\.com\/invite)\/(?<invite_code>\w{2,})\/?/gm;
     const match = string.match(InviteRegex);
 
     if (match) {

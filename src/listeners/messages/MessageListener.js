@@ -1,6 +1,5 @@
 const FlameListener = require('../../structures/FlameListener');
 const CommandsExecutorService = require('../../services/CommandExecutorService');
-const DatabaseHelper = require('../../helpers/DatabaseHelper');
 const InviteDetectorService = require('../../services/InviteDetectorService');
 const AntiInviteService = require('../../services/AntiInviteService');
 const { UserSchema } = require('../../utils/Schemas');
@@ -23,13 +22,9 @@ class MessageListener extends FlameListener {
     const user = await client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
     if (!user) {
-      // eslint-disable-next-line consistent-return
-      return DatabaseHelper.createGuildMemberEntry(client, {
-        options: { upsert: true },
-        guild: message.guild.id,
-        user: message.member.id,
-        schema: UserSchema,
-      });
+      client.database.collection('guildusers').updateOne({ guildID: message.guild.id, userID: message.author.id }, {
+        $set: UserSchema,
+      }, { upsert: true });
     }
 
     const executor = new CommandsExecutorService(message, client);

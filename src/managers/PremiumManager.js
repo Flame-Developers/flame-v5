@@ -1,5 +1,4 @@
 const BaseManager = require('../structures/BaseManager');
-const Timer = require('../utils/misc/Timer');
 
 class PremiumManager extends BaseManager {
   constructor(client) {
