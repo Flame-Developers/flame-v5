@@ -45,7 +45,7 @@ class CommandsExecutorService {
       if (command.premium && !guild.premium) return premiumRequired(this.message);
 
       if (command.clientPermissions.length > 0 && command.clientPermissions.some((permission) => !this.message.guild.me.permissions.has(permission))) return this.message.fail(`У меня недостаточно прав для выполнения данного действия. Необходимые права: ${command.clientPermissions.map((r) => `\`${permissions[r]}\``).join(', ')}.`);
-      if ((command.userPermissions.length > 0 && command.userPermissions.some((permission) => !this.message.member.permissions.has(permission))) && !this.message.member.roles.cache.has(data?.moderator)) return this.message.fail(`У вас недостаточно прав для выполнения данного действия. Необходимые права: ${command.userPermissions.map((r) => `\`${permissions[r]}\``).join(', ')}.`);
+      if ((command.userPermissions.length > 0 && command.userPermissions.some((permission) => !this.message.member.permissions.has(permission))) && !this.message.member.roles.cache.has(guild.moderator)) return this.message.fail(`У вас недостаточно прав для выполнения данного действия. Необходимые права: ${command.userPermissions.map((r) => `\`${permissions[r]}\``).join(', ')}.`);
 
       executions.set(this.message.author.id, true);
       try {
