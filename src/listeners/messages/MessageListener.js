@@ -17,8 +17,8 @@ class MessageListener extends FlameListener {
     if (await InviteDetectorService.hasInvites(message)) {
       await new AntiInviteService(message.client, message).applyActions();
     }
-    if ([`<@!${client.user.id}>`, `<@${client.user.id}>`].some((mention) => message.content === mention)) {
-      message.reply(':wave: Привет! Для того, чтобы посмотреть полный список команд, воспользуйтесь командой `help`.\nНе забудьте также посетить документацию: https://docs.flamebot.ru.');
+    if ([`<@!${client.user.id}>`, `<@${client.user.id}>`].includes(message.content)) {
+      message.reply(`:wave: Привет! Для того, чтобы посмотреть полный список команд, воспользуйтесь командой \`${message.guild.cache?.prefix ?? ''}help\`.\nНе забудьте также посетить документацию: https://docs.flamebot.ru.`);
     }
     const user = await client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
