@@ -22,8 +22,9 @@ class InteractionCreateListener extends FlameListener {
         if (client.cache.buttons.has(interaction.message.id)) {
           // eslint-disable-next-line max-len
           client.cache.buttons.get(interaction.message.id)(new InteractionData(client, interaction));
-          // eslint-disable-next-line max-len
-          return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 6 }});
+          return client.api.interactions(interaction.id, interaction.token)
+            .callback.post({ data: { type: 6 } })
+            .catch(() => {});
         }
     }
   }
