@@ -14,31 +14,54 @@ class ConfigCommand extends FlameCommand {
 
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
-    const params = ['clearCommandCalls', 'deleteUserAfterLeave', 'answerOnDisabledCommands', 'hideDisabledCommands'];
+    const params = [
+      {
+        key: 'clearCommandCalls',
+        name: 'Удаление вызовов команд',
+      },
+      {
+        key: 'deleteUserAfterLeave',
+        name: 'Удаление пользователя при выходе',
+      },
+      {
+        key: 'answerOnDisabledCommands',
+        name: 'Отвечать на отключенные команды',
+      },
+      {
+        key: 'hideDisabledCommands',
+        name: 'Не отображать отключенные команды',
+      },
+      {
+        key: 'embedErrorMessages',
+        name: 'Ошибки в эмбед-сообщениях',
+      },
+    ];
 
-    const value = args[0];
+    const value = params.find((p) => p.key === args[0]);
     if (!value) {
       const embed = new MessageEmbed()
         .setTitle('Конфигурации данного сервера')
         .setColor('ffa500')
-        .setDescription(`Для того, чтобы включить/отключить определенный параметр, введите эту команду следующим образом: \`${data.prefix}config <Параметр>\`.`)
+        .addField('Подсказка', `Для того, чтобы включить/отключить определенный параметр, выполните эту команду следующим образом: \`${data.prefix}config <Параметр>\`.`)
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp();
 
+      let description = '';
       for (const param of params) {
-        embed.addField(param, `**Состояние:** ${data?.settings?.[param] ? message.client.constants.emojis.TOGGLE_ON : message.client.constants.emojis.TOGGLE_OFF}`, true);
+        description += `[${param.name}](https://docs.flamebot.ru/settings/config-parameters/#${param.key}): ${data.settings?.[param.key] ? '✅' : '❌'}\n`;
       }
+      embed.setDescription(description);
       return message.channel.send(embed);
     }
-    if (!params.includes(value)) return message.fail('Указанного вами параметра не существует.');
 
-    message.guild.cache.set('settings', { [value]: !data.settings?.[value] });
+    // eslint-disable-next-line max-len
+    Object.defineProperty(message.guild.cache.settings, value.key, { value: !data.settings?.[value.key] });
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $set: {
-        [`settings.${value}`]: !data.settings?.[value],
+        [`settings.${value.key}`]: !data.settings?.[value.key],
       },
     });
-    message.channel.send(`${message.client.constants.emojis.DONE} Параметр **${value}** был успешно обновлен.`);
+    message.channel.send(`${message.client.constants.emojis.DONE} Параметр **${value.key}** был успешно обновлен.`);
   }
 }
 
