@@ -15,6 +15,9 @@ class GuildMemberAddListener extends FlameListener {
       await new PremiumManager(client).cancelPremiumStatus(subscription);
     }
     if (data) {
+      if (member.guild.cache?.settings?.deleteUserAfterLeave) {
+        client.database.collection('guildusers').deleteOne({ guildID: member.guild.id, userID: member.user.id });
+      }
       if (data.leave?.enabled && data.leave?.channel && data.leave?.text) {
         member.guild.channels.cache.get(data.leave.channel)
           .send(buildLeaveMessage(member, data.leave.text))
