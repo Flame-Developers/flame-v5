@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { permissions } = require('./Constants');
 
 module.exports = {
   premiumRequired(message) {
@@ -10,5 +11,16 @@ module.exports = {
         .setFooter(message.guild.name, message.guild.iconURL())
         .setTimestamp(),
     );
+  },
+  missingPermissions(message, requiredPermissions = []) {
+    const embed = new MessageEmbed()
+      .setTitle('⚠️ Недостаточно прав')
+      .setDescription('Похоже, данна команда требует прав, которых вы не имеете. Обратитесь на сервер поддержки, если считаете, что видете это сообщение по ошибке.')
+      .setColor('ff3333')
+      .setFooter(message.guild.name, message.guild.iconURL())
+      .setTimestamp();
+
+    if (requiredPermissions.length) embed.addField('Необходимые права:', requiredPermissions.map((p) => permissions[p]).join('\n'));
+    return message.channel.send(embed);
   },
 };
