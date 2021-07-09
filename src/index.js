@@ -5,9 +5,7 @@ const FlameClient = require('./structures/FlameClient');
 moment.locale('ru');
 
 // eslint-disable-next-line global-require
-Structures.extend('Guild', () => require('./structures/djs/FlameGuild'));
-// eslint-disable-next-line global-require
-Structures.extend('Message', () => require('./structures/djs/FlameMessage'));
+Structures.extend('Message', () => require('./structures/discord.js/FlameMessage'));
 
 const client = new FlameClient({
   ws: {
