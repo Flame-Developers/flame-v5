@@ -47,7 +47,8 @@ class CommandsExecutorService {
         return this.message.fail(`Похоже, что для выполнения данной команды боту нужны дополнительные права. Выдайте ему их, прежде чем заново использовать команду.\nДля стабильной работы всего функционала рекомендуется выдать право администратора сервера.`);
       if ((command.userPermissions.length > 0 && command.userPermissions.some((permission) => !this.message.member.permissions.has(permission))) && !this.message.member.roles.cache.has(guild.moderator))
         return Errors.missingPermissions(this.message, command.userPermissions);
-
+      
+      if (['help', '?'].includes(args[0])) return this.client.utils.getHelp(this.message, command.name);
       executions.set(this.message.author.id, true);
       try {
         await command.run(this.message, args);
