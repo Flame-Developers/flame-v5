@@ -6,7 +6,7 @@ class VoiceStateUpdateListener extends FlameListener {
   }
 
   async run(client, oldState, newState) {
-    if (await oldState.guild.cache?.premium) return;
+    if (oldState.guild.cache?.premium) return;
 
     const dispatcher = client.queue.get(newState.guild.id);
     if (dispatcher) {
