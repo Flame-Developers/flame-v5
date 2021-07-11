@@ -30,7 +30,7 @@ class AddItemCommand extends FlameCommand {
     if (parseInt(price) < 1 || parseInt(price) > 10000000) return message.fail(`Стоимость предмета должна быть от **1** до **10,000,000**${data.currency}.`);
 
     if (data.items?.find((item) => item.roleId === role.id)) return message.fail('Указанная вами роль уже существует в магазине данного сервера.');
-    const hasPremium = await message.guild.hasPremium();
+    const hasPremium = message.guild.cache.premium;
     // eslint-disable-next-line
     if (!hasPremium && data.items?.length >= 25 || hasPremium && data.items?.length >= 45) return message.fail(`Вы достигли лимита предметов в магазине. ${!hasPremium ? 'Приобретите Flame+ для повышенных лимитов на этом сервере.' : ''}`);
 

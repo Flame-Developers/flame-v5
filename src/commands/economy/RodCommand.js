@@ -39,7 +39,7 @@ class RodCommand extends FlameCommand {
         break;
       case 'add':
         if (!message.member.permissions.has('MANAGE_GUILD')) return message.fail('У вас недостаточно прав для выполнения данного действия.');
-        const hasPremium = await message.guild.hasPremium();
+        const hasPremium = message.guild.cache.premium;
         // eslint-disable-next-line no-mixed-operators
         if (!hasPremium && guild.rods?.length >= 5 || hasPremium && guild.rods?.length >= 10) return message.fail(`Вы достигли лимита удочек на этом сервере. ${!hasPremium ? 'Приобретите Flame+ для повышенных лимитов.' : ''}`);
 

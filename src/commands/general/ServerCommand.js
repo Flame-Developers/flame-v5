@@ -38,12 +38,12 @@ class ServerCommand extends FlameCommand {
       .addField('Регион', regions[message.guild.region], true)
       .addField('Владелец', `${message.guild.owner.user.tag} (${message.guild.owner.id})`, true)
       .addField('Уровень проверки', verifyLevels[message.guild.verificationLevel], true)
-      .addField('Дата создания', new Date(message.guild.createdAt).toISOString().replace('T', ' ').substr(0, 19), true)
+      .addField('Дата создания', new Date(message.guild.createdAt).toLocaleString('ru'), true)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.guild.name, message.guild.iconURL())
       .setTimestamp();
 
-    if (await message.guild.hasPremium()) embed.setDescription('На данном сервере активированы бонусные возможности **Flame+**. Огромное спасибо за поддержку! 🔥');
+    if (message.guild.cache.premium) embed.setDescription('На данном сервере активированы бонусные возможности **Flame+**. Огромное спасибо за поддержку! 🔥');
     return message.reply(embed).catch();
   }
 }
