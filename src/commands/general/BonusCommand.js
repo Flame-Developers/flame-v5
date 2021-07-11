@@ -23,7 +23,7 @@ class BonusCommand extends FlameCommand {
     if (!data) return message.fail('Подписка Flame+, привязанная к вашему аккаунту не была найдена. Обратитесь на сервер поддержки, если считаете, что так быть не должно.');
     switch (option) {
       case 'activate':
-        if (await message.guild.hasPremium()) return message.fail('Вы не можете активировать бонусные возможности на этом сервере, так как он их уже имеет.');
+        if (message.guild.cache.premium) return message.fail('Вы не можете активировать бонусные возможности на этом сервере, так как он их уже имеет.');
         if (data.premiumGuilds.length >= data.premiumGuildsMaxLength) return message.fail('У вас не осталось слотов для активации бонусов на данном сервере. Приобретите подписку получше, если хотите повысить данный лимит.');
 
         message.client.database.collection('subscriptions').updateOne({ userID: message.author.id }, { $push: { premiumGuilds: message.guild.id } });
