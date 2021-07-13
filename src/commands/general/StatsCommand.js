@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fetch = require('node-fetch');
 const FlameCommand = require('../../structures/FlameCommand');
 const { formatNumber } = require('../../utils/Functions');
 const { dependencies } = require('../../../package.json');
@@ -8,30 +9,26 @@ class StatsCommand extends FlameCommand {
     super('stats', {
       description: 'Показывает статистику бота.',
       category: 'general',
-      cooldown: 3,
+      cooldown: 5,
       usage: 'stats',
       aliases: [],
     });
   }
 
   async run(message, args) {
-    Promise.all(
-      [
-        await message.client.shard.fetchClientValues('guilds.cache.size'),
-        await message.client.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)'),
-        await message.client.shard.fetchClientValues('channels.cache.size'),
-      ],
-    ).then((res) => {
-      return message.channel.send(
-        new Discord.MessageEmbed()
+    message.channel.startTyping();
+    fetch('https://api.flamebot.ru/public/stats')
+      .then((res) => res.json())
+      .then((res) => {
+        const embed = new Discord.MessageEmbed()
           .setAuthor(message.client.user.tag, message.client.user.avatarURL({ size: 2048 }))
+          .setDescription(`Данный сервер расположен на шарде **${message.guild.shardID}**. Источник статистики: [api.flamebot.ru](https://api.flamebot.ru/public/stats). Информация обновляется каждые 5 минут.`)
           .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
-          .setDescription(`На текущий момент, бот запущен с **${message.client?.shard?.count ?? 0}** шардами(-ом). Данный сервер расположен на **${message.guild.shardID}** шарде.`)
           .addField(
             'Статистика бота',
-            `**Серверов:** ${formatNumber(res[0].reduce((a, b) => a + b, 0))}\n`
-                + `**Пользователей:** ${formatNumber(res[1].reduce((a, b) => a + b, 0))}\n`
-                + `**Каналов:** ${formatNumber(res[2].reduce((a, b) => a + b, 0))}`,
+            `**Серверов:** ${formatNumber(res.totalGuilds) ?? '-'}\n`
+                + `**Пользователей:** ${formatNumber(res.totalUsers) ?? '-'}\n`
+                + `**Осколков:** ${res.totalShards ?? '-'}`,
             true,
           )
           .addField(
@@ -42,10 +39,18 @@ class StatsCommand extends FlameCommand {
             true,
           )
           .setColor('ffa500')
-          .setFooter('Последний перезапуск')
-          .setTimestamp(new Date(message.client.readyAt).getTime()),
-      );
-    });
+          .setFooter('Последний перезапуск бота')
+          .setTimestamp(new Date(message.client.readyAt).getTime());
+
+        let pings = '';
+        for (const shard of res?.shards) {
+          pings += `• ${shard.disconnected ? '🔴' : '🟢'} Осколок #${shard.id} -> ${shard.ping ?? '-'}ms\n`;
+        }
+
+        embed.addField('Состояния осколков (WebSocket)', `\`\`\`diff\n${pings}\`\`\``);
+        message.channel.send(embed);
+      });
+    await message.channel.stopTyping();
   }
 }
 
