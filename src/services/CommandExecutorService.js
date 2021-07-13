@@ -41,7 +41,7 @@ class CommandsExecutorService {
           : null;
       }
       if (!this.message.guild.me.permissionsIn(this.message.channel).has('EMBED_LINKS')) return this.message.fail(`Упс, кажется, что у меня нет прав на встраивание ссылок в данном канале. Выдайте мне пожалуйста данную возможность, иначе я не смогу корректно работать и выполнять команды.`);
-      if (command.premium && !guild.premium) return premiumRequired(this.message);
+      if (command.premium && !guild.premium) return Errors.premiumRequired(this.message);
 
       if (command.clientPermissions.length > 0 && command.clientPermissions.some((permission) => !this.message.guild.me.permissions.has(permission)))
         return this.message.fail(`Похоже, что для выполнения данной команды боту нужны дополнительные права. Выдайте ему их, прежде чем заново использовать команду.\nДля стабильной работы всего функционала рекомендуется выдать право администратора сервера.`);
