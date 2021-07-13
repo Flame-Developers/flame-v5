@@ -25,7 +25,7 @@ const cache = {};
 async function collectBotStatistics() {
   let cachingRequired = false;
   const arr = [];
-  const script = '[this.ws.ping, this.ws.destroyed, this.guilds.cache.size, this.users.cache.size]';
+  const script = '[this.ws.ping, this.ws.destroyed, this.guilds.cache.size, this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)]';
 
   if (cache.expires > Date.now()) return { shards: cache.stats.shards, ...cache.stats.stats };
   cachingRequired = true;
