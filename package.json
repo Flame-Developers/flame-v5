@@ -1,6 +1,6 @@
 {
   "name": "flame",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "main": "src/shard.js",
   "scripts": {
     "lint": "eslint ./src --fix"
