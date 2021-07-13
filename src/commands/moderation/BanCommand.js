@@ -27,7 +27,7 @@ class BanCommand extends FlameCommand {
     await new ActionConfirmationUtil(message.client, message.author).init(`Вы уверены, что хотите забанить пользователя **${user.user.tag}**? У вас есть **30** секунд на решение.`, message.channel).then(async (response) => {
       if (response) {
         try {
-          await message.guild.members.ban(user.id, { reason: args.slice(1).join(' ').length ? args.slice(1).join(' ').slice(0, 499) : null });
+          await message.guild.members.ban(user.id, { days: 1, reason: args.slice(1).join(' ').length ? args.slice(1).join(' ').slice(0, 499) : null });
           message.channel.send(`${message.client.constants.emojis.DONE} Пользователь **${user.user.tag}** (${user.id}) был успешно забанен.`);
         } catch {
           message.fail('Мне не удалось забанить данного пользователя.');
