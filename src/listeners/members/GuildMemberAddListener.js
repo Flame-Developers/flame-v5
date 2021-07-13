@@ -11,7 +11,7 @@ class GuildMemberAddListener extends FlameListener {
     if (data) {
       if (data.welcome?.enabled && data.welcome?.channel && data.welcome?.text) {
         member.guild.channels.cache.get(data.welcome.channel)
-          .send(buildWelcomeMessage(member, data.welcome.text))
+          ?.send(buildWelcomeMessage(member, data.welcome.text))
           .catch(() => null);
       }
       if (data.welcome?.role) member.roles.add(data.welcomeRole);
