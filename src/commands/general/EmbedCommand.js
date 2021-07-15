@@ -17,10 +17,12 @@ class EmbedCommand extends FlameCommand {
     if (!args.join(' ')) return getHelp(message, this.name);
 
     try {
-      message.delete();
+      if (!message.guild.cache.settings?.clearCommandCalls) message.delete();
       const embed = JSON.parse(args.join(' '));
 
-      return embed.plainText ? message.channel.send(embed.plainText, { embed }) : message.channel.send({ embed });
+      return embed.plainText
+        ? message.channel.send(embed.plainText, { embed })
+        : message.channel.send({ embed });
     } catch {
       return message.fail('Вы указали неверный объект сообщения. Попробуйте сгенерировать его на сайте.');
     }
