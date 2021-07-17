@@ -5,7 +5,6 @@ const Errors = require('../utils/Errors');
 const GuildDataCache = require('../structures/cache/GuildDataCache');
 
 const cooldown = new Collection();
-const executions = new Map();
 
 class CommandsExecutorService {
   constructor(message, client) {
@@ -32,7 +31,6 @@ class CommandsExecutorService {
     const command = await this.findCommand(cmd);
 
     if (cooldown.has(this.message.author.id) && cooldown.get(this.message.author.id) === command?.name) return this.message.react('⏱️').catch();
-    if (executions.has(this.message.author.id)) return this.message.react('<a:processing:853669211028324402>').catch();
 
     if (command) {
       if (guild.disabledCommands?.includes(command.name)) {
@@ -49,7 +47,6 @@ class CommandsExecutorService {
         return Errors.missingPermissions(this.message, command.userPermissions);
       
       if (['help', '?'].includes(args[0])) return this.client.utils.getHelp(this.message, command.name);
-      executions.set(this.message.author.id, true);
       try {
         await command.run(this.message, args);
         if (guild.settings?.clearCommandCalls) await this.message.delete().catch();
@@ -68,12 +65,9 @@ class CommandsExecutorService {
         );
         console.error(error);
       }
-      executions.delete(this.message.author.id);
 
-      if (!guild.premium || command.name === 'reset-economy') {
-        cooldown.set(this.message.author.id, command.name);
-        setTimeout(() => cooldown.delete(this.message.author.id), command.cooldown * 1000);
-      }
+      cooldown.set(this.message.author.id, command.name);
+      setTimeout(() => cooldown.delete(this.message.author.id), command.cooldown * 1000);
     }
   }
 }
