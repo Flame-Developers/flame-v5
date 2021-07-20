@@ -40,7 +40,7 @@ class TransportCommand extends FlameCommand {
         if (!message.member.permissions.has('MANAGE_GUILD')) return message.fail('У вас недостаточно прав для выполнения данного действия.');
         const hasPremium = message.guild.cache.premium;
         // eslint-disable-next-line no-mixed-operators
-        if (!hasPremium && guild.transport?.length >= 5 || hasPremium && guild.transport?.length >= 10) return message.fail(`Вы достигли лимита удочек на этом сервере. ${!hasPremium ? 'Приобретите Flame+ для повышенных лимитов.' : ''}`);
+        if (!hasPremium && guild.transport?.length >= 5 || hasPremium && guild.transport?.length >= 10) return message.fail(`Вы достигли лимита транспорта на этом сервере. ${!hasPremium ? 'Приобретите Flame+ для повышенных лимитов.' : ''}`);
 
         // eslint-disable-next-line no-unused-vars
         const [_, name, key, price, requiredFor] = args;

@@ -23,7 +23,7 @@ class DocsCommand extends FlameCommand {
 
     if (!args[0] || !VERSIONS.includes(version)) return getHelp(message, this.name);
     if (!args.slice(1).join(' ')) return getHelp(message, this.name);
-    if (!args.slice(1).join(' ').length > 500) return message.reply(`${message.client.constants.emojis.FAIL} Запрос не должен превышать лимит в **500** символов.`);
+    if (!args.slice(1).join(' ').length > 500) return message.fail('Запрос не должен превышать лимит в **500** символов.');
 
     version = `https://raw.githubusercontent.com/discordjs/discord.js/docs/${args[0].toLowerCase()}.json`;
     args.shift();

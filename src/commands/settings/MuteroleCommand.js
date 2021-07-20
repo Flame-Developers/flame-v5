@@ -28,7 +28,7 @@ class MuteroleCommand extends FlameCommand {
             muteRole: role.id,
           },
         });
-        message.channel.send(`✅ Роль мьюта была успешно установлена на ${role} (${role.id})`);
+        message.channel.send(`${message.client.constants.emojis.DONE} Роль мьюта была успешно установлена на ${role} (${role.id})`);
         break;
       case 'reset':
         if (!data.muteRole) return message.fail('На данном сервере не установлена роль мьюта.');

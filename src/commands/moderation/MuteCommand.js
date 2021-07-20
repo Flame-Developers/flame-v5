@@ -8,7 +8,7 @@ class MuteCommand extends FlameCommand {
     super('mute', {
       description: 'Замьютить пользователя на сервере.',
       category: 'moderation',
-      usage: 'mute <Пользователь> [Причина]',
+      usage: 'mute <Пользователь> <Время> [Причина]',
       aliases: [],
       userPermissions: ['MANAGE_ROLES', 'MANAGE_MESSAGES'],
       clientPermissions: ['MANAGE_ROLES'],
