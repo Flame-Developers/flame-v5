@@ -15,7 +15,7 @@ module.exports = {
   missingPermissions(message, requiredPermissions = []) {
     const embed = new MessageEmbed()
       .setTitle('⚠️ Недостаточно прав')
-      .setDescription('Похоже, данна команда требует прав, которых вы не имеете. Обратитесь на сервер поддержки, если считаете, что видете это сообщение по ошибке.')
+      .setDescription('Похоже, данная команда требует прав, которых вы не имеете. Обратитесь на сервер поддержки, если считаете, что видите это сообщение по ошибке.')
       .setColor('ff3333')
       .setFooter(message.guild.name, message.guild.iconURL())
       .setTimestamp();
