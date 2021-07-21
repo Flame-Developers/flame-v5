@@ -1,5 +1,5 @@
 # Flame
-A multipurpose Discord-bot with music, economy, utils, and also auto-moderation.
+A multipurpose Discord bot with music, economy, utilities, and also auto-moderation.
 
 <p>
   <a href="https://discord.gg/7FUJPRCsw8">
@@ -15,7 +15,7 @@ A multipurpose Discord-bot with music, economy, utils, and also auto-moderation.
   </a>
 </p>
 
-> **Flame** is a powerfull, multipurpose and fully modular Discord-bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 6,500 guilds and 490,000 real Discord-users.
+> **Flame** is a powerful. Multipurpose and fully modular Discord bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 6,500 guilds and 490,000 real Discord users.
 
 Feel free to contribute or give this repo a star ⭐, so that our community grows much faster!
 
@@ -33,4 +33,4 @@ All contributions and Pull-requests **are welcome!** That means, that every sing
 But before you start, please notice, that you should use [Conventional Commits](https://conventionalcommits.org), and do not open duplicate Pull-requests.
 
 ## License
-Please also remember, that this project is licensed under the [Apache License 2.0](https://github.com/Flame-Developers/Flame/blob/main/LICENSE.md). You **may** use code from here for your own purposes, but you **must** provide original author of the code and a link to this repository.
+Please also remember, that this project is licensed under the [Apache License 2.0](https://github.com/Flame-Developers/Flame/blob/main/LICENSE.md). You **may** use code from here for your own purposes, but you **must** credit the original author of the code and provide link to this repository.
