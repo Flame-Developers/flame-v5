@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
 const FlameCommand = require('../../structures/FlameCommand');
 
 class UserCommand extends FlameCommand {
@@ -28,7 +29,7 @@ class UserCommand extends FlameCommand {
       HYPESQUAD_EVENTS: '<:hypesquad_events:814073426889277440>',
       BUGHUNTER_LEVEL_1: '<:bughunter:814073221220925441>',
       BUGHUNTER_LEVEL_2: '<:bughunter2:814072532030324746>',
-      EARLY_VERIFIED_BOT_DEVELOPER: '<:developer:814072505336987678>',
+      EARLY_VERIFIED_DEVELOPER: '<:developer:814072505336987678>',
       EARLY_SUPPORTER: '<:supporter:814073354414981170>',
       PARTNERED_SERVER_OWNER: '<:partnernew:814073246026563614>',
       DISCORD_EMPLOYEE: '<:stafftools:814073316038017066>',
@@ -55,8 +56,8 @@ class UserCommand extends FlameCommand {
       .setDescription(
         `Значки пользователя: ${user.user.flags?.toArray().map((r) => flags[r]).join('  ') || '**Отсутствуют**'}\nСтатус: **${statuses[user.user.presence.status]}**\nУстройство: **${stat || 'Неизвестно'}**`,
       )
-      .addField('Зарегистрирован', new Date(user.user.createdAt).toLocaleString('ru'))
-      .addField('Присоединился', new Date(user.joinedAt).toLocaleString('ru'))
+      .addField('Зарегистрирован', `<t:${(user.user.createdTimestamp / 1000).toFixed()}> (${moment(user.user.createdAt).fromNow()})`)
+      .addField('Присоединился', `<t:${(user.joinedTimestamp / 1000).toFixed()}> (${moment(user.joinedTimestamp).fromNow()})`)
       .setFooter(`ID: ${user.id}`, message.guild.iconURL())
       .setTimestamp();
 

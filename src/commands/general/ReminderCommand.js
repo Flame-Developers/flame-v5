@@ -38,7 +38,7 @@ class ReminderCommand extends FlameCommand {
           );
         }
 
-        const date = new Date(Date.now() + ms(time)).toLocaleString('ru');
+        const date = new Date(Date.now() + ms(time)).getTime();
         const id = manager.generateID();
 
         await message.react('✅');
@@ -54,7 +54,7 @@ class ReminderCommand extends FlameCommand {
             },
           },
         );
-        message.channel.send(`${message.client.constants.emojis.DONE} Я напомню вам об этом \`${date}\` (ID напоминания: \`${id}\`)`);
+        message.channel.send(`${message.client.constants.emojis.DONE} Я напомню вам об этом <t:${(date / 1000).toFixed()}> (ID напоминания: \`${id}\`)`);
         break;
       case 'remove':
         if (!args[1]) {
@@ -89,7 +89,7 @@ class ReminderCommand extends FlameCommand {
           data.slice(i * 10, i * 10 + 10)
             // eslint-disable-next-line array-callback-return
             .map((reminder) => {
-              embed.addField(`\`${reminder.id}\` [${new Date(reminder.timeout).toLocaleString('ru')}]:`, `Сообщение: **${reminder.details.message}**`);
+              embed.addField(`\`${reminder.id}\` [<t:${(reminder.timeout / 1000).toFixed()}>]:`, `Сообщение: **${reminder.details.message}**`);
             });
           entries.push(new PaginatorEntry(null, embed));
         }

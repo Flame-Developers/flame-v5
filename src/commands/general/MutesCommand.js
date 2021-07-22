@@ -27,7 +27,7 @@ class MutesCommand extends FlameCommand {
       for (const mute of data.slice(0, 10)) {
         embed.addField(
           `${++i}. ${mute.details.tag} (${mute.userID}):`,
-          `Дата окончания: **${new Date(mute.ends).toLocaleString('ru')}**\nПричина: \`${mute.details.reason}\``,
+          `Дата окончания: <t:${(mute.ends / 1000).toFixed()}>\nПричина: \`${mute.details.reason}\``,
         );
       }
       embed.setThumbnail(message.guild.iconURL({ size: 2048 }));
