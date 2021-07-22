@@ -1,5 +1,6 @@
 const { MessageAttachment } = require('discord.js');
-const { createCanvas, loadImage } = require('canvas');
+const { createCanvas, registerFont, loadImage } = require('canvas');
+const { join } = require('path');
 const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');
 
@@ -13,7 +14,7 @@ class DemotivatorCommand extends FlameCommand {
       cooldown: 5,
       clientPermissions: ['ATTACH_FILES'],
       examples: [
-        'f.demotivator меня зовут андрей | и я разработчик java',
+        'f.demotivator я не понимаю | почему эта команда такая крутая',
       ],
     });
   }
@@ -41,6 +42,7 @@ class DemotivatorCommand extends FlameCommand {
     message.channel.startTyping();
     const canvas = createCanvas(768, 540);
     const ctx = canvas.getContext('2d');
+    await registerFont(join(process.cwd(), 'src/static/fonts/Times New Roman.ttf'), { family: 'Times New Roman' });
 
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
