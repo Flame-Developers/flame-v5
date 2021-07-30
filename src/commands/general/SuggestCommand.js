@@ -18,17 +18,6 @@ class SuggestCommand extends FlameCommand {
     });
   }
 
-  get #buttons() {
-    return [
-      {
-        type: 2,
-        style: 4,
-        custom_id: 'delete',
-        label: 'Удалить предложение',
-      }
-    ];
-  }
-
   async run(message, args) {
     const data = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     if (!data.ideaChannel) return message.fail('На данном сервере не установлен канал для предложений. Обратитесь к администратору для решения данной проблемы.');
@@ -49,19 +38,30 @@ class SuggestCommand extends FlameCommand {
             embed: new MessageEmbed()
               .setTitle(`Предложение №${id}`)
               .setDescription(suggestion)
-              .addField(`Дополнительные сведения:`, `Автор: **${message.author.tag}** (${message.author.id})\nДата отправки: **${new Date().toLocaleString('ru')}**`)
+              .setImage(message.attachments.first()?.proxyURL ?? null)
+              .addField('Дополнительные сведения:', `Автор: **${message.author.tag}** (${message.author.id})\nДата отправки: <t:${(Date.now() / 1000).toFixed()}>`)
               .setColor('ffa500')
               .setFooter(message.guild.name, message.guild.iconURL())
-              .setTimestamp().toJSON(),
+              .setTimestamp()
+              .toJSON(),
             components: [
               {
                 type: 1,
-                components: this.#buttons,
+                components: [
+                  {
+                    type: 2,
+                    style: 4,
+                    custom_id: 'delete',
+                    label: 'Удалить',
+                    emoji: {
+                      id: '862715940810653737',
+                    },
+                  },
+                ],
               },
             ],
           },
         });
-        ['👍', '👎'].forEach((r) => message.guild.channels.cache.get(data.ideaChannel).messages.cache.get(m.id).react(r));
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $push: {
             ideas: {
@@ -79,12 +79,20 @@ class SuggestCommand extends FlameCommand {
                     ideas: { id },
                   },
                 });
-                await message.client.api.channels(data.ideaChannel).messages(m.id).delete().catch(null);
-              } else return new InteractionResponse(message.client).send(res, 'Вы не можете удалять предложения других пользователей, поскольку не являетесь модератором данного сервера.', { flags: 64 });
+                await message.client.api.channels(data.ideaChannel).messages(m.id).patch({
+                  data: {
+                    content: '[Предложение удалено]',
+                    embed: null,
+                    components: [],
+                  },
+                });
+              } else return new InteractionResponse(message.client)
+                .send(res, 'Вы не можете удалять предложения других пользователей, поскольку не являетесь модератором данного сервера.', { flags: 64 });
               break;
             default:
           }
         });
+        ['👍', '👎'].forEach((r) => message.guild.channels.cache.get(data.ideaChannel).messages?.cache?.get(m.id)?.react(r));
         return message.channel.send(`${message.client.constants.emojis.DONE} Ваше предложение было успешно доставлено в канал <#${data.ideaChannel}> (ID: **${id}**)`);
       } else message.fail('Процесс отправки предложения был отменен.');
     });
