@@ -19,7 +19,7 @@ class InviteDetectorService {
 
   static async hasInvites(message, string = null) {
     if (!message || !(message instanceof Message)) throw new Error('A valid instance of Discord.Message must be provided.');
-    const data = await StringParserUtil.parseInvites(string ?? message?.content);
+    const data = StringParserUtil.parseInvites(string ?? message?.content);
 
     if (!data) return false;
     else {
