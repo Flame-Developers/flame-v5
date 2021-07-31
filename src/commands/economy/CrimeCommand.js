@@ -36,9 +36,9 @@ class CrimeCommand extends FlameCommand {
           money: amount,
         },
       });
-      message.channel.send(
+      await message.channel.send(
         new MessageEmbed()
-          .setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }))
+          .setAuthor(message.author.tag, message.author.avatarURL({dynamic: true}))
           .setColor('ffa500')
           .setTitle(`Вы успешно совершили преступление, а также заработали **${amount}**${guild.currency}`)
           .setFooter(message.guild.name, message.guild.iconURL())
@@ -51,24 +51,23 @@ class CrimeCommand extends FlameCommand {
           money: -amount,
         },
       });
-      message.channel.send(
+      await message.channel.send(
         new MessageEmbed()
-          .setAuthor(message.author.tag, message.author.avatarURL({ dynamic: true }))
+          .setAuthor(message.author.tag, message.author.avatarURL({dynamic: true}))
           .setColor('ff3333')
           .setTitle(`Вы не смогли закончить свою миссию, потому что вас поймала полиция. Вы откупились от срока штрафом в **${amount}**${guild.currency}`)
           .setFooter(message.guild.name, message.guild.iconURL())
           .setTimestamp(),
       );
-
-      return manager.create(
-        {
-          guildID: message.guild.id,
-          userID: message.author.id,
-          command: this.name,
-          ends: Date.now() + guild.cooldown[this.name] * 1000,
-        },
-      );
     }
+    return manager.create(
+      {
+        guildID: message.guild.id,
+        userID: message.author.id,
+        command: this.name,
+        ends: Date.now() + guild.cooldown[this.name] * 1000,
+      },
+    );
   }
 }
 
