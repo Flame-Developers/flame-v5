@@ -36,7 +36,7 @@ class DemotivatorCommand extends FlameCommand {
     if (attachment?.url?.endsWith('.png') || attachment?.url?.endsWith('.jpg')) image = attachment.proxyURL;
     else image = message.author.displayAvatarURL({ size: 2048, format: 'png' });
 
-    if (text.length < 1) return getHelp(message, this.name);
+    if (!text[0].length) return getHelp(message, this.name);
     if (text[0]?.length > 34) return message.fail('Длина верхнего текста не должна превышать лимит в **34** символа');
 
     message.channel.startTyping();
