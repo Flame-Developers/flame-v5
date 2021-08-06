@@ -92,7 +92,7 @@ class SuggestCommand extends FlameCommand {
             default:
           }
         });
-        ['👍', '👎'].forEach((r) => message.guild.channels.cache.get(data.ideaChannel).messages?.cache?.get(m.id)?.react(r));
+        ['👍', '👎'].forEach((r) => message.guild.channels.cache.get(data.ideaChannel).messages?.cache?.get(m.id)?.react(r).catch(() => {}));
         return message.channel.send(`${message.client.constants.emojis.DONE} Ваше предложение было успешно доставлено в канал <#${data.ideaChannel}> (ID: **${id}**)`);
       } else message.fail('Процесс отправки предложения был отменен.');
     });
