@@ -1,28 +1,27 @@
+/* eslint-disable no-use-before-define */
 const Discord = require('discord.js');
+const util = require('util');
 const FlameCommand = require('../structures/FlameCommand');
 
 class EvalCommand extends FlameCommand {
   constructor() {
     super('eval', {
-      description: 'Команда, которая может выполнять код… а ты что думал?',
-      usage: 'ALT+F4',
+      description: 'Команда выполняющая код по запросу разработчика.',
+      usage: 'eval [code]',
       aliases: ['e', '>'],
+      category: null,
     });
   }
 
   async run(message, args) {
-    // eslint-disable-next-line global-require
-    const util = require('util');
-    let code = args.join(' '); let
-      isAsync = false;
+    let code = args.join(' ');
 
-    if (message.author.id === '525003205394825257' || message.author.id === '474924761697484810') {
+    if (message.client.config?.developers?.includes(message.author.id)) {
       try {
-        if (!code) return message.reply('Введите код для выполнения.');
+        if (!code) return message.reply('Необходим код для выполнения.');
         code = code.replace(/(```(.+)?)?/g, '');
 
-        if (code.includes('await')) isAsync = true;
-        if (isAsync) code = `(async () => {${code}})()`;
+        if (code.includes('await')) code = `(async () => {${code}})()`;
 
         const before = process.hrtime.bigint();
         // eslint-disable-next-line
@@ -32,16 +31,17 @@ class EvalCommand extends FlameCommand {
         const after = process.hrtime.bigint();
 
         if (typeof executed !== 'string') executed = util.inspect(executed, { depth: 0, maxArrayLength: null });
-        if (['undefined', 'null'].includes(executed)) executed = `Empty response: ${executed}`;
+        if (['undefined', 'null'].includes(executed)) executed = `Empty execution result: ${executed}`;
+
+        executed = `Выполнено за ${(parseInt(after - before) / 1000000).toFixed(3)} миллисекунд.\n${clean(executed)}`;
 
         if (executed.length >= 1940) {
-          message.channel.send('⚠️ Результат оказался слишком большим, поэтому я отправил его тебе в личку.');
-          return message.member.send(executed, { split: '\n', code: 'js' });
+          return message.channel.send(
+            new Discord.MessageAttachment(Buffer.from(executed), 'result.txt'),
+          );
         }
 
-        executed = `Выполнено за ${(parseInt(after - before) / 1000000).toFixed(3)} миллисекунд.\n${executed}`;
-        // eslint-disable-next-line no-use-before-define
-        message.reply(`\`\`\`js\n${clean(executed)}\`\`\``);
+        message.reply(`\`\`\`js\n${executed}\`\`\``);
       } catch (error) {
         message.reply(`\`\`\`js\n${error}\`\`\``);
       }
