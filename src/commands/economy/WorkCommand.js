@@ -41,9 +41,12 @@ class WorkCommand extends FlameCommand {
         await message.react('✅');
         break;
       default:
-        const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
+        const cooldown = await manager
+          .find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
+
         if (cooldown) {
-          return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно через **${message.client.utils.timeout(cooldown.ends - Date.now())}**.`);
+          const expirationTimestamp = (cooldown?.ends / 1000).toFixed(0);
+          return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно <t:${expirationTimestamp}:R> (<t:${expirationTimestamp}>).`);
         }
 
         const transport = data.transport?.find((t) => t.requiredFor === this.name);

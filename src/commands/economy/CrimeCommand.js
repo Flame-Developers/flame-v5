@@ -15,12 +15,14 @@ class CrimeCommand extends FlameCommand {
 
   async run(message, args) {
     const manager = new CooldownManager(message.client);
-    // eslint-disable-next-line max-len
-    const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
+    const cooldown = await manager
+      .find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
 
     if (cooldown) {
-      return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно через **${message.client.utils.timeout(cooldown.ends - Date.now())}**.`);
+      const expirationTimestamp = (cooldown?.ends / 1000).toFixed(0);
+      return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно <t:${expirationTimestamp}:R> (<t:${expirationTimestamp}>).`);
     }
+
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     const user = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
