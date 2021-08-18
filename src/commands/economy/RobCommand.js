@@ -20,12 +20,13 @@ class RobCommand extends FlameCommand {
     const guild = await message.client.database.collection('guilds').findOne({ guildID: message.guild.id });
     const authorData = await message.client.database.collection('guildusers').findOne({ guildID: message.guild.id, userID: message.author.id });
 
-    // eslint-disable-next-line max-len
-    const cooldown = await manager.find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
+    const cooldown = await manager
+      .find({ guildID: message.guild.id, userID: message.author.id, command: this.name });
+
     if (cooldown) {
-      return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно через **${message.client.utils.timeout(cooldown.ends - Date.now())}**.`);
+      const expirationTimestamp = (cooldown?.ends / 1000).toFixed(0);
+      return message.fail(`Данная команда использует задержку, возвращайтесь снова примерно <t:${expirationTimestamp}:R> (<t:${expirationTimestamp}>).`);
     }
-    if (authorData.money < 500) return message.fail(`Вы должны иметь как минимум **500**${guild.currency} для совершения данной операции.`);
 
     const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
     if (!user) return getHelp(message, this.name);
@@ -38,7 +39,7 @@ class RobCommand extends FlameCommand {
     let amount;
     if (Math.random() < 0.65) {
       amount = percentage(randomize(10, 25), userData.money);
-      if (amount === 0) {
+      if (amount <= 0) {
         return message.channel.send(`Вы попытались ограбить пользователя **${user.user.tag}**. У вас это вышло, но подвох оказался в том, что он не имел денег на руках. Вы ничего не заработали.`);
       }
       message.channel.send(`${message.client.constants.emojis.DONE} Вы успешно смогли ограбить и отнять у пользователя **${user.user.tag}** **${amount}**${guild.currency}.`);
