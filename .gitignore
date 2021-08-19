@@ -9,10 +9,6 @@ config.json
 config.yml
 .env
 
-# Lock files
-yarn.lock
-package-lock.json
-
 # Logs
 logs/
 npm-debug.log
