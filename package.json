@@ -11,7 +11,7 @@
   "dependencies": {
     "canvas": "^2.7.0",
     "chalk": "^4.1.1",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "fastify": "^3.14.2",
     "fastify-cors": "^6.0.1",
     "fastify-rate-limit": "^5.5.0",
