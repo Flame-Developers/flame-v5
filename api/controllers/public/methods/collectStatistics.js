@@ -60,7 +60,11 @@ async function collectBotStatistics() {
     cache.expires = Date.now() + 1000 * 60 * 3;
   }
 
-  return { shards: arr, ...stats };
+  return {
+    statusCode: 200,
+    shards: arr,
+    ...stats,
+  };
 }
 
 async function collectNodesStatistics() {
@@ -75,6 +79,7 @@ async function collectNodesStatistics() {
     .eval('this.shoukaku.getNode()');
 
   return {
+    statusCode: 200,
     name: data.name ?? null,
     connected: data?.state === 'CONNECTED',
     stats: {
