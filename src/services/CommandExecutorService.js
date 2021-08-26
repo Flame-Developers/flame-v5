@@ -67,11 +67,8 @@ class CommandsExecutorService {
         );
         console.error(error);
       }
-
-      if (!guild.premium) {
-        cooldown.set(this.message.author.id, command.name);
-        setTimeout(() => cooldown.delete(this.message.author.id), command.cooldown * 1000);
-      }
+      cooldown.set(this.message.author.id, command.name);
+      setTimeout(() => cooldown.delete(this.message.author.id), guild.premium ? 1000 : command.cooldown * 1000);
     }
   }
 }
