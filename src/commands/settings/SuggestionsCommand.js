@@ -30,6 +30,7 @@ class SuggestionsCommand extends FlameCommand {
           return message.channel.send(`${message.client.constants.emojis.DONE} Канал для предложений был успешно сброшен на данном сервере.`);
         }
         if (!message.guild.channels.cache.has(channel.id)) return message.fail('Указанного вами канала не существует на данном сервере.');
+        if (channel.type !== 'text') return message.fail('Канал данного типа не поддерживается.');
 
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
           $set: {
