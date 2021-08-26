@@ -43,7 +43,7 @@ class HelpCommand extends FlameCommand {
     for (const category of categories) {
       const embed = new MessageEmbed()
         .setTitle(`Набор команд модуля **${category.name}**:`)
-        .setDescription('Если вам нужна более подробная информация об определенной команде, то посетите [наш сайт](https://flamebot.ru/commands).\n\n')
+        .setDescription('Если вам нужна более подробная информация об определенной команде, то укажите `help` либо `?` в качестве первого аргумента.\n\n')
         .setColor('ffa500')
         .setFooter(message.guild.name, message.guild.iconURL())
         .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
@@ -65,7 +65,7 @@ class HelpCommand extends FlameCommand {
       .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
       .setTimestamp();
 
-    return new PaginatorUtil(message.client, message.author, [new PaginatorEntry('❓ По всем вопросам обращайтесь на сервер поддержки: https://discord.gg/7FUJPRCsw8', embed), ...entries]).init(message.channel, 350);
+    return new PaginatorUtil(message.client, message.author, [new PaginatorEntry('❓ По всем вопросам обращайтесь на сервер поддержки: https://discord.gg/7FUJPRCsw8\n⭐ Оценивайте нас на GitHub! <https://github.com/Flame-Developers/Flame>', embed), ...entries]).init(message.channel, 350);
   }
 }
 
