@@ -20,6 +20,7 @@ class FlameApiWorker {
         'x-ratelimit-remaining': true,
         'retry-after': true,
       },
+      keyGenerator: (req) => req.headers['cf-connecting-ip'],
     });
     this.app.setErrorHandler((error, request, response) => {
       switch (response.statusCode) {
