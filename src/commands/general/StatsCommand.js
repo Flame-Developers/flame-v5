@@ -17,7 +17,8 @@ class StatsCommand extends FlameCommand {
 
   async run(message, args) {
     message.channel.startTyping();
-    fetch('https://api.flamebot.ru/public/stats')
+
+    fetch(`http://localhost:${message.client.config?.port ?? 3099}/public/stats`)
       .then((res) => res.json())
       .then((res) => {
         const embed = new Discord.MessageEmbed()
