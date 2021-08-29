@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 module.exports = [
   {
     method: 'GET',
