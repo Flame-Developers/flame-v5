@@ -23,11 +23,9 @@ class AcceptCommand extends FlameCommand {
 
     const id = args[0];
     if (!id) return getHelp(message, this.name);
-    // eslint-disable-next-line
     if (isNaN(id) || !parseInt(id) || id <= 0) return message.fail('Укажите пожалуйста **верный** ID предложения.');
 
     const channel = message.guild.channels.cache.get(data.ideaChannel);
-    // eslint-disable-next-line radix
     const suggestion = data.ideas.find((i) => i.id === parseInt(id));
     if (!suggestion) return message.fail('Предложения с указанным вами ID не существует.');
 

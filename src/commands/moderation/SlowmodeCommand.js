@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');
 

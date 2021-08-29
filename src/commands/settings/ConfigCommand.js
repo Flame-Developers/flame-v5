@@ -54,7 +54,6 @@ class ConfigCommand extends FlameCommand {
       return message.channel.send(embed);
     }
 
-    // eslint-disable-next-line no-param-reassign
     message.guild.cache.settings[value.key] = !data.settings?.[value.key];
     message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
       $set: {

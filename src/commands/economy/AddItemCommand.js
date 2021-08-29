@@ -24,9 +24,7 @@ class AddItemCommand extends FlameCommand {
 
     const price = args[1];
     if (!price) return getHelp(message, this.name);
-    // eslint-disable-next-line no-restricted-globals,radix
     if (isNaN(price) || !parseInt(price)) return message.fail('Укажите пожалуйста **верную** стоимость предмета.');
-    // eslint-disable-next-line radix
     if (parseInt(price) < 1 || parseInt(price) > 10000000) return message.fail(`Стоимость предмета должна быть от **1** до **10,000,000**${data.currency}.`);
 
     if (data.items?.find((item) => item.roleId === role.id)) return message.fail('Указанная вами роль уже существует в магазине данного сервера.');
@@ -38,7 +36,6 @@ class AddItemCommand extends FlameCommand {
       $push: {
         items: {
           roleId: role.id,
-          // eslint-disable-next-line radix
           cost: parseInt(price),
           description: args.slice(2).length ? args.slice(2).join(' ').slice(0, 350) : null,
         },

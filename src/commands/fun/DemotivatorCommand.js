@@ -24,7 +24,6 @@ class DemotivatorCommand extends FlameCommand {
       let res = ' ';
       while (str.length > 0) {
         res += `${str.substring(0, 45)}\n`;
-        // eslint-disable-next-line no-param-reassign
         str = str.substring(45);
       }
       return res;

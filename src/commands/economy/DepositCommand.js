@@ -1,4 +1,3 @@
-/* eslint-disable radix,no-restricted-globals */
 const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');
 

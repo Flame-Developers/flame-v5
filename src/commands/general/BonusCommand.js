@@ -72,7 +72,6 @@ class BonusCommand extends FlameCommand {
           embed.setThumbnail(message.client.user.avatarURL({ size: 2048 }));
           let index = 1;
 
-          // eslint-disable-next-line no-restricted-syntax
           for (const guildID of data.premiumGuilds) {
             const guild = message.client.guilds.cache.get(guildID);
             // eslint-disable-next-line no-continue

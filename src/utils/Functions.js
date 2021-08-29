@@ -6,9 +6,7 @@ module.exports = {
     return new Intl.NumberFormat('en-US').format(number);
   },
   randomize(min, max) {
-    // eslint-disable-next-line no-param-reassign
     min = Math.ceil(min);
-    // eslint-disable-next-line no-param-reassign
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },
@@ -16,7 +14,6 @@ module.exports = {
     return parseInt((percent * whole) / 100.0);
   },
   timeout(duration = 0) {
-    // eslint-disable-next-line global-require
     return require('moment').utc(Math.abs(duration)).format('HH:mm:ss');
   },
   locale(n, text, isMs = false) {

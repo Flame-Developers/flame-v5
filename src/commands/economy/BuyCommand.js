@@ -33,7 +33,6 @@ class BuyCommand extends FlameCommand {
     await message.member.roles.add(role.id);
     message.client.database.collection('guildusers').updateOne({ guildID: message.guild.id, userID: message.author.id }, {
       $inc: {
-        // eslint-disable-next-line radix
         money: -parseInt(item.cost),
       },
     });

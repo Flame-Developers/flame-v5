@@ -35,7 +35,6 @@ async function collectBotStatistics() {
     totalUsers: 0,
     totalShards: 0,
   };
-  // eslint-disable-next-line no-undef,no-restricted-syntax
   for await (const shard of Array.from(ApiWorker.manager?.shards.values())) {
     const data = await shard.eval(script);
 

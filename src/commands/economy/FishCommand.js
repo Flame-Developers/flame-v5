@@ -42,7 +42,6 @@ class FishCommand extends FlameCommand {
 
     message.client.database.collection('guildusers').updateOne({ guildID: message.guild.id, userID: message.author.id }, {
       $inc: {
-        // eslint-disable-next-line radix
         money: parseInt(money),
       },
     });
