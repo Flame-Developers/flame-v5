@@ -21,7 +21,7 @@
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.1",
     "redis": "^3.1.1",
-    "shoukaku": "1.5.2"
+    "shoukaku": "2.0.3"
   },
   "devDependencies": {
     "eslint": "^7.24.0",
