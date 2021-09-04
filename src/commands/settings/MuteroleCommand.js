@@ -18,7 +18,6 @@ class MuteroleCommand extends FlameCommand {
 
     switch (option) {
       case 'set':
-        // eslint-disable-next-line no-case-declarations
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]);
         if (!role) return getHelp(message, this.name);
         if (!message.guild.roles.cache.has(role.id)) return message.fail('Указанной вами роли не существует на данном сервере.');

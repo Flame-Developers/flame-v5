@@ -16,8 +16,10 @@
         "no-trailing-spaces": "off",
         "no-underscore-dangle": "off",
         "no-param-reassign": "off",
+        "no-case-declarations": "off",
         "no-console": "off",
         "radix": "off",
+        "curly": "off",
         "global-require": "off"
     }
 }

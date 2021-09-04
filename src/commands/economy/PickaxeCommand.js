@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 const { MessageEmbed } = require('discord.js');
 const { getHelp } = require('../../utils/Functions');
 const FlameCommand = require('../../structures/FlameCommand');

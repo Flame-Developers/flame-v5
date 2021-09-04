@@ -44,7 +44,6 @@ class BonusCommand extends FlameCommand {
         );
         break;
       case 'remove':
-        // eslint-disable-next-line no-case-declarations
         const id = args[1] || message.guild.id;
         if (!data?.premiumGuilds.includes(id)) return message.fail('У вас нет активированных бонусов на данном сервере.');
 
@@ -59,7 +58,6 @@ class BonusCommand extends FlameCommand {
         message.channel.send(`${message.client.constants.emojis.DONE} С сервера **${id}** были успешно сняты бонусные возможности.`);
         break;
       case 'list':
-        // eslint-disable-next-line no-case-declarations
         const embed = new MessageEmbed()
           .setTitle('Сервера с бонусами')
           .setColor('ffa500')

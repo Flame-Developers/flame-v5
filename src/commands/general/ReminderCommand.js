@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 const { MessageEmbed } = require('discord.js');
 const ms = require('ms');
 const { PaginatorUtil, PaginatorEntry } = require('../../utils/misc/PaginatorUtil');

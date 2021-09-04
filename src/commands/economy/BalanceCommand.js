@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 const { MessageAttachment, MessageEmbed } = require('discord.js');
 const path = require('path');
 const Canvas = require('canvas');

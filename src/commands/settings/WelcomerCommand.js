@@ -27,7 +27,6 @@ class WelcomerCommand extends FlameCommand {
         message.channel.send(`${message.client.constants.emojis.DONE} Система приветствий была успешно **${data.welcome.enabled ? 'отключена' : 'включена'}** на данном сервере.`);
         break;
       case 'role':
-        // eslint-disable-next-line no-case-declarations
         const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[1]);
 
         if (!role) return message.fail('Пожалуйста укажите роль для новых пользователей.');
@@ -43,7 +42,6 @@ class WelcomerCommand extends FlameCommand {
         break;
       case 'channel':
         if (!data.welcome.enabled) return message.fail('На данном сервере ещё не включена система приветствий. Включите её, прежде чем настраивать другие параметры .');
-        // eslint-disable-next-line no-case-declarations
         const channel = message.mentions.channels.first()
                         || message.guild.channels.cache.get(args[1])
                         || message.channel;
@@ -60,7 +58,6 @@ class WelcomerCommand extends FlameCommand {
         break;
       case 'message':
         if (!data.welcome.enabled) return message.fail('На данном сервере ещё не включена система приветствий. Включите её, прежде чем настраивать другие параметры.');
-        // eslint-disable-next-line no-case-declarations
         const msg = args.slice(1).join(' ');
         if (!msg) return message.fail('Укажите пожалуйста новое сообщение приветствия.');
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {

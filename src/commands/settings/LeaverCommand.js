@@ -28,7 +28,6 @@ class LeaverCommand extends FlameCommand {
         break;
       case 'channel':
         if (!data.leave.enabled) return message.fail('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры.');
-        // eslint-disable-next-line no-case-declarations
         const channel = message.mentions.channels.first()
           || message.guild.channels.cache.get(args[1])
           || message.channel;
@@ -45,7 +44,6 @@ class LeaverCommand extends FlameCommand {
         break;
       case 'message':
         if (!data.leave.enabled) return message.fail('На данном сервере ещё не включена система уведомлений об ушедших участниках. Включите её, прежде чем настраивать другие параметры.');
-        // eslint-disable-next-line no-case-declarations
         const msg = args.slice(1).join(' ');
         if (!msg) return message.fail('Укажите пожалуйста новое сообщение уведомлений.');
         message.client.database.collection('guilds').updateOne({ guildID: message.guild.id }, {
