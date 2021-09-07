@@ -26,21 +26,14 @@ module.exports = {
     if (!command || !command?.category || command?.category === 'developers') return 'Cannot display anything about this command.';
 
     return message.channel.send(
-      `:information_source: Информация о команде \`${command.name}\`:`,
-      new MessageEmbed()
-        .setTitle(command.description)
-        .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
-        .setColor('ffa500')
-        .setDescription(
-          `:star: Бонусная команда: ${command.premium ? 'Да' : 'Нет'}\n`
-          + `**Задержка:** ${module.exports.locale(command.cooldown, ['секунда', 'секунды', 'секунд'])}\n`
-          + `**Псевдонимы:** ${command.aliases.length ? command.aliases.join(', ') : 'Отсутствуют'}\n`
-          + `**Необходимые права:** ${command.userPermissions.length ? command.userPermissions.map((p) => Constants.permissions[p]).join(', ') : '-'}\n\n`
-          + `> Использование: \`${command.usage}\`\n`,
-        )
-        .addField('__Полезные примеры__', command.examples.length ? command.examples.join('\n') : 'Примеры использования команды отсутствуют.')
-        .setFooter(message.guild.name, message.guild.iconURL())
-        .setTimestamp(),
+      `<:information:883702413427634287> Информация о команде \`${command.name}\`:\n`
+      + `> ${command.description}\n\n`
+      + `:star: Бонусная команда? **${command.premium ? 'Да' : 'Нет'}**\n`
+      + `Задержка: ${module.exports.locale(command.cooldown, ['секунда', 'секунды', 'секунд'])}\n`
+      + `Псевдонимы: ${command.aliases.length ? command.aliases.map((a) => `\`${a}\``).join(', ') : 'Отсутствуют'}\n`
+      + `Необходимые права: ${command.userPermissions.length ? command.userPermissions.map((p) => `**${p}**`).join(', ') : 'Команда доступна всем пользователям.'}\n\n`
+      + `__Использование:__ \`${command.usage}\`\n`
+      + `${command.examples.length ? command.examples.map((e) => `┗ ${e}`).join('\n') : ''}`,
     );
   },
 };
