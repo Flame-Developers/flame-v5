@@ -31,9 +31,9 @@ class ReminderCommand extends FlameCommand {
             'Укажите пожалуйста длительность напоминания.',
           );
         }
-        if (!ms(time) || ms(time) > ms('14d') || ms(time) < ms('1m')) {
+        if (!ms(time) || ms(time) > ms('365d') || ms(time) < ms('1m')) {
           return message.fail(
-            'Длительность напоминания должна быть от одной минуты до 14-ти дней.',
+            'Длительность напоминания должна быть от одной минуты до 365-ти дней.',
           );
         }
 
