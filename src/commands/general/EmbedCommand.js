@@ -8,24 +8,27 @@ class EmbedCommand extends FlameCommand {
       category: 'general',
       usage: 'embed <Структура>',
       cooldown: 0,
-      userPermissions: ['ADMINISTRATOR'],
-      aliases: [],
+      userPermissions: ['MANAGE_MESSAGES'],
+      clientPermissions: ['EMBED_LINKS'],
+      aliases: ['say'],
     });
   }
 
   run(message, args) {
     if (!args.join(' ')) return getHelp(message, this.name);
+    if (!message.guild.cache?.settings?.clearCommandCalls) message.delete();
 
+    let embed;
     try {
-      if (!message.guild.cache.settings?.clearCommandCalls) message.delete();
-      const embed = JSON.parse(args.join(' '));
-
-      return embed.plainText
-        ? message.channel.send(embed.plainText, { embed })
-        : message.channel.send({ embed });
+      embed = JSON.parse(args.join(' '));
     } catch {
-      return message.fail('Вы указали неверный объект сообщения. Попробуйте сгенерировать его на сайте.');
+      return message.channel.send(`${message.client.constants.emojis.FAIL} Произошла ошибка при валидации JSON-структуры. Попробуйте сгенерировать ее на сайте (<https://embed.yoba.fun>) либо обратится на сервер поддержки.`);
     }
+
+    return message.channel.send(embed.plainText, { embed })
+      .catch(() => {
+        message.channel.send(`${message.client.constants.emojis.FAIL} Произошла ошибка при отправке сообщения. Убедитесь, что embed-сообщение попадает под стандарты и требования Discord (<https://discord.com/developers/docs/resources/channel#embed-object>)`)
+      });
   }
 }
 
