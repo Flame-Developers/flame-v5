@@ -48,7 +48,7 @@ class ConfigCommand extends FlameCommand {
 
       let description = '';
       for (const param of params) {
-        description += `[${param.name}](https://docs.flamebot.ru/settings/config-parameters/#${param.key.toLowerCase()}): ${data.settings?.[param.key] ? '✅' : '❌'}\n`;
+        description += `[${param.name}](https://docs.flamebot.ru/settings/config): ${data.settings?.[param.key] ? '✅' : '❌'}\n`;
       }
       embed.setDescription(description);
       return message.channel.send(embed);

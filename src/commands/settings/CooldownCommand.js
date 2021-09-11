@@ -50,7 +50,7 @@ class CooldownCommand extends FlameCommand {
             .setAuthor('Настройка задержек команд', Constants.static.MODULE_GRAY)
             .setColor('ffa500')
             .addField('Текущие настройки', Object.keys(data.cooldown).filter((c) => c !== '$init').map((c) => `**${c}** — ${formatTime(data.cooldown[c])}`).join('\n'), true)
-            .addField('Настройка', 'Подробную справку по настройке задержек для команд вы сможете получить на [этой странице](https://docs.flamebot.ru/settings/economy/bazovaya-nastroika#polzovatelskie-zaderzhki-na-komandy).', true)
+            .addField('Настройка', 'Подробную справку по настройке задержек для команд вы сможете получить на [этой странице](https://docs.flamebot.ru/settings/economy/cooldowns).', true)
             .setFooter(message.guild.name, message.guild.iconURL())
             .setTimestamp(),
         );
