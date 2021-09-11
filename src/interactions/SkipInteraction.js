@@ -21,7 +21,7 @@ class SkipInteraction extends FlameInteraction {
       );
     }
 
-    player.connection.seekTo(player.current.info.length)
+    player.connection.stopTrack()
       .then(() => callback.send(`▶️ Трек **${player.current.info.title}** был успешно пропущен.`))
       .catch(() => callback.send(`Не удалось пропустить **${player.current.info.title}**: возникла неизвестная ошибка.`, { flags: 64 }));
   }
