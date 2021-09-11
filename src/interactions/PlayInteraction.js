@@ -47,7 +47,7 @@ class PlayInteraction extends FlameInteraction {
       if (!allowedLinks.includes(url.host)) return callback.send('Указанная вами ссылка не находится в списке разрешенных. Посетите FAQ для возможности внести ее в список разрешенных.', { flags: 64 });
     }
 
-    const result = await node.rest.resolve(query, search);
+    const result = await node.rest.resolve(query, !isUrl(query) ? (search ?? 'youtube') : undefined);
     if (!result) return callback.send('Ваш запрос не вернул никаких результатов. Вы точно указали необходимую платформу для поиска?', { flags: 64 });
 
     const { type, tracks, playlistName } = result;
