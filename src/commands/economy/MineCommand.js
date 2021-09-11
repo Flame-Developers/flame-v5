@@ -36,11 +36,12 @@ class MineCommand extends FlameCommand {
 
     let pickaxe = args[0];
     if (pickaxe) {
-      if (!guild.pickaxes.find((p) => p.key === pickaxe)) return message.fail('Указанная вами кирка не была найдена на этом сервере.');
       if (!data.ownedPickaxes.includes(pickaxe)) return message.fail('Вы не имеете данной кирки.');
     } else pickaxe = data.ownedPickaxes[Math.floor(Math.random() * data.ownedPickaxes.length)];
 
     pickaxe = guild.pickaxes.find((p) => p.key === pickaxe);
+    if (!pickaxe) return message.fail('Данной кирки не существует на данном сервере. Возможно, она была удалена администратором сервера.');
+
     const money = randomize(pickaxe.income, pickaxe.income * randomize(1.5, 2));
 
     message.client.database.collection('guildusers').updateOne({ guildID: message.guild.id, userID: message.author.id }, {

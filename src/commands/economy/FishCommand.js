@@ -33,11 +33,12 @@ class FishCommand extends FlameCommand {
 
     let rod = args[0];
     if (rod) {
-      if (!guild.rods.find((r) => r.key === rod)) return message.fail('Указанная вами удочка не была найдена на этом сервере.');
       if (!data.ownedRods.includes(rod)) return message.fail('Вы не имеете данной удочки.');
     } else rod = data.ownedRods[Math.floor(Math.random() * data.ownedRods.length)];
 
     rod = guild.rods.find((r) => r.key === rod);
+    if (!rod) return message.fail('Данной кирки не существует на данном сервере. Возможно, она была удалена администратором сервера.');
+
     const money = randomize(rod.income, rod.income * randomize(1.5, 2));
 
     message.client.database.collection('guildusers').updateOne({ guildID: message.guild.id, userID: message.author.id }, {
