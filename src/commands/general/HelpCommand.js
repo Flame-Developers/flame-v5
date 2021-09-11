@@ -59,7 +59,7 @@ class HelpCommand extends FlameCommand {
     }
     const embed = new MessageEmbed()
       .setTitle('Меню помощи')
-      .setDescription(`Для того, чтобы перемещаться по страницам, воспользуйтесь кнопками ниже. Если почему-то на вашем устройстве они не отображаются, обновите/переустановите приложение Discord.\n\nВсего доступно категорий: **${categories.length}**.\nОбщее количество команд: **${message.client.commands.size}**.`)
+      .setDescription(`Для того, чтобы перемещаться по страницам, воспользуйтесь кнопками ниже. Если почему-то на вашем устройстве они не отображаются, обновите/переустановите приложение Discord.\n\nВсего доступно категорий: **${categories.length + 1}**.\nОбщее количество команд: **${message.client.commands.size + message.client.interactions.size}** (**${message.client.interactions.size}** из которых слеш-команды).`)
       .setColor('ffa500')
       .setFooter(message.guild.name, message.guild.iconURL())
       .setThumbnail(message.client.user.avatarURL({ size: 2048 }))
