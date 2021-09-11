@@ -14,7 +14,7 @@
   </a>
 </p>
 
-> **Flame** is powerful, multipurpose and free Discord bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 7,400 guilds and 565,000 real users.
+> **Flame** is powerful, multipurpose and free Discord bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 8,000 guilds and 565,000 real users.
 
 We'll be very glad if you give this repo a star ⭐, so that we grow much faster! <3
 
@@ -26,7 +26,7 @@ Flame is a project which is created and supported by Russian developers. Please 
 - **🔧 Moderation utilities and tools:** Mutes, warnings, ban/kick/clear commands and other useful stuff; 
 - **💡 Suggestion system:** Setup a channel and collect ideas from server members via `suggest` command;
 - **💵 Unique economy:** Work, crime, buy items, rob another people and play slots;
-- **🎵 100% free music:** Listen to music in voice channels on your server; 
+- **🎵 Music features:** Listen to music in voice channels on your server with effects like karaoke, rotation etc.; 
 - **🤖 Auto-moderation:** Protect your community from spammers with the anti-invite tool;
 - **😃Fun commands:** Create demotivators or get some pictures of fluffy animals! 🦊
 
