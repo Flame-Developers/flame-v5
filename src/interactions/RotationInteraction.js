@@ -1,9 +1,9 @@
 const FlameInteraction = require('../structures/FlameInteraction');
 const InteractionResponse = require('../utils/interactions/InteractionResponse');
 
-class SkipInteraction extends FlameInteraction {
+class RotationInteraction extends FlameInteraction {
   constructor() {
-    super('skip');
+    super('rotation', { premium: true });
   }
 
   run(client, interaction) {
@@ -20,11 +20,13 @@ class SkipInteraction extends FlameInteraction {
         { flags: 64 },
       );
     }
+    const rotation = interaction.options?.value;
 
-    player.connection.seekTo(player.current.info.length)
-      .then(() => callback.send(`▶️ Трек **${player.current.info.title}** был успешно пропущен.`))
-      .catch(() => callback.send(`Не удалось пропустить **${player.current.info.title}**: возникла неизвестная ошибка.`, { flags: 64 }));
+    if (parseInt(rotation) < 0 || parseInt(rotation) > 5) return callback.send('Уровень ротации должен быть не менее **1** и не больше **5**.', { flags: 64 });
+
+    player.connection.setRotation({ rotationHz: parseInt(rotation) })
+      .then(() => callback.send(`🎚️ Уровень ротации был успешно установлен на **${parseInt(rotation)}**. Изменения должны применится в течении нескольких секунд.`));
   }
 }
 
-module.exports = SkipInteraction;
+module.exports = RotationInteraction;

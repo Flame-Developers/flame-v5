@@ -1,9 +1,9 @@
 const FlameInteraction = require('../structures/FlameInteraction');
 const InteractionResponse = require('../utils/interactions/InteractionResponse');
 
-class SkipInteraction extends FlameInteraction {
+class SpeedInteraction extends FlameInteraction {
   constructor() {
-    super('skip');
+    super('speed', { premium: true });
   }
 
   run(client, interaction) {
@@ -20,11 +20,13 @@ class SkipInteraction extends FlameInteraction {
         { flags: 64 },
       );
     }
+    const speed = interaction.options?.value;
 
-    player.connection.seekTo(player.current.info.length)
-      .then(() => callback.send(`▶️ Трек **${player.current.info.title}** был успешно пропущен.`))
-      .catch(() => callback.send(`Не удалось пропустить **${player.current.info.title}**: возникла неизвестная ошибка.`, { flags: 64 }));
+    if (Number(speed) < 0 || Number(speed) > 5) return callback.send('Скорость проигрывания не должна быть не менее **1** и не больше **5**.', { flags: 64 });
+
+    player.connection.setTimescale({ speed })
+      .then(() => callback.send(`🎚️ Скорость проигрывания трека была успешно установлен на **${speed}**. Изменения должны применится в течении нескольких секунд.`));
   }
 }
 
-module.exports = SkipInteraction;
+module.exports = SpeedInteraction;

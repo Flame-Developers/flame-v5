@@ -1,4 +1,3 @@
-/* eslint-disable global-require,no-console */
 const { Client, Collection } = require('discord.js');
 const { MongoClient } = require('mongodb');
 
@@ -7,7 +6,7 @@ const loadCommands = require('../helpers/loadCommands');
 const loadInteractions = require('../helpers/loadInteractions');
 
 const CachingService = require('../services/CachingService');
-const FlamePlayer = require('./FlamePlayer');
+const FlameMusicClient = require('./music/ShoukakuClient');
 const FlameQueue = require('./FlameQueue');
 
 class FlameClient extends Client {
@@ -27,11 +26,12 @@ class FlameClient extends Client {
     this.constants = require('../utils/Constants');
     this.utils = require('../utils/Functions');
 
-    this.shoukaku = new FlamePlayer(this);
+    this.shoukaku = new FlameMusicClient(this);
     this.queue = new FlameQueue(this);
     this.listeners = new Collection();
     this.commands = new Collection();
     this.interactions = new Collection();
+    this.players = new Collection();
   }
 
   get database() {

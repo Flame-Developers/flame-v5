@@ -1,9 +1,9 @@
 const FlameInteraction = require('../structures/FlameInteraction');
-const InteractionResponse = require('../utils/interactions/InteractionResponse');
+const InteractionResponse = require("../utils/interactions/InteractionResponse");
 
-class SkipInteraction extends FlameInteraction {
+class KaraokeInteraction extends FlameInteraction {
   constructor() {
-    super('skip');
+    super('karaoke', { premium: true });
   }
 
   run(client, interaction) {
@@ -21,10 +21,15 @@ class SkipInteraction extends FlameInteraction {
       );
     }
 
-    player.connection.seekTo(player.current.info.length)
-      .then(() => callback.send(`▶️ Трек **${player.current.info.title}** был успешно пропущен.`))
-      .catch(() => callback.send(`Не удалось пропустить **${player.current.info.title}**: возникла неизвестная ошибка.`, { flags: 64 }));
+    const { mode } = interaction.options;
+    const modes = {
+      default: { name: 'Стандартный', level: 2 },
+      deep: { name: 'Глубокий', level: 1 },
+    };
+
+    player.connection.setKaraoke(mode === 'off' ? null : { level: modes[mode].level })
+      .then(() => callback.send(`🎙️ Эффект караоке был успешно ${mode === 'off' ? 'отключен' : `установлен на уровень **${modes[mode].name}**`}. Изменения должны применится в течении нескольких секунд.`));
   }
 }
 
-module.exports = SkipInteraction;
+module.exports = KaraokeInteraction;

@@ -3,6 +3,7 @@ class GuildDataCache {
     this.prefix = data?.prefix ?? 'f.';
     this.premium = data?.premium ?? null;
     this.moderator = data?.moderator ?? null;
+    this.dj = data?.dj ?? null;
     this.disabledCommands = data?.disabledCommands ?? [];
     this.settings = data?.settings ?? {};
   }
