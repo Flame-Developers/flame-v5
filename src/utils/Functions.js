@@ -31,7 +31,7 @@ module.exports = {
       + `:star: Бонусная команда? **${command.premium ? 'Да' : 'Нет'}**\n`
       + `Задержка: ${module.exports.locale(command.cooldown, ['секунда', 'секунды', 'секунд'])}\n`
       + `Псевдонимы: ${command.aliases.length ? command.aliases.map((a) => `\`${a}\``).join(', ') : 'Отсутствуют'}\n`
-      + `Необходимые права: ${command.userPermissions.length ? command.userPermissions.map((p) => `**${p}**`).join(', ') : 'Команда доступна всем пользователям.'}\n\n`
+      + `Необходимые права:\n  - <:user:885969192619245598> Пользователь: ${command.userPermissions.length ? command.userPermissions.map((p) => `**${Constants.permissions[p]}**`).join(', ') : 'Команда доступна всем пользователям.'}\n  - <:bot:885969270134173718> Бот: ${command.clientPermissions.length ? command.clientPermissions.map((p) => `**${Constants.permissions[p]}**`).join(', ') : 'Команда доступна при стандартных правах.'}\n\n`
       + `__Использование:__ \`${command.usage}\`\n`
       + `${command.examples.length ? command.examples.map((e) => `┗ ${e}`).join('\n') : ''}`,
     );
