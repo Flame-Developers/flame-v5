@@ -91,7 +91,7 @@ class PaginatorUtil {
     });
     this._client.cache.buttons.set(this.message.id, (res) => {
       if (res.member.user.id !== this.user?.id)
-        return new InteractionResponse(this._client).send(res, 'Взаимодействовать с кнопками может только тот, кто вызвал команду.', { flags: 64 });
+        return new InteractionResponse(this._client, res).send('Взаимодействовать с кнопками может только тот, кто вызвал команду.', { flags: 64 });
 
       switch (res.data.custom_id) {
         case 'right':

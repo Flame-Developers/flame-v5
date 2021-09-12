@@ -86,8 +86,8 @@ class SuggestCommand extends FlameCommand {
                     components: [],
                   },
                 });
-              } else return new InteractionResponse(message.client)
-                .send(res, 'Вы не можете удалять предложения других пользователей, поскольку не являетесь модератором данного сервера.', { flags: 64 });
+              } else return new InteractionResponse(message.client, res)
+                .send('Вы не можете удалять предложения других пользователей, поскольку не являетесь модератором данного сервера.', { flags: 64 });
               break;
             default:
           }
