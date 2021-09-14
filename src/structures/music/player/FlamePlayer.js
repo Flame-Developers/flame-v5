@@ -77,7 +77,7 @@ class FlamePlayer {
           data: {
             embeds: [res.embeds[0]],
           },
-        }).catch(() => undefined);
+        }).catch(() => clearInterval(this._updateInterval));
       }, 3000);
     });
     this.connection.on('end', () => {
