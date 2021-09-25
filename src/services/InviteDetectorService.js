@@ -8,12 +8,20 @@ class InviteDetectorService {
   // eslint-disable-next-line
   static async #checkInvite(guild, code) {
     return await new Promise((resolve) => {
-      guild.fetchInvites().then((invites) => {
-        for (const invite of invites) {
+      if (guild.inviteCache) {
+        for (const invite of guild.inviteCache) {
           if (code === invite[0]) return resolve(true);
         }
         resolve(false);
-      });
+      } else {
+        guild.fetchInvites().then((invites) => {
+          guild.inviteCache = invites;
+          for (const invite of invites) {
+            if (code === invite[0]) return resolve(true);
+          }
+          resolve(false);
+        });
+      }
     });
   }
 
