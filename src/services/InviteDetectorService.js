@@ -10,7 +10,7 @@ class InviteDetectorService {
     return await new Promise((resolve) => {
       message.client.fetchInvite(code).then((invite) =>
         resolve(invite.guild.id === message.guild.id)
-      });
+      );
     });
   }
 
