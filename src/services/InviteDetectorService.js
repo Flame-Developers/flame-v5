@@ -7,11 +7,11 @@ class InviteDetectorService {
   }
   // eslint-disable-next-line
   static async #checkInvite(message, code) {
-    return await new Promise((resolve) => {
+    return await new Promise((resolve) =>
       message.client.fetchInvite(code).then((invite) =>
         resolve(invite.guild.id === message.guild.id)
-      );
-    });
+      ).catch(() => resolve(false))
+    );
   }
 
   static async hasInvites(message, string = null) {
