@@ -14,6 +14,8 @@
   </a>
 </p>
 
+**NOTE: We are dropping support of this bot due to a big project refactoring on 11/01/2021. Visit our Discord server for more information.**
+
 > **Flame** is powerful, multipurpose and free Discord bot with a lot of abilities created with [Discord.js](https://github.com/discordjs/discord.js), which is used by more than 8,000 guilds and 565,000 real users.
 
 We'll be very glad if you give this repo a star ⭐, so that we grow much faster! <3
